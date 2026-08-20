@@ -1,6 +1,6 @@
 # FiveAges Gen2 Robot USDs
 
-中科第五纪（FiveAges）**第二代**机器人的 USD 仿真资产，作为 [robot_usds](https://github.com/fiveages-sim/robot_usds) 的子模块挂载于 `humanoid/FiveAges/Gen2/`。
+中科第五纪（FiveAges）**第二代**机器人的 USD 仿真资产（[fiveages-gen2-robot-usds](https://github.com/fiveages-sim/fiveages-gen2-robot-usds)），作为 [robot_usds](https://github.com/fiveages-sim/robot_usds) 的子模块挂载于 `humanoid/FiveAges/Gen2/`。
 
 ## 目录结构
 
