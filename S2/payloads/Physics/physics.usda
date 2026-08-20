@@ -1,0 +1,140 @@
+#usda 1.0
+(
+    defaultPrim = "FiveAges_S2"
+    doc = """Generated from Composed Stage of root layer /home/fiveages/libraries/FaSim-Isaac/robots/humanoid/FiveAges/components/Stand/FiveAges_S2/FiveAges_S2.usd
+
+
+Generated from Composed Stage of root layer /home/fiveages/libraries/FaSim-Isaac/robots/humanoid/FiveAges/components/Stand/FiveAges_S2/payloads/base.usd
+"""
+    metersPerUnit = 1
+    upAxis = "Z"
+)
+
+over "FiveAges_S2"
+{
+    over "base_footprint" (
+        prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI"]
+    )
+    {
+        point3f physics:centerOfMass = (-0.0037987998, -0.000021875998, 0.057550013)
+        float3 physics:diagonalInertia = (3.6478662, 2.7802, 5.729934)
+        float physics:mass = 120.4
+        quatf physics:principalAxes = (0.999998, 0.000009491037, 0.0020141762, -0.00018241587)
+    }
+
+    over "stand_link1" (
+        prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI"]
+    )
+    {
+        point3f physics:centerOfMass = (0.000070772, 0.0000017362, 0.29067)
+        float3 physics:diagonalInertia = (0.24038008, 0.21641, 0.04500393)
+        float physics:mass = 13.829
+        quatf physics:principalAxes = (1, -0.000004954941, -0.00029906436, -0.000022765642)
+    }
+
+    over "joints"
+    {
+        def PhysicsPrismaticJoint "lift_joint" (
+            prepend apiSchemas = ["PhysicsJointStateAPI:linear", "PhysicsDriveAPI:linear"]
+        )
+        {
+            float drive:linear:physics:damping = 60000
+            float drive:linear:physics:maxForce = 5000
+            float drive:linear:physics:stiffness = 600000
+            float drive:linear:physics:targetPosition = 0
+            uniform token drive:linear:physics:type = "force"
+            uniform token physics:axis = "Z"
+            custom rel physics:body0
+            prepend rel physics:body0 = </FiveAges_S2/base_footprint>
+            custom rel physics:body1
+            prepend rel physics:body1 = </FiveAges_S2/stand_link1>
+            float physics:breakForce = 3.4028235e38
+            float physics:breakTorque = 3.4028235e38
+            float physics:JointEquivalentInertia = 1.5297698
+            point3f physics:localPos0 = (0, 0, -0.017999977)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (1, 0, 0, 0)
+            quatf physics:localRot1 = (1, 0, 0, 0)
+            float physics:lowerLimit = 0
+            float physics:upperLimit = 0.29
+        }
+
+        def PhysicsRevoluteJoint "body_joint1" (
+            prepend apiSchemas = ["PhysicsJointStateAPI:angular", "PhysicsDriveAPI:angular"]
+        )
+        {
+            float drive:angular:physics:damping = 60000
+            float drive:angular:physics:maxForce = 5000
+            float drive:angular:physics:stiffness = 600000
+            float drive:angular:physics:targetPosition = 0
+            uniform token drive:angular:physics:type = "force"
+            uniform token physics:axis = "Z"
+            custom rel physics:body0
+            prepend rel physics:body0 = </FiveAges_S2/stand_link1>
+            custom rel physics:body1
+            prepend rel physics:body1 = </FiveAges_S2/stand_link2>
+            float physics:breakForce = 3.4028235e38
+            float physics:breakTorque = 3.4028235e38
+            float physics:JointEquivalentInertia = 6.444971
+            point3f physics:localPos0 = (0, 0, 0.547)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (0, 0, 1, 0)
+            quatf physics:localRot1 = (0, 0, 1, 0)
+            float physics:lowerLimit = -180
+            float physics:upperLimit = 180
+        }
+
+        def PhysicsRevoluteJoint "body_joint2" (
+            prepend apiSchemas = ["PhysicsJointStateAPI:angular", "PhysicsDriveAPI:angular"]
+        )
+        {
+            float drive:angular:physics:damping = 60000
+            float drive:angular:physics:maxForce = 5000
+            float drive:angular:physics:stiffness = 600000
+            float drive:angular:physics:targetPosition = 0
+            uniform token drive:angular:physics:type = "force"
+            uniform token physics:axis = "Y"
+            custom rel physics:body0
+            prepend rel physics:body0 = </FiveAges_S2/stand_link2>
+            custom rel physics:body1
+            prepend rel physics:body1 = </FiveAges_S2/stand_link3>
+            float physics:breakForce = 3.4028235e38
+            float physics:breakTorque = 3.4028235e38
+            float physics:JointEquivalentInertia = 0.21068281
+            point3f physics:localPos0 = (0, 0, 0.116)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (1, 0, 0, 0)
+            quatf physics:localRot1 = (1, 0, 0, 0)
+            float physics:lowerLimit = -44.977184
+            float physics:upperLimit = 89.95437
+        }
+    }
+
+    over "stand_link2" (
+        prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI"]
+    )
+    {
+        point3f physics:centerOfMass = (-0.0026825, 0.0066372, 0.066771)
+        float3 physics:diagonalInertia = (0.023612577, 0.037711557, 0.029060874)
+        float physics:mass = 6.5199
+        quatf physics:principalAxes = (0.99995387, -0.00855745, 0.004338943, -0.0005283711)
+    }
+
+    over "stand_link3" (
+        prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI"]
+    )
+    {
+        point3f physics:centerOfMass = (0.000047383, -0.0014769, 0.033335)
+        float3 physics:diagonalInertia = (0.018761866, 0.019694636, 0.013539494)
+        float physics:mass = 5.8265
+        quatf physics:principalAxes = (0.9985023, -0.054337464, -0.0012312819, -0.006250967)
+    }
+
+    def PhysicsFixedJoint "root_joint" (
+        prepend apiSchemas = ["PhysicsArticulationRootAPI"]
+    )
+    {
+        rel physics:body1 = </FiveAges_S2/base_footprint>
+    }
+}
+

@@ -1,0 +1,32 @@
+#usda 1.0
+(
+    defaultPrim = "Torso"
+    doc = """Generated from Composed Stage of root layer /home/fiveages/libraries/FaSim-Isaac/robots/humanoid/FiveAges/components/Torso/FiveAges_W2/FiveAges_W2.usd
+"""
+    metersPerUnit = 1
+    upAxis = "Z"
+)
+
+over "Torso" (
+    prepend apiSchemas = ["IsaacRobotAPI"]
+)
+{
+    string isaac:description
+    string isaac:namespace
+    prepend rel isaac:physics:robotJoints = </Torso/root_joint>
+    prepend rel isaac:physics:robotLinks = </Torso/stand_link3>
+
+    over "stand_link3" (
+        prepend apiSchemas = ["IsaacLinkAPI"]
+    )
+    {
+        string isaac:nameOverride
+    }
+
+    over "root_joint" (
+        prepend apiSchemas = ["IsaacJointAPI"]
+    )
+    {
+    }
+}
+

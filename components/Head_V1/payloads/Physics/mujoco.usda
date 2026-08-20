@@ -1,0 +1,80 @@
+#usda 1.0
+(
+    defaultPrim = "Head_V1"
+    metersPerUnit = 1
+    subLayers = [
+        @./physics.usda@
+    ]
+    upAxis = "Z"
+)
+
+def "Head_V1"
+{
+    over "joints"
+    {
+        # PhysX DriveAPI (kp=625, kd=50) -> MjcActuator position PD
+        over "head_joint1" (
+            prepend apiSchemas = ["MjcJointAPI"]
+            delete apiSchemas = ["PhysicsJointStateAPI:angular", "PhysicsDriveAPI:angular"]
+        )
+        {
+            uniform double mjc:armature = 0.01
+            uniform double mjc:damping = 0.1
+            uniform token mjc:actuatorfrclimited = "auto"
+            uniform double mjc:actuatorfrcrange:min = -100
+            uniform double mjc:actuatorfrcrange:max = 100
+        }
+
+        over "head_joint2" (
+            prepend apiSchemas = ["MjcJointAPI"]
+            delete apiSchemas = ["PhysicsJointStateAPI:angular", "PhysicsDriveAPI:angular"]
+        )
+        {
+            uniform double mjc:armature = 0.01
+            uniform double mjc:damping = 0.1
+            uniform token mjc:actuatorfrclimited = "auto"
+            uniform double mjc:actuatorfrcrange:min = -100
+            uniform double mjc:actuatorfrcrange:max = 100
+        }
+    }
+
+    over "root_joint" (
+        prepend apiSchemas = ["NewtonArticulationRootAPI"]
+    )
+    {
+        bool newton:selfCollisionEnabled = 0
+    }
+
+    def Scope "actuators"
+    {
+        def MjcActuator "head_joint1"
+        {
+            uniform token mjc:gainType = "fixed"
+            uniform token mjc:biasType = "affine"
+            uniform double[] mjc:gainPrm = [625, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            uniform double[] mjc:biasPrm = [0, -625, -50, 0, 0, 0, 0, 0, 0, 0]
+            uniform token mjc:forceLimited = "true"
+            uniform double mjc:forceRange:min = -100
+            uniform double mjc:forceRange:max = 100
+            uniform token mjc:ctrlLimited = "true"
+            uniform double mjc:ctrlRange:min = -24.980957
+            uniform double mjc:ctrlRange:max = 24.980957
+            rel mjc:target = </Head_V1/joints/head_joint1>
+        }
+
+        def MjcActuator "head_joint2"
+        {
+            uniform token mjc:gainType = "fixed"
+            uniform token mjc:biasType = "affine"
+            uniform double[] mjc:gainPrm = [625, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            uniform double[] mjc:biasPrm = [0, -625, -50, 0, 0, 0, 0, 0, 0, 0]
+            uniform token mjc:forceLimited = "true"
+            uniform double mjc:forceRange:min = -100
+            uniform double mjc:forceRange:max = 100
+            uniform token mjc:ctrlLimited = "true"
+            uniform double mjc:ctrlRange:min = -14.896901
+            uniform double mjc:ctrlRange:max = 14.896901
+            rel mjc:target = </Head_V1/joints/head_joint2>
+        }
+    }
+}

@@ -1,0 +1,220 @@
+#usda 1.0
+(
+    doc = """Generated from Composed Stage of root layer /home/fiveages/libraries/FaSim-Isaac/robots/humanoid/FiveAges/components/Torso/FiveAges_W2/FiveAges_W2.usd
+
+
+Generated from Composed Stage of root layer /home/fiveages/libraries/FaSim-Isaac/robots/humanoid/FiveAges/components/Torso/FiveAges_W2/payloads/base.usd
+"""
+    metersPerUnit = 1
+    upAxis = "Z"
+)
+
+def Scope "Instances"
+{
+    def Xform "mesh" (
+        prepend references = @./geometries.usd@</Geometries/mesh>
+    )
+    {
+        over "mesh" (
+            apiSchemas = ["MaterialBindingAPI"]
+        )
+        {
+            custom rel material:binding
+            prepend rel material:binding = </Instances/mesh/VisualMaterials/plastic_neck>
+        }
+
+        def Scope "VisualMaterials"
+        {
+            def Material "plastic_neck" (
+                instanceable = true
+                prepend references = @./materials.usda@</Materials/plastic_neck>
+            )
+            {
+            }
+        }
+    }
+
+    def Xform "mesh_1" (
+        prepend references = @./geometries.usd@</Geometries/mesh_1>
+    )
+    {
+        over "mesh_1"
+        {
+            over "subset_" (
+                apiSchemas = ["MaterialBindingAPI"]
+            )
+            {
+                custom rel material:binding
+                prepend rel material:binding = </Instances/mesh_1/VisualMaterials/plastic_>
+            }
+
+            over "color" (
+                apiSchemas = ["MaterialBindingAPI"]
+            )
+            {
+                custom rel material:binding
+                prepend rel material:binding = </Instances/mesh_1/VisualMaterials/plastic_>
+            }
+
+            over "paint" (
+                apiSchemas = ["MaterialBindingAPI"]
+            )
+            {
+                custom rel material:binding
+                prepend rel material:binding = </Instances/mesh_1/VisualMaterials/paint>
+            }
+        }
+
+        def Scope "VisualMaterials"
+        {
+            def Material "plastic_" (
+                instanceable = true
+                prepend references = @./materials.usda@</Materials/plastic_>
+            )
+            {
+            }
+
+            def Material "paint" (
+                instanceable = true
+                prepend references = @./materials.usda@</Materials/paint>
+            )
+            {
+            }
+        }
+    }
+
+    def Xform "mesh_2" (
+        prepend references = @./geometries.usd@</Geometries/mesh_2>
+    )
+    {
+        over "mesh_2"
+        {
+            over "rubber" (
+                apiSchemas = ["MaterialBindingAPI"]
+            )
+            {
+                custom rel material:binding
+                prepend rel material:binding = </Instances/mesh_2/VisualMaterials/rubber>
+            }
+
+            over "stainless_steel" (
+                apiSchemas = ["MaterialBindingAPI"]
+            )
+            {
+                custom rel material:binding
+                prepend rel material:binding = </Instances/mesh_2/VisualMaterials/stainless_steel>
+            }
+
+            over "rubber0" (
+                apiSchemas = ["MaterialBindingAPI"]
+            )
+            {
+                custom rel material:binding
+                prepend rel material:binding = </Instances/mesh_2/VisualMaterials/rubber>
+            }
+
+            over "aluminum" (
+                apiSchemas = ["MaterialBindingAPI"]
+            )
+            {
+                custom rel material:binding
+                prepend rel material:binding = </Instances/mesh_2/VisualMaterials/plastic_neck>
+            }
+
+            over "aluminum0" (
+                apiSchemas = ["MaterialBindingAPI"]
+            )
+            {
+                custom rel material:binding
+                prepend rel material:binding = </Instances/mesh_2/VisualMaterials/plastic_neck>
+            }
+
+            over "stainless_steel0" (
+                apiSchemas = ["MaterialBindingAPI"]
+            )
+            {
+                custom rel material:binding
+                prepend rel material:binding = </Instances/mesh_2/VisualMaterials/stainless_steel>
+            }
+
+            over "stainless_steel1" (
+                apiSchemas = ["MaterialBindingAPI"]
+            )
+            {
+                custom rel material:binding
+                prepend rel material:binding = </Instances/mesh_2/VisualMaterials/stainless_steel>
+            }
+
+            over "light" (
+                apiSchemas = ["MaterialBindingAPI"]
+            )
+            {
+                custom rel material:binding
+                prepend rel material:binding = </Instances/mesh_2/VisualMaterials/light>
+            }
+
+            over "stainless_steel_red" (
+                apiSchemas = ["MaterialBindingAPI"]
+            )
+            {
+                custom rel material:binding
+                prepend rel material:binding = </Instances/mesh_2/VisualMaterials/stainless_steel_red>
+            }
+
+            over "stainless_steel2" (
+                apiSchemas = ["MaterialBindingAPI"]
+            )
+            {
+                custom rel material:binding
+                prepend rel material:binding = </Instances/mesh_2/VisualMaterials/stainless_steel>
+            }
+
+            over "aluminum1" (
+                apiSchemas = ["MaterialBindingAPI"]
+            )
+            {
+                custom rel material:binding
+                prepend rel material:binding = </Instances/mesh_2/VisualMaterials/plastic_neck>
+            }
+        }
+
+        def Scope "VisualMaterials"
+        {
+            def Material "rubber" (
+                instanceable = true
+                prepend references = @./materials.usda@</Materials/rubber>
+            )
+            {
+            }
+
+            def Material "stainless_steel" (
+                instanceable = true
+                prepend references = @./materials.usda@</Materials/stainless_steel>
+            )
+            {
+            }
+
+            def Material "plastic_neck" (
+                instanceable = true
+                prepend references = @./materials.usda@</Materials/plastic_neck>
+            )
+            {
+            }
+
+            def Material "light" (
+                instanceable = true
+                prepend references = @./materials.usda@</Materials/light>
+            )
+            {
+            }
+
+            def Material "stainless_steel_red" (
+                instanceable = true
+                prepend references = @./materials.usda@</Materials/stainless_steel_red>
+            )
+            {
+            }
+        }
+    }
+}
+

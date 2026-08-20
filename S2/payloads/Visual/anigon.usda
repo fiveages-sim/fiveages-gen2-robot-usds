@@ -1,0 +1,44 @@
+#usda 1.0
+(
+    defaultPrim = "FiveAges_S2"
+    metersPerUnit = 1
+    upAxis = "Z"
+)
+
+def "FiveAges_S2"
+{
+    over "stand_link3"
+    {
+        over "Torso" (
+            variants = {
+                string visual = "anigon"
+            }
+        )
+        {
+        }
+    }
+
+    over "Left_Arm" (
+        variants = {
+            string visual = "anigon"
+        }
+    )
+    {
+    }
+
+    over "Right_Arm" (
+        variants = {
+            string visual = "anigon"
+        }
+    )
+    {
+    }
+
+    over "Head_V1" (
+        variants = {
+            string visual = "anigon"
+        }
+    )
+    {
+    }
+}

@@ -1,0 +1,43 @@
+#usda 1.0
+(
+    defaultPrim = "Torso"
+    metersPerUnit = 1
+    upAxis = "Z"
+)
+
+def Xform "Torso"
+{
+    over "stand_link3"
+    {
+        over "body_link4"
+        {
+            over "body_camera1"
+            {
+                def "orbbec_336" (
+                    prepend payload = @../../../../../../../sensors/orbbec_336.usd@
+                )
+                {
+                    quatf xformOp:orient = (1, 0, 0, 0)
+                    double xformOp:rotateX:unitsResolve = 90
+                    float3 xformOp:scale = (1, 1, 1)
+                    double3 xformOp:translate = (0, 0, 0)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale", "xformOp:rotateX:unitsResolve"]
+                }
+            }
+
+            over "body_camera2"
+            {
+                def "orbbec_336" (
+                    prepend payload = @../../../../../../../sensors/orbbec_336.usd@
+                )
+                {
+                    quatf xformOp:orient = (1, 0, 0, 0)
+                    double xformOp:rotateX:unitsResolve = 90
+                    float3 xformOp:scale = (1, 1, 1)
+                    double3 xformOp:translate = (0, 0, 0)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale", "xformOp:rotateX:unitsResolve"]
+                }
+            }
+        }
+    }
+}

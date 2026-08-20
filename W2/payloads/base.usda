@@ -1,0 +1,215 @@
+#usda 1.0
+(
+    defaultPrim = "FiveAges_W2"
+    doc = """Generated from Composed Stage of root layer /home/fiveages/Documents/FaSim-Isaac/robots/mobile_manipulator/FiveAges_W2/FiveAges_W2.usd
+
+
+Generated from Composed Stage of root layer /home/fiveages/Documents/FaSim-Isaac/robots/mobile_manipulator/FiveAges_W2/payloads/base.usd
+"""
+    metersPerUnit = 1
+    subLayers = [
+        @./robot.usda@
+    ]
+    upAxis = "Z"
+)
+
+def Xform "FiveAges_W2"
+{
+    quatd xformOp:orient = (1, 0, 0, 0)
+    double3 xformOp:scale = (1, 1, 1)
+    double3 xformOp:translate = (0, 0, 0)
+    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+    def Xform "base_link"
+    {
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (0, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        def Xform "body_base"
+        {
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:scale = (1, 1, 1)
+            double3 xformOp:translate = (0.10525000095367432, 0, 0.22949999570846558)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "visuals" (
+            instanceable = false
+        )
+        {
+            def Xform "base" (
+                instanceable = true
+                prepend references = @./instances.usda@</Instances/mesh>
+            )
+            {
+                token visibility = "inherited"
+                quatd xformOp:orient = (1, 0, 0, 0)
+                double3 xformOp:scale = (1, 1, 1)
+                double3 xformOp:translate = (0.105250001, 0, 0.2294999957)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+        }
+
+        def Xform "collisions" (
+            instanceable = false
+        )
+        {
+            def Xform "base" (
+                instanceable = true
+                prepend references = @./instances.usda@</Instances/mesh_1>
+            )
+            {
+                uniform token purpose = "guide"
+                token visibility = "inherited"
+                quatd xformOp:orient = (1, 0, 0, 0)
+                double3 xformOp:scale = (1, 1, 1)
+                double3 xformOp:translate = (0.105250001, 0, 0.2294999957)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+        }
+    }
+
+    def Xform "body_link1"
+    {
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (0.10525000095367432, 0, 0.22949999570846558)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        def Xform "visuals" (
+            instanceable = false
+        )
+        {
+            def Xform "link1" (
+                instanceable = true
+                prepend references = @./instances.usda@</Instances/mesh_1_1>
+            )
+            {
+                token visibility = "inherited"
+            }
+        }
+
+        def Xform "collisions" (
+            instanceable = false
+        )
+        {
+            def Xform "link1" (
+                instanceable = true
+                prepend references = @./instances.usda@</Instances/mesh_1_2>
+            )
+            {
+                uniform token purpose = "guide"
+                token visibility = "inherited"
+            }
+        }
+    }
+
+    def Scope "joints"
+    {
+    }
+
+    def Xform "body_link2"
+    {
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (0.10525000095367432, 0, 0.5514999628067017)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        def Xform "visuals" (
+            instanceable = false
+        )
+        {
+            def Xform "link2" (
+                instanceable = true
+                prepend references = @./instances.usda@</Instances/mesh_2>
+            )
+            {
+                token visibility = "inherited"
+            }
+        }
+
+        def Xform "collisions" (
+            instanceable = false
+        )
+        {
+            def Xform "link2" (
+                instanceable = true
+                prepend references = @./instances.usda@</Instances/mesh_2_1>
+            )
+            {
+                uniform token purpose = "guide"
+                token visibility = "inherited"
+            }
+        }
+    }
+
+    def Xform "body_link3"
+    {
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (0.10525000095367432, 0.0019000000320374966, 0.906499981880188)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        def Xform "visuals" (
+            instanceable = false
+        )
+        {
+            def Xform "link3" (
+                instanceable = true
+                prepend references = @./instances.usda@</Instances/mesh_3>
+            )
+            {
+                token visibility = "inherited"
+            }
+        }
+
+        def Xform "collisions" (
+            instanceable = false
+        )
+        {
+            def Xform "link3" (
+                instanceable = true
+                prepend references = @./instances.usda@</Instances/mesh_3_1>
+            )
+            {
+                uniform token purpose = "guide"
+                token visibility = "inherited"
+            }
+        }
+    }
+
+    def Xform "body_link4"
+    {
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (0.10517838597297668, 0, 1.0498099327087402)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        def Xform "arm_base"
+        {
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:scale = (1, 1, 1)
+            double3 xformOp:translate = (0.00007161199755501002, 0, 0.45765000581741333)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "head_mount"
+        {
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:scale = (1, 1, 1)
+            double3 xformOp:translate = (-0.023428000509738922, 0, 0.48475000262260437)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+    }
+
+    def Scope "Looks"
+    {
+    }
+
+    def Scope "VisualMaterials"
+    {
+    }
+}
+

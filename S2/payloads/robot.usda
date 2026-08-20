@@ -1,0 +1,158 @@
+#usda 1.0
+(
+    defaultPrim = "FiveAges_S2"
+    doc = """Generated from Composed Stage of root layer /home/fiveages/libraries/FaSim-Isaac/robots/humanoid/FiveAges/components/Stand/FiveAges_S2/FiveAges_S2.usd
+"""
+    metersPerUnit = 1
+    upAxis = "Z"
+)
+
+over "FiveAges_S2" (
+    prepend apiSchemas = ["IsaacRobotAPI"]
+)
+{
+    string isaac:description
+    string isaac:namespace
+    prepend rel isaac:physics:robotJoints = [
+        </FiveAges_S2/root_joint>,
+        </FiveAges_S2/joints/lift_joint>,
+        </FiveAges_S2/joints/body_joint1>,
+        </FiveAges_S2/joints/body_joint2>,
+    ]
+    prepend rel isaac:physics:robotLinks = [
+        </FiveAges_S2/base_footprint>,
+        </FiveAges_S2/stand_link1>,
+        </FiveAges_S2/stand_link2>,
+        </FiveAges_S2/stand_link3>,
+        </FiveAges_S2/base_footprint/base_link>,
+        </FiveAges_S2/stand_link3/arm_base>,
+        </FiveAges_S2/stand_link3/head_mount>,
+        </FiveAges_S2/stand_link3/Torso/stand_link3/body_link4/body_camera1>,
+        </FiveAges_S2/stand_link3/Torso/stand_link3/body_link4/body_camera2>,
+    ]
+
+    over "base_footprint" (
+        prepend apiSchemas = ["IsaacLinkAPI"]
+    )
+    {
+        string isaac:nameOverride
+
+        over "base_link" (
+            prepend apiSchemas = ["IsaacSiteAPI"]
+        )
+        {
+        }
+    }
+
+    over "stand_link1" (
+        prepend apiSchemas = ["IsaacLinkAPI"]
+    )
+    {
+        string isaac:nameOverride
+    }
+
+    over "joints"
+    {
+        over "lift_joint" (
+            prepend apiSchemas = ["IsaacJointAPI"]
+        )
+        {
+            string isaac:nameOverride
+            float[] isaac:physics:AccelerationLimit
+            int isaac:physics:index
+            float[] isaac:physics:JerkLimit
+            int isaac:physics:Rot_X:DofOffset
+            int isaac:physics:Rot_Y:DofOffset
+            int isaac:physics:Rot_Z:DofOffset
+            int isaac:physics:Tr_X:DofOffset
+            int isaac:physics:Tr_Y:DofOffset
+            int isaac:physics:Tr_Z:DofOffset
+        }
+
+        over "body_joint1" (
+            prepend apiSchemas = ["IsaacJointAPI"]
+        )
+        {
+            string isaac:nameOverride
+            float[] isaac:physics:AccelerationLimit
+            int isaac:physics:index
+            float[] isaac:physics:JerkLimit
+            int isaac:physics:Rot_X:DofOffset
+            int isaac:physics:Rot_Y:DofOffset
+            int isaac:physics:Rot_Z:DofOffset
+            int isaac:physics:Tr_X:DofOffset
+            int isaac:physics:Tr_Y:DofOffset
+            int isaac:physics:Tr_Z:DofOffset
+        }
+
+        over "body_joint2" (
+            prepend apiSchemas = ["IsaacJointAPI"]
+        )
+        {
+            string isaac:nameOverride
+            float[] isaac:physics:AccelerationLimit
+            int isaac:physics:index
+            float[] isaac:physics:JerkLimit
+            int isaac:physics:Rot_X:DofOffset
+            int isaac:physics:Rot_Y:DofOffset
+            int isaac:physics:Rot_Z:DofOffset
+            int isaac:physics:Tr_X:DofOffset
+            int isaac:physics:Tr_Y:DofOffset
+            int isaac:physics:Tr_Z:DofOffset
+        }
+    }
+
+    over "stand_link2" (
+        prepend apiSchemas = ["IsaacLinkAPI"]
+    )
+    {
+        string isaac:nameOverride
+    }
+
+    over "stand_link3" (
+        prepend apiSchemas = ["IsaacLinkAPI"]
+    )
+    {
+        string isaac:nameOverride
+
+        over "arm_base" (
+            prepend apiSchemas = ["IsaacSiteAPI"]
+        )
+        {
+        }
+
+        over "head_mount" (
+            prepend apiSchemas = ["IsaacSiteAPI"]
+        )
+        {
+        }
+
+        over "Torso"
+        {
+            over "stand_link3"
+            {
+                over "body_link4"
+                {
+                    over "body_camera1" (
+                        prepend apiSchemas = ["IsaacSiteAPI"]
+                    )
+                    {
+                    }
+
+                    over "body_camera2" (
+                        prepend apiSchemas = ["IsaacSiteAPI"]
+                    )
+                    {
+                    }
+                }
+            }
+        }
+    }
+
+    over "root_joint" (
+        prepend apiSchemas = ["IsaacJointAPI"]
+    )
+    {
+    }
+}
+

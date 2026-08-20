@@ -1,0 +1,32 @@
+#usda 1.0
+(
+    defaultPrim = "Torso"
+    doc = """Generated from Composed Stage of root layer /home/fiveages/libraries/FaSim-Isaac/robots/humanoid/FiveAges/components/Torso/FiveAges_W2/FiveAges_W2.usd
+
+
+Generated from Composed Stage of root layer /home/fiveages/libraries/FaSim-Isaac/robots/humanoid/FiveAges/components/Torso/FiveAges_W2/payloads/base.usd
+"""
+    metersPerUnit = 1
+    upAxis = "Z"
+)
+
+over "Torso"
+{
+    over "stand_link3" (
+        prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI"]
+    )
+    {
+        point3f physics:centerOfMass = (-0.015854351, 0.0026133205, 0.36233887)
+        float3 physics:diagonalInertia = (0.32032835, 0.22857572, 0.13641407)
+        float physics:mass = 23.74464
+        quatf physics:principalAxes = (0.9999985, 0.00047447314, -0.0016413851, 0.00046105034)
+    }
+
+    def PhysicsFixedJoint "root_joint" (
+        prepend apiSchemas = ["PhysicsArticulationRootAPI"]
+    )
+    {
+        rel physics:body1 = </Torso/stand_link3>
+    }
+}
+

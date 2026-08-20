@@ -1,0 +1,81 @@
+#usda 1.0
+(
+    defaultPrim = "FiveAges_S2"
+    metersPerUnit = 1
+    subLayers = [
+        @./physics.usda@
+    ]
+    upAxis = "Z"
+)
+
+def "FiveAges_S2"
+{
+    over "joints"
+    {
+        over "lift_joint" (
+            prepend apiSchemas = ["PhysxJointAPI"]
+        )
+        {
+            float physxJoint:maxJointVelocity = 1
+        }
+
+        over "body_joint1" (
+            prepend apiSchemas = ["PhysxJointAPI"]
+        )
+        {
+            float physxJoint:maxJointVelocity = 57.295776
+        }
+
+        over "body_joint2" (
+            prepend apiSchemas = ["PhysxJointAPI"]
+        )
+        {
+            float physxJoint:maxJointVelocity = 57.295776
+        }
+    }
+
+    over "root_joint" (
+        prepend apiSchemas = ["PhysxArticulationAPI"]
+    )
+    {
+        bool physxArticulation:enabledSelfCollisions = 0
+        int physxArticulation:solverPositionIterationCount = 32
+        int physxArticulation:solverVelocityIterationCount = 1
+    }
+
+    over "Head_V1" (
+        variants = {
+            string Physics = "physx"
+        }
+    )
+    {
+    }
+
+    over "Left_Arm" (
+        variants = {
+            string Physics = "physx"
+        }
+    )
+    {
+    }
+
+    over "Right_Arm" (
+        variants = {
+            string Physics = "physx"
+        }
+    )
+    {
+    }
+
+    over "stand_link3"
+    {
+        over "Torso" (
+            variants = {
+                string Physics = "physx"
+            }
+        )
+        {
+        }
+    }
+}
+

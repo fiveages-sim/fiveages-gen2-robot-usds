@@ -1,0 +1,52 @@
+#usda 1.0
+(
+    defaultPrim = "FiveAges_W2"
+    metersPerUnit = 1
+    upAxis = "Z"
+)
+
+def Xform "FiveAges_W2"
+{
+    over "body_link4"
+    {
+        def "Torso" (
+            prepend payload = @../../../components/Torso/Torso.usda@
+            variants = {
+                string Robot = "none"
+                string visual = "default"
+            }
+        )
+        {
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:scale = (1, 1, 1)
+            double3 xformOp:translate = (0.0007698899717070162, 0, -0.08793099969625473)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+            over "root_joint" (
+                active = false
+            )
+            {
+            }
+
+            over "stand_link3"
+            {
+                point3f physics:centerOfMass = (0, 0, 0)
+                float3 physics:diagonalInertia = (1e-6, 1e-6, 1e-6)
+                float physics:mass = 0.001
+
+                over "body_link4"
+                {
+                    def PhysicsFixedJoint "AssemblerFixedJoint"
+                    {
+                        rel physics:body0 = </FiveAges_W2/body_link4>
+                        rel physics:body1 = </FiveAges_W2/body_link4/Torso/stand_link3/body_link4>
+                        point3f physics:localPos0 = (0, 0, 0)
+                        point3f physics:localPos1 = (0, 0, 0)
+                        quatf physics:localRot0 = (1, 0, 0, 0)
+                        quatf physics:localRot1 = (1, 0, 0, 0)
+                    }
+                }
+            }
+        }
+    }
+}

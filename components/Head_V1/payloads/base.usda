@@ -1,0 +1,139 @@
+#usda 1.0
+(
+    defaultPrim = "Head_V1"
+    doc = """Generated from Composed Stage of root layer /home/fiveages/Documents/FaSim-Isaac/robots/mobile_manipulator/Head_V1/Head_V1.usd
+
+
+Generated from Composed Stage of root layer /home/fiveages/Documents/FaSim-Isaac/robots/mobile_manipulator/Head_V1/payloads/base.usd
+"""
+    metersPerUnit = 1
+    subLayers = [
+        @./robot.usda@
+    ]
+    upAxis = "Z"
+)
+
+def Xform "Head_V1"
+{
+    quatd xformOp:orient = (1, 0, 0, 0)
+    double3 xformOp:scale = (1, 1, 1)
+    double3 xformOp:translate = (0, 0, 0)
+    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+    def Xform "head_mount"
+    {
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (0, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        def Xform "visuals" (
+            instanceable = false
+        )
+        {
+        }
+
+        def Xform "collisions"
+        {
+        }
+    }
+
+    def Xform "head_link1"
+    {
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (0, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        def Xform "visuals" (
+            instanceable = false
+        )
+        {
+            def Xform "head_yaw" (
+                instanceable = true
+                prepend references = @./instances.usda@</Instances/mesh>
+            )
+            {
+                token visibility = "inherited"
+            }
+        }
+
+        def Xform "collisions" (
+            instanceable = false
+        )
+        {
+            def Xform "head_yaw" (
+                instanceable = true
+                prepend references = @./instances.usda@</Instances/mesh_1>
+            )
+            {
+                uniform token purpose = "guide"
+                token visibility = "inherited"
+            }
+        }
+    }
+
+    def Scope "joints"
+    {
+    }
+
+    def Xform "head_link2"
+    {
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (0, 0, 0.15000000596046448)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        def Xform "head_camera"
+        {
+            quatd xformOp:orient = (0.3158789873123169, -0.6326298117637634, 0.6326298117637634, -0.3158789873123169)
+            double3 xformOp:scale = (1, 1, 1)
+            double3 xformOp:translate = (0.09759999811649323, 0.04363900050520897, 0.12430000305175781)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "visuals" (
+            instanceable = false
+        )
+        {
+            def Xform "head_pitch" (
+                instanceable = true
+                prepend references = @./instances.usda@</Instances/mesh_1_1>
+            )
+            {
+                token visibility = "inherited"
+            }
+
+            def Xform "neck" (
+                instanceable = true
+                prepend references = @./instances.usda@</Instances/mesh_2>
+            )
+            {
+                token visibility = "inherited"
+            }
+        }
+
+        def Xform "collisions" (
+            instanceable = false
+        )
+        {
+            def Xform "head_pitch" (
+                instanceable = true
+                prepend references = @./instances.usda@</Instances/mesh_1_2>
+            )
+            {
+                uniform token purpose = "guide"
+                token visibility = "inherited"
+            }
+        }
+    }
+
+    def Scope "Looks"
+    {
+    }
+
+    def Scope "VisualMaterials"
+    {
+    }
+}
+

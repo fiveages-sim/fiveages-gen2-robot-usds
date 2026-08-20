@@ -1,0 +1,52 @@
+#usda 1.0
+(
+    defaultPrim = "FiveAges_W2"
+    metersPerUnit = 1
+    upAxis = "Z"
+)
+
+def "FiveAges_W2"
+{
+    over "Linkhou_S2" (
+        variants = {
+            string Physics = "none"
+        }
+    )
+    {
+    }
+
+    over "Head_V1" (
+        variants = {
+            string Physics = "none"
+        }
+    )
+    {
+    }
+
+    over "Left_Arm" (
+        variants = {
+            string Physics = "none"
+        }
+    )
+    {
+    }
+
+    over "Right_Arm" (
+        variants = {
+            string Physics = "none"
+        }
+    )
+    {
+    }
+
+    over "body_link4"
+    {
+        over "Torso" (
+            variants = {
+                string Physics = "none"
+            }
+        )
+        {
+        }
+    }
+}
