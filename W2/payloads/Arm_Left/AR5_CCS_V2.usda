@@ -1,0 +1,212 @@
+#usda 1.0
+(
+    defaultPrim = "FiveAges_W2"
+)
+
+def Xform "FiveAges_W2"
+{
+    def "Left_Arm" (
+        prepend payload = @../../../../../../manipulators/Rokae/AR5_CCS_V2/AR5_CCS_V2.usda@
+        variants = {
+            string Side = "left"
+            string visual = "orange"
+        }
+    )
+    {
+        quatd xformOp:orient = (0.7071067811865476, -0.7071067811865475, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (0.1052499979705317, 0.062, 1.50746)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        over "root_joint" (
+            active = false
+        )
+        {
+        }
+
+        over "base_link"
+        {
+            def PhysicsFixedJoint "AssemblerFixedJoint"
+            {
+                rel physics:body0 = </FiveAges_W2/body_link4/arm_base>
+                rel physics:body1 = </FiveAges_W2/Left_Arm/base_link>
+                point3f physics:localPos0 = (0, 0.062, 6.147385e-8)
+                point3f physics:localPos1 = (0, -1.7763568e-15, -1.013279e-9)
+                quatf physics:localRot0 = (0.70710677, -0.70710677, 0, 0)
+                quatf physics:localRot1 = (1, -1.4901161e-8, 0, 0)
+            }
+        }
+
+        over "joints"
+        {
+            over "left_joint1"
+            {
+                float state:angular:physics:position = 0
+                float state:angular:physics:velocity = 0
+            }
+
+            over "left_joint2"
+            {
+                float state:angular:physics:position = 0
+                float state:angular:physics:velocity = 0
+            }
+
+            over "left_joint3"
+            {
+                float state:angular:physics:position = 0
+                float state:angular:physics:velocity = 0
+            }
+
+            over "left_joint4"
+            {
+                float state:angular:physics:position = 0
+                float state:angular:physics:velocity = 0
+            }
+
+            over "left_joint5"
+            {
+                float state:angular:physics:position = 0
+                float state:angular:physics:velocity = 0
+            }
+
+            over "left_joint6"
+            {
+                float state:angular:physics:position = 0
+                float state:angular:physics:velocity = 0
+            }
+
+            over "left_joint7"
+            {
+                float state:angular:physics:position = 0
+                float state:angular:physics:velocity = 0
+            }
+        }
+
+        over "link1"
+        {
+        }
+
+        over "link2"
+        {
+        }
+
+        over "link3"
+        {
+        }
+
+        over "link4"
+        {
+        }
+
+        over "link5"
+        {
+        }
+
+        over "link6"
+        {
+        }
+
+        over "link7"
+        {
+        }
+    }
+
+    over "joints"
+    {
+        over "body_joint1"
+        {
+            float state:angular:physics:position = 0
+            float state:angular:physics:velocity = 0
+        }
+
+        over "body_joint2"
+        {
+            float state:angular:physics:position = 0
+            float state:angular:physics:velocity = 0
+        }
+
+        over "body_joint3"
+        {
+            float state:angular:physics:position = 0
+            float state:angular:physics:velocity = 0
+        }
+
+        over "body_joint4"
+        {
+            float state:angular:physics:position = 0
+            float state:angular:physics:velocity = 0
+        }
+    }
+
+    over "Linkhou_S2"
+    {
+        over "joints"
+        {
+            over "fl_steer_joint"
+            {
+                float state:angular:physics:position = 0
+                float state:angular:physics:velocity = 0
+            }
+
+            over "fl_wheel_joint"
+            {
+                float state:angular:physics:position = 0
+                float state:angular:physics:velocity = 0
+            }
+
+            over "fr_steer_joint"
+            {
+                float state:angular:physics:position = 0
+                float state:angular:physics:velocity = 0
+            }
+
+            over "fr_wheel_joint"
+            {
+                float state:angular:physics:position = 0
+                float state:angular:physics:velocity = 0
+            }
+
+            over "rl_steer_joint"
+            {
+                float state:angular:physics:position = 0
+                float state:angular:physics:velocity = 0
+            }
+
+            over "rl_wheel_joint"
+            {
+                float state:angular:physics:position = 0
+                float state:angular:physics:velocity = 0
+            }
+
+            over "rr_steer_joint"
+            {
+                float state:angular:physics:position = 0
+                float state:angular:physics:velocity = 0
+            }
+
+            over "rr_wheel_joint"
+            {
+                float state:angular:physics:position = 0
+                float state:angular:physics:velocity = 0
+            }
+        }
+    }
+
+    over "Head_V1"
+    {
+        over "joints"
+        {
+            over "head_joint1"
+            {
+                float state:angular:physics:position = 0
+                float state:angular:physics:velocity = 0
+            }
+
+            over "head_joint2"
+            {
+                float state:angular:physics:position = 0
+                float state:angular:physics:velocity = 0
+            }
+        }
+    }
+}

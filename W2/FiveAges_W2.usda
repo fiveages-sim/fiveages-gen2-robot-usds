@@ -478,6 +478,13 @@ def Xform "FiveAges_W2" (
         }
     }
     variantSet "Arm_Left" = {
+        "AR5_CCS_V2" (
+            prepend payload = @payloads/Arm_Left/AR5_CCS_V2.usda@
+        ) {
+            prepend rel isaac:physics:robotJoints = </FiveAges_W2/Left_Arm>
+            prepend rel isaac:physics:robotLinks = </FiveAges_W2/Left_Arm>
+
+        }
         "M6_CCS" (
             delete payload = @payloads/Arm_Left/base.usd@
             prepend payload = @payloads/Arm_Left/M6_CCS.usda@
@@ -491,6 +498,13 @@ def Xform "FiveAges_W2" (
         }
     }
     variantSet "Arm_Right" = {
+        "AR5_CCS_V2" (
+            prepend payload = @payloads/Arm_Right/AR5_CCS_V2.usda@
+        ) {
+            prepend rel isaac:physics:robotJoints = </FiveAges_W2/Right_Arm>
+            prepend rel isaac:physics:robotLinks = </FiveAges_W2/Right_Arm>
+
+        }
         "M6_CCS" (
             delete payload = @payloads/Arm_Right/base.usd@
             prepend payload = @payloads/Arm_Right/M6_CCS.usda@
