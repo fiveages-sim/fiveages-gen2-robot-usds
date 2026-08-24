@@ -36,7 +36,7 @@
 def Xform "FiveAges_W2"
 {
     def "Left_Arm" (
-        prepend payload = @../../../../../../manipulators/Tianji/Marvin_M6_CCS/Marvin_M6_CCS.usda@
+        prepend payload = @../../../../../../manipulators/Tianji/M6_CCS/M6_CCS.usda@
         variants = {
             string Side = "left"
             string visual = "fiveages_w2"

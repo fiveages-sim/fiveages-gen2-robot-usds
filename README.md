@@ -25,7 +25,8 @@ git submodule update --init humanoid/FiveAges/Gen2
 
 `W2` / `S2` 通过相对路径引用 `robot_usds` 主仓库中的以下资产：
 
-- `manipulators/Tianji/Marvin_M6_CCS/`
+- `manipulators/Tianji/M6_CCS/`
+- `manipulators/Tianji/M20S_CCS/`
 - `manipulators/Rokae/AR5_CCS_V2/`
 - `manipulators/Fairino/ART7/`
 - `sensors/`
