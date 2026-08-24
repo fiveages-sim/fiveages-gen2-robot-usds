@@ -27,6 +27,7 @@ git submodule update --init humanoid/FiveAges/Gen2
 
 - `manipulators/Tianji/Marvin_M6_CCS/`
 - `manipulators/Rokae/AR5_CCS_V2/`
+- `manipulators/Fairino/ART7/`
 - `sensors/`
 
 `W2` 额外引用：
