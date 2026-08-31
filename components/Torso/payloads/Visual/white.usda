@@ -1,0 +1,21 @@
+#usda 1.0
+(
+    defaultPrim = "Torso"
+    metersPerUnit = 1
+    upAxis = "Z"
+)
+
+def "Torso"
+{
+    over "stand_link3"
+    {
+        over "visuals"
+        {
+            over "torso" (
+                references = @./instances/white.usda@</Instances/mesh_1>
+            )
+            {
+            }
+        }
+    }
+}

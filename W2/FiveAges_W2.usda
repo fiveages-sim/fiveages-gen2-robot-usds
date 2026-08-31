@@ -410,6 +410,11 @@ def Xform "FiveAges_W2" (
         "default" {
 
         }
+        "white" (
+            prepend payload = @./payloads/Visual/white.usda@
+        ) {
+
+        }
     }
     variantSet "Robot" = {
         "none" (

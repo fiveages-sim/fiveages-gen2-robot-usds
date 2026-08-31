@@ -1,0 +1,80 @@
+#usda 1.0
+(
+    metersPerUnit = 1
+    upAxis = "Z"
+)
+
+def Scope "Instances"
+{
+    def Xform "mesh_1_1" (
+        prepend references = @../../geometries.usd@</Geometries/mesh_1>
+    )
+    {
+        over "mesh_1"
+        {
+            over "light" (
+                apiSchemas = ["MaterialBindingAPI"]
+            )
+            {
+                custom rel material:binding
+                prepend rel material:binding = </Instances/mesh_1_1/VisualMaterials/light>
+            }
+
+            over "color" (
+                apiSchemas = ["MaterialBindingAPI"]
+            )
+            {
+                custom rel material:binding
+                prepend rel material:binding = </Instances/mesh_1_1/VisualMaterials/color>
+            }
+
+            over "paint" (
+                apiSchemas = ["MaterialBindingAPI"]
+            )
+            {
+                custom rel material:binding
+                prepend rel material:binding = </Instances/mesh_1_1/VisualMaterials/paint>
+            }
+
+            over "eye" (
+                apiSchemas = ["MaterialBindingAPI"]
+            )
+            {
+                custom rel material:binding
+                prepend rel material:binding = </Instances/mesh_1_1/VisualMaterials/eye>
+            }
+        }
+
+        def Scope "VisualMaterials"
+        {
+            def Material "light" (
+                instanceable = true
+                prepend references = @../../materials.usda@</Materials/light>
+            )
+            {
+            }
+
+            def Material "color" (
+                instanceable = true
+                delete references = @../../materials.usda@</Materials/color>
+                prepend references = @../../materials.usda@</Materials/white>
+            )
+            {
+            }
+
+            def Material "paint" (
+                instanceable = true
+                prepend references = @../../materials.usda@</Materials/paint>
+            )
+            {
+            }
+
+            def Material "eye" (
+                instanceable = true
+                prepend references = @../../materials.usda@</Materials/eye>
+            )
+            {
+            }
+        }
+    }
+}

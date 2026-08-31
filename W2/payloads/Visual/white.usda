@@ -1,0 +1,64 @@
+#usda 1.0
+(
+    defaultPrim = "FiveAges_W2"
+    metersPerUnit = 1
+    upAxis = "Z"
+)
+
+def "FiveAges_W2"
+{
+    over "body_link2"
+    {
+        over "visuals"
+        {
+            over "link2" (
+                references = @./instances/white.usda@</Instances/mesh_2>
+            )
+            {
+            }
+        }
+    }
+
+    over "body_link4"
+    {
+        over "Torso" (
+            variants = {
+                string visual = "white"
+            }
+        )
+        {
+        }
+    }
+
+    over "Left_Arm" (
+        variants = {
+            string visual = "white"
+        }
+    )
+    {
+    }
+
+    over "Right_Arm" (
+        variants = {
+            string visual = "white"
+        }
+    )
+    {
+    }
+
+    over "Linkhou_S2" (
+        variants = {
+            string Visual = "white"
+        }
+    )
+    {
+    }
+
+    over "Head_V1" (
+        variants = {
+            string visual = "white"
+        }
+    )
+    {
+    }
+}

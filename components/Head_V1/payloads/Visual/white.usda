@@ -1,0 +1,21 @@
+#usda 1.0
+(
+    defaultPrim = "Head_V1"
+    metersPerUnit = 1
+    upAxis = "Z"
+)
+
+def "Head_V1"
+{
+    over "head_link2"
+    {
+        over "visuals"
+        {
+            over "head_pitch" (
+                references = @./instances/white.usda@</Instances/mesh_1_1>
+            )
+            {
+            }
+        }
+    }
+}

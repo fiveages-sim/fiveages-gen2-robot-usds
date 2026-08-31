@@ -31,6 +31,11 @@ def Xform "Torso" (
         ) {
 
         }
+        "white" (
+            prepend payload = @./payloads/Visual/white.usda@
+        ) {
+
+        }
     }
     variantSet "Robot" = {
         "none" (

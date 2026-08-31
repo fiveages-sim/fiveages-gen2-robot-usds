@@ -79,6 +79,11 @@ def Xform "Head_V1" (
         ) {
 
         }
+        "white" (
+            prepend payload = @./payloads/Visual/white.usda@
+        ) {
+
+        }
     }
     variantSet "Robot" = {
         "none" (
