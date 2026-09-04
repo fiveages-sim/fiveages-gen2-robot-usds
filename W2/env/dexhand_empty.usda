@@ -7,8 +7,8 @@
                 double radius = 5
             }
             dictionary Perspective = {
-                double3 position = (1.6477287320147074, -0.34888786935718585, 1.6868058023916315)
-                double3 target = (-19.006910504588376, 6.539651197026663, -9.93027420191968)
+                double3 position = (3.434381847389104, -0.9447554438206675, 2.6916983083074086)
+                double3 target = (-19.006910504588372, 6.539651197026661, -9.930274201919678)
             }
             dictionary Right = {
                 double3 position = (0, -5, 0)
@@ -1504,10 +1504,10 @@ over "OmniverseKit_Persp" (
     float exposure:time = 0.02
     float focalLength = 18.147562
     float focusDistance = 400
-    custom uniform vector3d omni:kit:centerOfInterest = (0, 0, -24.67838406966489)
+    custom uniform vector3d omni:kit:centerOfInterest = (0, 0, -26.813096338196576)
     float3 xformOp:rotateXYZ = (61.917717, -7.6333315e-14, 71.555916)
     float3 xformOp:scale = (1, 1, 1)
-    double3 xformOp:translate = (1.6477287320147074, -0.34888786935718585, 1.6868058023916315)
+    double3 xformOp:translate = (3.434381847389104, -0.9447554438206675, 2.6916983083074086)
     uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
 }
 
@@ -1593,6 +1593,7 @@ def PhysicsScene "PhysicsScene" (
 {
     uniform token physxScene:broadphaseType = "SAP"
     bool physxScene:enableGPUDynamics = 0
+    uint physxScene:timeStepsPerSecond = 200
 }
 
 def "Graph"
