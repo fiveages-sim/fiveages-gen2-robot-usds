@@ -14,7 +14,9 @@ def "FiveAges_W2"
         prepend apiSchemas = ["PhysxArticulationAPI"]
     )
     {
-        bool physxArticulation:enabledSelfCollisions = 0
+        # On: Plan A finger self-col when M6+LinkerHand joins this tree.
+        # NonDexHand in Arm_Left/M6_CCS.usda mutes body/arm self (covers both arms).
+        bool physxArticulation:enabledSelfCollisions = 1
         int physxArticulation:solverPositionIterationCount = 32
         int physxArticulation:solverVelocityIterationCount = 1
     }

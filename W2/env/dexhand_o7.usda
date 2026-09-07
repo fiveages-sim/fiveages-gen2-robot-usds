@@ -7,8 +7,8 @@
                 double radius = 5
             }
             dictionary Perspective = {
-                double3 position = (-1.4233265449525325, 3.759568386162675, 2.7858803074536684)
-                double3 target = (15.698187064650122, -25.401604565724675, -13.925920142718882)
+                double3 position = (3.0278204917957865, 1.1695533497242196, 3.8895107439561145)
+                double3 target = (0.3580334345967464, -0.49990580016021324, 0.503584445600739)
             }
             dictionary Right = {
                 double3 position = (0, -5, 0)
@@ -24,6 +24,8 @@
             dictionary "/World/EastRural_Table" = {
             }
             dictionary "/World/default_environment/EastRural_Table/Apple" = {
+            }
+            dictionary "/World/default_environment/EastRural_Table/NaturalBostonRoundBottle_A01_PR_NVD_01" = {
             }
             dictionary "/World/default_environment/RubixCube" = {
             }
@@ -378,6 +380,31 @@ def Xform "World"
                     bool physics:collisionEnabled = 1
                 }
             }
+
+            def "NaturalBostonRoundBottle_A01_PR_NVD_01" (
+                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysxRigidBodyAPI"]
+                prepend payload = @https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/DigitalTwin/Assets/Warehouse/Storage/Bottles/Plastic/NaturalBostonRound_A/NaturalBostonRoundBottle_A01_PR_NVD_01.usd@
+            )
+            {
+                bool physics:kinematicEnabled = 0
+                bool physics:rigidBodyEnabled = 1
+                quatf xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (1, 1, 1)
+                double3 xformOp:scale:unitsResolve = (1.0000000223517422, 1.0000000223517422, 1.0000000223517422)
+                double3 xformOp:translate = (-14.619893531290245, -21.694467808801104, 79.55784882349826)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale", "xformOp:scale:unitsResolve"]
+
+                over "NaturalBostonRoundBottle_A01_01" (
+                    prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysxConvexHullCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMaterialAPI"]
+                )
+                {
+                    uniform token physics:approximation = "convexHull"
+                    bool physics:collisionEnabled = 1
+                    float physics:staticFriction = 1.5
+                    float physics:dynamicFriction = 1.2
+                    float physics:restitution = 0
+                }
+            }
         }
     }
 
@@ -390,7 +417,7 @@ def Xform "World"
     {
         quatd xformOp:orient = (1, 0, 0, 0)
         double3 xformOp:scale = (1, 1, 1)
-        double3 xformOp:translate = (-0.49469881941014704, 0, 0.07203023299171055)
+        double3 xformOp:translate = (0.05565967204044442, 0, 0.07203023299171055)
         uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
 
         over "Linkhou_S2" (
@@ -1499,10 +1526,10 @@ over "OmniverseKit_Persp" (
     float exposure:time = 0.02
     float focalLength = 18.147562
     float focusDistance = 400
-    custom uniform vector3d omni:kit:centerOfInterest = (0, 0, -37.72008099805832)
-    float3 xformOp:rotateXYZ = (63.701492, -1.2881246e-13, -149.58136)
+    custom uniform vector3d omni:kit:centerOfInterest = (0, 0, -4.6237813185546415)
+    float3 xformOp:rotateXYZ = (42.92169, -8.905553e-14, 122.01838)
     float3 xformOp:scale = (1, 1, 1)
-    double3 xformOp:translate = (-1.4233265449525325, 3.759568386162675, 2.7858803074536684)
+    double3 xformOp:translate = (3.0278204917957865, 1.1695533497242196, 3.8895107439561145)
     uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
 }
 
