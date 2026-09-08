@@ -35,60 +35,6 @@
 
 def Xform "FiveAges_W2"
 {
-    # When Left Arm = M6_CCS, mute torso/chassis/both-arms self-pairs so
-    # base_link self-col=1 (W2 physx) does not shake the robot. Covers BOTH
-    # Left_Arm and Right_Arm link paths here — no need to duplicate in Arm_Right.
-    # LinkerHand_* carved out via excludes (ungrouped → finger self-col).
-    def Scope "CollisionGroups"
-    {
-        def PhysicsCollisionGroup "NonDexHand" (
-            prepend apiSchemas = ["CollectionAPI:colliders"]
-        )
-        {
-            prepend rel collection:colliders:includes = [
-                </FiveAges_W2/base_link>,
-                </FiveAges_W2/body_link1>,
-                </FiveAges_W2/body_link2>,
-                </FiveAges_W2/body_link3>,
-                </FiveAges_W2/body_link4>,
-                </FiveAges_W2/Linkhou_S2/base_footprint>,
-                </FiveAges_W2/Linkhou_S2/fl_steer>,
-                </FiveAges_W2/Linkhou_S2/fl_wheel>,
-                </FiveAges_W2/Linkhou_S2/fr_steer>,
-                </FiveAges_W2/Linkhou_S2/fr_wheel>,
-                </FiveAges_W2/Linkhou_S2/rl_steer>,
-                </FiveAges_W2/Linkhou_S2/rl_wheel>,
-                </FiveAges_W2/Linkhou_S2/rr_steer>,
-                </FiveAges_W2/Linkhou_S2/rr_wheel>,
-                </FiveAges_W2/Left_Arm/base_link>,
-                </FiveAges_W2/Left_Arm/link1>,
-                </FiveAges_W2/Left_Arm/link2>,
-                </FiveAges_W2/Left_Arm/link3>,
-                </FiveAges_W2/Left_Arm/link4>,
-                </FiveAges_W2/Left_Arm/link5>,
-                </FiveAges_W2/Left_Arm/link6>,
-                </FiveAges_W2/Left_Arm/link7>,
-                </FiveAges_W2/Right_Arm/base_link>,
-                </FiveAges_W2/Right_Arm/link1>,
-                </FiveAges_W2/Right_Arm/link2>,
-                </FiveAges_W2/Right_Arm/link3>,
-                </FiveAges_W2/Right_Arm/link4>,
-                </FiveAges_W2/Right_Arm/link5>,
-                </FiveAges_W2/Right_Arm/link6>,
-                </FiveAges_W2/Right_Arm/link7>,
-            ]
-            prepend rel collection:colliders:excludes = [
-                </FiveAges_W2/Left_Arm/link7/tcp/LinkerHand_o6>,
-                </FiveAges_W2/Left_Arm/link7/tcp/LinkerHand_o7>,
-                </FiveAges_W2/Right_Arm/link7/tcp/LinkerHand_o6>,
-                </FiveAges_W2/Right_Arm/link7/tcp/LinkerHand_o7>,
-            ]
-            prepend rel physics:filteredGroups = [
-                </FiveAges_W2/CollisionGroups/NonDexHand>,
-            ]
-        }
-    }
-
     def "Left_Arm" (
         prepend payload = @../../../../../../manipulators/Tianji/M6_CCS/M6_CCS.usda@
         variants = {

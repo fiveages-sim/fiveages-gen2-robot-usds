@@ -3,7 +3,8 @@
     defaultPrim = "FiveAges_W2"
     metersPerUnit = 1
     subLayers = [
-        @./physics.usda@
+        @./physics.usda@,
+        @./body_self_collision_mute.usda@
     ]
     upAxis = "Z"
 )
@@ -14,8 +15,8 @@ def "FiveAges_W2"
         prepend apiSchemas = ["PhysxArticulationAPI"]
     )
     {
-        # On: Plan A finger self-col when M6+LinkerHand joins this tree.
-        # NonDexHand in Arm_Left/M6_CCS.usda mutes body/arm self (covers both arms).
+        # On for any arm mix; NonDexHand (body_self_collision_mute.usda) mutes
+        # torso/chassis/arm self-pairs. Dexhand EE excludes keep fingers free.
         bool physxArticulation:enabledSelfCollisions = 1
         int physxArticulation:solverPositionIterationCount = 32
         int physxArticulation:solverVelocityIterationCount = 1
