@@ -7,8 +7,8 @@
                 double radius = 5
             }
             dictionary Perspective = {
-                double3 position = (3.0278204917957865, 1.1695533497242196, 3.8895107439561145)
-                double3 target = (0.3580334345967464, -0.49990580016021324, 0.503584445600739)
+                double3 position = (3.5464424729699697, 0.42823374835232325, 3.0773311909229837)
+                double3 target = (-7.925875307675449, -0.578778250504782, -4.1188207027479695)
             }
             dictionary Right = {
                 double3 position = (0, -5, 0)
@@ -23,7 +23,11 @@
         dictionary metricsAssembler = {
             dictionary "/World/EastRural_Table" = {
             }
+            dictionary "/World/NaturalBostonRoundBottle_A01_PR_NVD_01" = {
+            }
             dictionary "/World/default_environment/EastRural_Table/Apple" = {
+            }
+            dictionary "/World/default_environment/EastRural_Table/Billiard_CueStick" = {
             }
             dictionary "/World/default_environment/EastRural_Table/NaturalBostonRoundBottle_A01_PR_NVD_01" = {
             }
@@ -32,7 +36,7 @@
             int version = 1
         }
         dictionary omni_layer = {
-            string authoring_layer = "./dexhand_o7.usda"
+            string authoring_layer = "./dexhand_o7_new.usda"
             dictionary locked = {
             }
             dictionary muteness = {
@@ -56,354 +60,136 @@ def Xform "World"
     )
     {
         def "EastRural_Table" (
+            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysxRigidBodyAPI"]
             prepend payload = @https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/ArchVis/Residential/Furniture/DiningSets/EastRural/EastRural_Table.usd@
         )
         {
+            # Kinematic table: infinite mass, stable contacts for grasp tests
+            bool physics:kinematicEnabled = 1
+            bool physics:rigidBodyEnabled = 1
             quatf xformOp:orient = (1, 0, 0, 0)
             float3 xformOp:scale = (1, 1, 1)
             double3 xformOp:scale:unitsResolve = (0.009999999776482582, 0.009999999776482582, 0.009999999776482582)
-            double3 xformOp:translate = (0.7951750326966927, -0.01745600291408211, 4.99174007018155e-7)
+            double3 xformOp:translate = (0.7809491800025677, -0.024510217142726755, 4.99174007018155e-7)
             uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale", "xformOp:scale:unitsResolve"]
 
-            def "RubixCube" (
-                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysxRigidBodyAPI"]
-                prepend payload = @https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/ArchVis/Residential/Entertainment/Games/RubixCube.usd@
-            )
-            {
-                bool physics:kinematicEnabled = 0
-                bool physics:rigidBodyEnabled = 1
-                float3 xformOp:rotateXYZ = (0, 0, 0)
-                float3 xformOp:scale = (70, 70, 70)
-                double3 xformOp:scale:unitsResolve = (0.01, 0.01, 0.01)
-                double3 xformOp:translate = (0, -30.150181678711064, 89.75084367201737)
-                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale", "xformOp:scale:unitsResolve"]
-
-                over "Cubies_1" (
-                    prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysxTriangleMeshCollisionAPI", "PhysicsMeshCollisionAPI", "PhysxConvexHullCollisionAPI"]
-                )
-                {
-                    uniform token physics:approximation = "convexHull"
-                    bool physics:collisionEnabled = 1
-                }
-
-                over "Cubies_10" (
-                    prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysxTriangleMeshCollisionAPI", "PhysicsMeshCollisionAPI", "PhysxConvexHullCollisionAPI"]
-                )
-                {
-                    uniform token physics:approximation = "convexHull"
-                    bool physics:collisionEnabled = 1
-                }
-
-                over "Cubies_11" (
-                    prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysxTriangleMeshCollisionAPI", "PhysicsMeshCollisionAPI", "PhysxConvexHullCollisionAPI"]
-                )
-                {
-                    uniform token physics:approximation = "convexHull"
-                    bool physics:collisionEnabled = 1
-                }
-
-                over "Cubies_12" (
-                    prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysxTriangleMeshCollisionAPI", "PhysicsMeshCollisionAPI", "PhysxConvexHullCollisionAPI"]
-                )
-                {
-                    uniform token physics:approximation = "convexHull"
-                    bool physics:collisionEnabled = 1
-                }
-
-                over "Cubies_13" (
-                    prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysxTriangleMeshCollisionAPI", "PhysicsMeshCollisionAPI", "PhysxConvexHullCollisionAPI"]
-                )
-                {
-                    uniform token physics:approximation = "convexHull"
-                    bool physics:collisionEnabled = 1
-                }
-
-                over "Cubies_14" (
-                    prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysxTriangleMeshCollisionAPI", "PhysicsMeshCollisionAPI", "PhysxConvexHullCollisionAPI"]
-                )
-                {
-                    uniform token physics:approximation = "convexHull"
-                    bool physics:collisionEnabled = 1
-                }
-
-                over "Cubies_15" (
-                    prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysxTriangleMeshCollisionAPI", "PhysicsMeshCollisionAPI", "PhysxConvexHullCollisionAPI"]
-                )
-                {
-                    uniform token physics:approximation = "convexHull"
-                    bool physics:collisionEnabled = 1
-                }
-
-                over "Cubies_16" (
-                    prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysxTriangleMeshCollisionAPI", "PhysicsMeshCollisionAPI", "PhysxConvexHullCollisionAPI"]
-                )
-                {
-                    uniform token physics:approximation = "convexHull"
-                    bool physics:collisionEnabled = 1
-                }
-
-                over "Cubies_17" (
-                    prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysxTriangleMeshCollisionAPI", "PhysicsMeshCollisionAPI", "PhysxConvexHullCollisionAPI"]
-                )
-                {
-                    uniform token physics:approximation = "convexHull"
-                    bool physics:collisionEnabled = 1
-                }
-
-                over "Cubies_18" (
-                    prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysxTriangleMeshCollisionAPI", "PhysicsMeshCollisionAPI", "PhysxConvexHullCollisionAPI"]
-                )
-                {
-                    uniform token physics:approximation = "convexHull"
-                    bool physics:collisionEnabled = 1
-                }
-
-                over "Cubies_19" (
-                    prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysxTriangleMeshCollisionAPI", "PhysicsMeshCollisionAPI", "PhysxConvexHullCollisionAPI"]
-                )
-                {
-                    uniform token physics:approximation = "convexHull"
-                    bool physics:collisionEnabled = 1
-                }
-
-                over "Cubies_2" (
-                    prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysxTriangleMeshCollisionAPI", "PhysicsMeshCollisionAPI", "PhysxConvexHullCollisionAPI"]
-                )
-                {
-                    uniform token physics:approximation = "convexHull"
-                    bool physics:collisionEnabled = 1
-                }
-
-                over "Cubies_20" (
-                    prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysxTriangleMeshCollisionAPI", "PhysicsMeshCollisionAPI", "PhysxConvexHullCollisionAPI"]
-                )
-                {
-                    uniform token physics:approximation = "convexHull"
-                    bool physics:collisionEnabled = 1
-                }
-
-                over "Cubies_21" (
-                    prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysxTriangleMeshCollisionAPI", "PhysicsMeshCollisionAPI", "PhysxConvexHullCollisionAPI"]
-                )
-                {
-                    uniform token physics:approximation = "convexHull"
-                    bool physics:collisionEnabled = 1
-                }
-
-                over "Cubies_22" (
-                    prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysxTriangleMeshCollisionAPI", "PhysicsMeshCollisionAPI", "PhysxConvexHullCollisionAPI"]
-                )
-                {
-                    uniform token physics:approximation = "convexHull"
-                    bool physics:collisionEnabled = 1
-                }
-
-                over "Cubies_23" (
-                    prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysxTriangleMeshCollisionAPI", "PhysicsMeshCollisionAPI", "PhysxConvexHullCollisionAPI"]
-                )
-                {
-                    uniform token physics:approximation = "convexHull"
-                    bool physics:collisionEnabled = 1
-                }
-
-                over "Cubies_24" (
-                    prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysxTriangleMeshCollisionAPI", "PhysicsMeshCollisionAPI", "PhysxConvexHullCollisionAPI"]
-                )
-                {
-                    uniform token physics:approximation = "convexHull"
-                    bool physics:collisionEnabled = 1
-                }
-
-                over "Cubies_25" (
-                    prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysxTriangleMeshCollisionAPI", "PhysicsMeshCollisionAPI", "PhysxConvexHullCollisionAPI"]
-                )
-                {
-                    uniform token physics:approximation = "convexHull"
-                    bool physics:collisionEnabled = 1
-                }
-
-                over "Cubies_26" (
-                    prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysxTriangleMeshCollisionAPI", "PhysicsMeshCollisionAPI", "PhysxConvexHullCollisionAPI"]
-                )
-                {
-                    uniform token physics:approximation = "convexHull"
-                    bool physics:collisionEnabled = 1
-                }
-
-                over "Cubies_27" (
-                    prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysxTriangleMeshCollisionAPI", "PhysicsMeshCollisionAPI", "PhysxConvexHullCollisionAPI"]
-                )
-                {
-                    uniform token physics:approximation = "convexHull"
-                    bool physics:collisionEnabled = 1
-                }
-
-                over "Cubies_3" (
-                    prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysxTriangleMeshCollisionAPI", "PhysicsMeshCollisionAPI", "PhysxConvexHullCollisionAPI"]
-                )
-                {
-                    uniform token physics:approximation = "convexHull"
-                    bool physics:collisionEnabled = 1
-                }
-
-                over "Cubies_4" (
-                    prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysxTriangleMeshCollisionAPI", "PhysicsMeshCollisionAPI", "PhysxConvexHullCollisionAPI"]
-                )
-                {
-                    uniform token physics:approximation = "convexHull"
-                    bool physics:collisionEnabled = 1
-                }
-
-                over "Cubies_5" (
-                    prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysxTriangleMeshCollisionAPI", "PhysicsMeshCollisionAPI", "PhysxConvexHullCollisionAPI"]
-                )
-                {
-                    uniform token physics:approximation = "convexHull"
-                    bool physics:collisionEnabled = 1
-                }
-
-                over "Cubies_6" (
-                    prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysxTriangleMeshCollisionAPI", "PhysicsMeshCollisionAPI", "PhysxConvexHullCollisionAPI"]
-                )
-                {
-                    uniform token physics:approximation = "convexHull"
-                    bool physics:collisionEnabled = 1
-                }
-
-                over "Cubies_7" (
-                    prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysxTriangleMeshCollisionAPI", "PhysicsMeshCollisionAPI", "PhysxConvexHullCollisionAPI"]
-                )
-                {
-                    uniform token physics:approximation = "convexHull"
-                    bool physics:collisionEnabled = 1
-                }
-
-                over "Cubies_8" (
-                    prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysxTriangleMeshCollisionAPI", "PhysicsMeshCollisionAPI", "PhysxConvexHullCollisionAPI"]
-                )
-                {
-                    uniform token physics:approximation = "convexHull"
-                    bool physics:collisionEnabled = 1
-                }
-
-                over "Cubies_9" (
-                    prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysxTriangleMeshCollisionAPI", "PhysicsMeshCollisionAPI", "PhysxConvexHullCollisionAPI"]
-                )
-                {
-                    uniform token physics:approximation = "convexHull"
-                    bool physics:collisionEnabled = 1
-                }
-
-                over "Cubies_45" (
-                    prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysxTriangleMeshCollisionAPI", "PhysicsMeshCollisionAPI", "PhysxConvexHullCollisionAPI"]
-                )
-                {
-                    uniform token physics:approximation = "convexHull"
-                    bool physics:collisionEnabled = 1
-                }
-
-                over "Cubies_31" (
-                    prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysxTriangleMeshCollisionAPI", "PhysicsMeshCollisionAPI", "PhysxConvexHullCollisionAPI"]
-                )
-                {
-                    uniform token physics:approximation = "convexHull"
-                    bool physics:collisionEnabled = 1
-                }
-
-                over "Cubies_39" (
-                    prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysxTriangleMeshCollisionAPI", "PhysicsMeshCollisionAPI", "PhysxConvexHullCollisionAPI"]
-                )
-                {
-                    uniform token physics:approximation = "convexHull"
-                    bool physics:collisionEnabled = 1
-                }
-
-                over "Cubies_37" (
-                    prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysxTriangleMeshCollisionAPI", "PhysicsMeshCollisionAPI", "PhysxConvexHullCollisionAPI"]
-                )
-                {
-                    uniform token physics:approximation = "convexHull"
-                    bool physics:collisionEnabled = 1
-                }
-
-                over "Cubies_28" (
-                    prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysxTriangleMeshCollisionAPI", "PhysicsMeshCollisionAPI", "PhysxConvexHullCollisionAPI"]
-                )
-                {
-                    uniform token physics:approximation = "convexHull"
-                    bool physics:collisionEnabled = 1
-                }
-
-                over "Cubies_35" (
-                    prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysxTriangleMeshCollisionAPI", "PhysicsMeshCollisionAPI", "PhysxConvexHullCollisionAPI"]
-                )
-                {
-                    uniform token physics:approximation = "convexHull"
-                    bool physics:collisionEnabled = 1
-                }
-            }
-
             over "TableTop" (
-                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysxTriangleMeshCollisionAPI", "PhysicsMeshCollisionAPI"]
+                delete apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysicsMeshCollisionAPI", "PhysxTriangleMeshCollisionAPI"]
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysxConvexHullCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMaterialAPI", "PhysxMaterialAPI"]
             )
             {
-                uniform token physics:approximation = "none"
+                uniform token physics:approximation = "convexHull"
                 bool physics:collisionEnabled = 1
+                float physics:staticFriction = 1.5
+                float physics:dynamicFriction = 1.2
+                float physics:restitution = 0
+                uniform token physxMaterial:frictionCombineMode = "max"
+                uniform token physxMaterial:restitutionCombineMode = "min"
+                bool physxMaterial:improvePatchFriction = 1
+                float physxCollision:contactOffset = 0.002
+                float physxCollision:restOffset = 0
             }
 
             over "TableBase" (
-                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysxTriangleMeshCollisionAPI", "PhysicsMeshCollisionAPI"]
+                delete apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysicsMeshCollisionAPI", "PhysxTriangleMeshCollisionAPI"]
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysxConvexHullCollisionAPI", "PhysicsMeshCollisionAPI", "PhysxConvexDecompositionCollisionAPI", "PhysicsMaterialAPI", "PhysxMaterialAPI"]
             )
             {
-                uniform token physics:approximation = "none"
+                uniform token physics:approximation = "convexDecomposition"
                 bool physics:collisionEnabled = 1
+                float physics:staticFriction = 1.5
+                float physics:dynamicFriction = 1.2
+                float physics:restitution = 0
+                uniform token physxMaterial:frictionCombineMode = "max"
+                uniform token physxMaterial:restitutionCombineMode = "min"
             }
 
-            def "Apple" (
-                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysxRigidBodyAPI"]
-                prepend payload = @https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/ArchVis/Residential/Food/Fruit/Apple.usd@
+            def "Billiard_CueStick" (
+                prepend payload = @https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/ArchVis/Residential/Entertainment/GameRoom/Billiard_CueStick.usd@
             )
             {
-                bool physics:kinematicEnabled = 0
-                bool physics:rigidBodyEnabled = 1
-                quatf xformOp:orient = (1, 0, 0, 0)
-                float3 xformOp:scale = (0.7, 0.7, 0.7)
-                double3 xformOp:scale:unitsResolve = (1.0000000223517422, 1.0000000223517422, 1.0000000223517422)
-                double3 xformOp:translate = (-12.11797598814185, 20.828906245752687, 80.73536649057992)
+                quatf xformOp:orient = (0.70710677, 0.70710677, 0, 0)
+                float3 xformOp:scale = (1.4, 1.4, 1)
+                double3 xformOp:scale:unitsResolve = (1, 1, 1)
+                double3 xformOp:translate = (-3.3060634976627057, -31.598996598951725, 93.49936188118262)
                 uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale", "xformOp:scale:unitsResolve"]
 
-                over "Apple" (
-                    prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysxConvexHullCollisionAPI", "PhysicsMeshCollisionAPI"]
+                over "BillardAccessories_CueStick_PaintedWood" (
+                    prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysxConvexHullCollisionAPI", "PhysicsMeshCollisionAPI", "MaterialBindingAPI"]
                 )
                 {
+                    rel material:binding = </World/PhysicsMaterial> (
+                        bindMaterialAs = "weakerThanDescendants"
+                    )
                     uniform token physics:approximation = "convexHull"
                     bool physics:collisionEnabled = 1
+                    quatf xformOp:orient = (1, 0, 0, 0)
+                    float3 xformOp:scale = (1, 1, 1)
+                    double3 xformOp:translate = (39.17985534667969, 37.48530578613281, 0)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:translate:pivot", "xformOp:orient", "xformOp:scale", "!invert!xformOp:translate:pivot"]
+
+                    over "BillardAccessories_CueStick_BrownWood" (
+                        prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysxConvexHullCollisionAPI", "PhysicsMeshCollisionAPI"]
+                    )
+                    {
+                        uniform token physics:approximation = "convexHull"
+                        bool physics:collisionEnabled = 1
+                    }
+
+                    over "BillardAccessories_CueStick_WhitePlastic" (
+                        prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysxConvexHullCollisionAPI", "PhysicsMeshCollisionAPI"]
+                    )
+                    {
+                        uniform token physics:approximation = "convexHull"
+                        bool physics:collisionEnabled = 1
+                    }
+
+                    over "BillardAccessories_CueStick_ClearWood" (
+                        prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysxConvexHullCollisionAPI", "PhysicsMeshCollisionAPI"]
+                    )
+                    {
+                        uniform token physics:approximation = "convexHull"
+                        bool physics:collisionEnabled = 1
+                    }
                 }
             }
+        }
 
-            def "NaturalBostonRoundBottle_A01_PR_NVD_01" (
-                prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysxRigidBodyAPI"]
-                prepend payload = @https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/DigitalTwin/Assets/Warehouse/Storage/Bottles/Plastic/NaturalBostonRound_A/NaturalBostonRoundBottle_A01_PR_NVD_01.usd@
+        def "NaturalBostonRoundBottle_A01_PR_NVD_01" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+            prepend payload = @https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/DigitalTwin/Assets/Warehouse/Storage/Bottles/Plastic/NaturalBostonRound_A/NaturalBostonRoundBottle_A01_PR_NVD_01.usd@
+        )
+        {
+            rel material:binding = </World/PhysicsMaterial> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:kinematicEnabled = 0
+            float physics:mass = 0.25
+            bool physics:rigidBodyEnabled = 1
+            quatf xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (1, 1, 1)
+            double3 xformOp:scale:unitsResolve = (0.01, 0.01, 0.01)
+            double3 xformOp:translate = (0.7205146551132204, -0.22123044729232796, 0.7620005011558533)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale", "xformOp:scale:unitsResolve"]
+
+            # Material on collider directly (binding:physics=None previously wiped friction)
+            over "NaturalBostonRoundBottle_A01_01" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysxConvexHullCollisionAPI", "PhysicsMeshCollisionAPI", "MaterialBindingAPI", "PhysicsMaterialAPI", "PhysxMaterialAPI"]
             )
             {
-                bool physics:kinematicEnabled = 0
-                bool physics:rigidBodyEnabled = 1
-                quatf xformOp:orient = (1, 0, 0, 0)
-                float3 xformOp:scale = (1, 1, 1)
-                double3 xformOp:scale:unitsResolve = (1.0000000223517422, 1.0000000223517422, 1.0000000223517422)
-                double3 xformOp:translate = (-14.619893531290245, -21.694467808801104, 79.55784882349826)
-                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale", "xformOp:scale:unitsResolve"]
-
-                over "NaturalBostonRoundBottle_A01_01" (
-                    prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysxConvexHullCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMaterialAPI"]
+                rel material:binding = </World/PhysicsMaterial> (
+                    bindMaterialAs = "weakerThanDescendants"
                 )
-                {
-                    uniform token physics:approximation = "convexHull"
-                    bool physics:collisionEnabled = 1
-                    float physics:staticFriction = 1.5
-                    float physics:dynamicFriction = 1.2
-                    float physics:restitution = 0
-                }
+                uniform token physics:approximation = "convexHull"
+                bool physics:collisionEnabled = 1
+                float physics:staticFriction = 2.0
+                float physics:dynamicFriction = 1.6
+                float physics:restitution = 0
+                uniform token physxMaterial:frictionCombineMode = "max"
+                uniform token physxMaterial:restitutionCombineMode = "min"
+                bool physxMaterial:improvePatchFriction = 1
+                float physxCollision:contactOffset = 0.002
+                float physxCollision:restOffset = 0
             }
         }
     }
@@ -417,7 +203,7 @@ def Xform "World"
     {
         quatd xformOp:orient = (1, 0, 0, 0)
         double3 xformOp:scale = (1, 1, 1)
-        double3 xformOp:translate = (0.05565967204044442, 0, 0.07203023299171055)
+        double3 xformOp:translate = (0.10051112486564989, 0, 0.07203023299171055)
         uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
 
         over "Linkhou_S2" (
@@ -429,6 +215,7 @@ def Xform "World"
             over "base_footprint"
             {
                 vector3f physics:angularVelocity = (0.043946434, 0.000034896155, -0.065074176)
+                rel physics:simulationOwner
                 vector3f physics:velocity = (-0.0005710437, -0.0006196523, 0.00016904081)
                 quatd xformOp:orient = (0.9999999999981048, -2.0876279595934086e-7, 2.2514391826881178e-8, -0.0000019355135244297823)
                 double3 xformOp:translate = (-0.0006527037507874089, 9.404029697179794e-7, -0.03203002437545383)
@@ -437,6 +224,7 @@ def Xform "World"
             over "fl_steer"
             {
                 vector3f physics:angularVelocity = (0.04394667, 0.000035324232, 0.7158716)
+                rel physics:simulationOwner
                 vector3f physics:velocity = (-0.0006262602, -0.00084076176, 0.0003544012)
                 quatd xformOp:orient = (0.999999999985274, -2.504322892525626e-7, 6.170028055998108e-9, -0.000005421184556560753)
                 double3 xformOp:translate = (0.23006835271054682, 0.2173803150653839, 0.17396996096180356)
@@ -445,14 +233,27 @@ def Xform "World"
             over "fl_wheel"
             {
                 vector3f physics:angularVelocity = (0.043933075, -1.2250471, 0.71587235)
+                rel physics:simulationOwner
                 vector3f physics:velocity = (-0.0002919261, -0.00078333466, 0.00033368403)
                 quatd xformOp:orient = (0.9999898467408254, -2.360275504964593e-7, -0.0045062607860198445, -0.000005378966148818942)
                 double3 xformOp:translate = (0.2307848303430694, 0.21381421387195587, 0.03796988651560223)
+
+                over "collisions"
+                {
+                    over "mesh_0"
+                    {
+                        over "cylinder"
+                        {
+                            rel physics:simulationOwner
+                        }
+                    }
+                }
             }
 
             over "fr_steer"
             {
                 vector3f physics:angularVelocity = (0.04394642, 0.00003485971, -0.20595948)
+                rel physics:simulationOwner
                 vector3f physics:velocity = (-0.000904655, -0.0008450933, -0.000016188902)
                 quatd xformOp:orient = (0.9999999999999674, -2.0833470351369756e-7, 3.4831245137660335e-8, -1.4375169397950792e-7)
                 double3 xformOp:translate = (0.2286265461557525, -0.21737995743751526, 0.17397018447922147)
@@ -461,14 +262,27 @@ def Xform "World"
             over "fr_wheel"
             {
                 vector3f physics:angularVelocity = (0.04394603, -0.975081, -0.20595916)
+                rel physics:simulationOwner
                 vector3f physics:velocity = (-0.0008342478, -0.0007879472, -0.0000012330056)
                 quatd xformOp:orient = (0.9999898419894637, -1.9289018869018738e-7, -0.004507318252750455, -1.363478111496717e-7)
                 double3 xformOp:translate = (0.22791000891858515, -0.2209460288286209, 0.037970139835342524)
+
+                over "collisions"
+                {
+                    over "mesh_0"
+                    {
+                        over "cylinder"
+                        {
+                            rel physics:simulationOwner
+                        }
+                    }
+                }
             }
 
             over "rl_steer"
             {
                 vector3f physics:angularVelocity = (0.043946493, 0.00003535301, 0.88736403)
+                rel physics:simulationOwner
                 vector3f physics:velocity = (-0.0006986986, -0.00031630372, 0.00035468268)
                 quatd xformOp:orient = (0.9999999999650914, -2.2723380656316504e-7, -2.7706842440661903e-8, -0.000008352536154294146)
                 double3 xformOp:translate = (-0.22993195365732733, 0.21738199889659882, 0.17396997586296475)
@@ -477,14 +291,27 @@ def Xform "World"
             over "rl_wheel"
             {
                 vector3f physics:angularVelocity = (0.04393713, -0.55883646, 0.8873644)
+                rel physics:simulationOwner
                 vector3f physics:velocity = (-0.000394596, -0.00025874167, 0.00033954845)
                 quatd xformOp:orient = (0.9999898441713492, -2.692941114409618e-7, -0.004506826504577745, -0.000008303367585825936)
                 double3 xformOp:translate = (-0.2292153270131928, 0.22094792127609253, 0.037969968471988795)
+
+                over "collisions"
+                {
+                    over "mesh_0"
+                    {
+                        over "cylinder"
+                        {
+                            rel physics:simulationOwner
+                        }
+                    }
+                }
             }
 
             over "rr_steer"
             {
                 vector3f physics:angularVelocity = (0.043946452, 0.00003492212, 0.060722742)
+                rel physics:simulationOwner
                 vector3f physics:velocity = (-0.0007920052, -0.0003257639, -0.000015907392)
                 quatd xformOp:orient = (0.9999999999965331, -2.0269234924079492e-7, 3.4458988581669874e-8, -0.00000262516956931302)
                 double3 xformOp:translate = (-0.23137367080515447, -0.21737819910049438, 0.17397021428154386)
@@ -493,9 +320,21 @@ def Xform "World"
             over "rr_wheel"
             {
                 vector3f physics:angularVelocity = (0.043937385, -1.6925246, 0.060723357)
+                rel physics:simulationOwner
                 vector3f physics:velocity = (-0.0008130584, -0.00026886433, -0.0000011238626)
                 quatd xformOp:orient = (0.9999898530675643, -2.3742746060853743e-7, -0.004504859045535273, -0.0000026143270958137325)
                 double3 xformOp:translate = (-0.23209023784464422, -0.22094424068927765, 0.037970139835342524)
+
+                over "collisions"
+                {
+                    over "mesh_0"
+                    {
+                        over "cylinder"
+                        {
+                            rel physics:simulationOwner
+                        }
+                    }
+                }
             }
 
             over "joints"
@@ -559,62 +398,155 @@ def Xform "World"
             over "base_link"
             {
                 vector3f physics:angularVelocity = (0.04386925, 0.0704723, 0.05743043)
+                rel physics:simulationOwner
                 vector3f physics:velocity = (0.000038852413, -0.0017816231, 0.00024792465)
                 quatd xformOp:orient = (0.9999999500827665, -4.5427132939459375e-7, 0.0000017769177178497973, -0.00031596059979828374)
                 double3 xformOp:translate = (-0.0013249219514216426, 0.032029796170726765, 0.0000012097060680324456)
+
+                over "collisions"
+                {
+                    over "mesh_0"
+                    {
+                        over "cylinder"
+                        {
+                            rel physics:simulationOwner
+                        }
+                    }
+                }
             }
 
             over "link1"
             {
                 vector3f physics:angularVelocity = (0.04386505, -1.0159925, 0.057431012)
+                rel physics:simulationOwner
                 vector3f physics:velocity = (0.00003438905, -0.0017777034, 0.0003274892)
                 quatd xformOp:orient = (0.9999996292785093, -3.5360713496827807e-7, 0.0000017805397135522078, 0.0008610688408376644)
                 double3 xformOp:translate = (-0.001324296102651501, 0.032029796170726765, 0.17450132119655606)
+
+                over "collisions"
+                {
+                    over "mesh_0"
+                    {
+                        over "cylinder"
+                        {
+                            rel physics:simulationOwner
+                        }
+                    }
+                }
             }
 
             over "link2"
             {
                 vector3f physics:angularVelocity = (0.04379264, -1.0159925, 0.015389602)
+                rel physics:simulationOwner
                 vector3f physics:velocity = (-0.00028037952, -0.0017892069, 0.00040070293)
                 quatd xformOp:orient = (0.7071067175558167, 0.7071063199184385, 0.0006298019612103071, 0.0005879356522473343)
                 double3 xformOp:translate = (-0.001324296102651501, 0.032029796170726765, 0.17450133609771726)
+
+                over "collisions"
+                {
+                    over "mesh_0"
+                    {
+                        over "cylinder"
+                        {
+                            rel physics:simulationOwner
+                        }
+                    }
+                }
             }
 
             over "link3"
             {
                 vector3f physics:angularVelocity = (0.043696057, -2.6418283, 0.015390403)
+                rel physics:simulationOwner
                 vector3f physics:velocity = (-0.00004414485, -0.0017774656, 0.0009811054)
                 quatd xformOp:orient = (0.99999736869921, -3.3825619247503203e-7, 0.000029628246686510007, 0.0022938432180309534)
                 double3 xformOp:translate = (-0.0013073087788905147, 0.03203003458930609, 0.461501455783844)
+
+                over "collisions"
+                {
+                    over "mesh_0"
+                    {
+                        over "cylinder"
+                        {
+                            rel physics:simulationOwner
+                        }
+                    }
+
+                    over "mesh_1"
+                    {
+                        over "cylinder"
+                        {
+                            rel physics:simulationOwner
+                        }
+                    }
+                }
             }
 
             over "link4"
             {
                 vector3f physics:angularVelocity = (0.044155087, -2.6418283, 0.115448155)
+                rel physics:simulationOwner
                 vector3f physics:velocity = (-0.0006994997, -0.001801408, 0.0010467827)
                 quatd xformOp:orient = (-0.0016000100740173916, 0.0016440535137879652, -0.707104840109911, 0.7071050007947506)
                 double3 xformOp:translate = (0.016692519082895374, 0.03211264662696478, 0.4615004425048828)
+
+                over "collisions"
+                {
+                    over "mesh_0"
+                    {
+                        over "cylinder"
+                        {
+                            rel physics:simulationOwner
+                        }
+                    }
+                }
             }
 
             over "link5"
             {
                 vector3f physics:angularVelocity = (0.04417903, -2.2592986, 0.11544798)
+                rel physics:simulationOwner
                 vector3f physics:velocity = (-0.0006178403, -0.0018151896, 0.0007061645)
                 quatd xformOp:orient = (0.9999977155104509, -3.2861985085103833e-7, 0.00003114273441881737, 0.002137288913877441)
                 double3 xformOp:translate = (-0.0012877286530817988, 0.03203003458930609, 0.775501585483551)
+
+                over "collisions"
+                {
+                    over "mesh_0"
+                    {
+                        over "cylinder"
+                        {
+                            rel physics:simulationOwner
+                        }
+                    }
+                }
             }
 
             over "link6"
             {
                 vector3f physics:angularVelocity = (0.04447088, -2.2592986, 0.18372323)
+                rel physics:simulationOwner
                 vector3f physics:velocity = (-0.0008170719, -0.0017965477, 0.0010231655)
                 quatd xformOp:orient = (0.4989695649086318, 0.5011065471054175, -0.4988908589346679, 0.5010284548949351)
                 double3 xformOp:translate = (-0.0012877286530817988, 0.03203003458930609, 0.7755016450881957)
+
+                over "collisions"
+                {
+                    over "mesh_0"
+                    {
+                        over "cylinder"
+                        {
+                            rel physics:simulationOwner
+                        }
+                    }
+                }
             }
 
             over "link7"
             {
                 vector3f physics:angularVelocity = (2.4565632, -2.2596772, 0.17341326)
+                rel physics:simulationOwner
                 vector3f physics:velocity = (-0.0008904449, -0.0017755642, 0.002516134)
                 quatd xformOp:orient = (-0.5000413524037937, 0.5020918010512527, -0.49797826392286154, 0.4998801034884936)
                 double3 xformOp:translate = (-0.0012877286530817988, 0.03203015379859564, 0.7755016450881957)
@@ -794,6 +726,110 @@ def Xform "World"
                                 float state:angular:physics:position = 1.9258584e-9
                                 float state:angular:physics:velocity = -2.3130177e-7
                             }
+                        }
+                    }
+
+                    over "LinkerHand_o7"
+                    {
+                        over "flange"
+                        {
+                            rel physics:simulationOwner
+                        }
+
+                        over "index_proximal"
+                        {
+                            rel physics:simulationOwner
+                        }
+
+                        over "index_middle"
+                        {
+                            rel physics:simulationOwner
+                        }
+
+                        over "index_distal"
+                        {
+                            rel physics:simulationOwner
+                        }
+
+                        over "middle_proximal"
+                        {
+                            rel physics:simulationOwner
+                        }
+
+                        over "middle_middle"
+                        {
+                            rel physics:simulationOwner
+                        }
+
+                        over "middle_distal"
+                        {
+                            rel physics:simulationOwner
+                        }
+
+                        over "pinky_proximal"
+                        {
+                            rel physics:simulationOwner
+                        }
+
+                        over "pinky_middle"
+                        {
+                            rel physics:simulationOwner
+                        }
+
+                        over "pinky_distal"
+                        {
+                            rel physics:simulationOwner
+                        }
+
+                        over "ring_proximal"
+                        {
+                            rel physics:simulationOwner
+                        }
+
+                        over "ring_middle"
+                        {
+                            rel physics:simulationOwner
+                        }
+
+                        over "ring_distal"
+                        {
+                            rel physics:simulationOwner
+                        }
+
+                        over "thumb_metacarpals_base1"
+                        {
+                            rel physics:simulationOwner
+                        }
+
+                        over "thumb_metacarpals_base2"
+                        {
+                            rel physics:simulationOwner
+                        }
+
+                        over "thumb_metacarpals"
+                        {
+                            rel physics:simulationOwner
+                        }
+
+                        over "thumb_proximal"
+                        {
+                            rel physics:simulationOwner
+                        }
+
+                        over "thumb_distal"
+                        {
+                            rel physics:simulationOwner
+                        }
+                    }
+                }
+
+                over "collisions"
+                {
+                    over "mesh_0"
+                    {
+                        over "cylinder"
+                        {
+                            rel physics:simulationOwner
                         }
                     }
                 }
@@ -1002,62 +1038,155 @@ def Xform "World"
             over "base_link"
             {
                 vector3f physics:angularVelocity = (0.04386925, 0.0704723, 0.05743043)
+                rel physics:simulationOwner
                 vector3f physics:velocity = (0.00024478033, -0.0017816975, 0.00009071425)
                 quatd xformOp:orient = (0.999999950077194, -1.35778853150946e-7, -0.000001745307580995436, 0.00031597870968430353)
                 double3 xformOp:translate = (-0.001325368986257458, -0.03202961548759076, -0.0000011297762394016364)
+
+                over "collisions"
+                {
+                    over "mesh_0"
+                    {
+                        over "cylinder"
+                        {
+                            rel physics:simulationOwner
+                        }
+                    }
+                }
             }
 
             over "link1"
             {
                 vector3f physics:angularVelocity = (0.043865267, -1.1964086, 0.057430845)
+                rel physics:simulationOwner
                 vector3f physics:velocity = (0.00023170082, -0.0017862176, 0.000012864064)
                 quatd xformOp:orient = (0.99999968702559, -2.0990203444943233e-7, -0.0000017245634301705843, -0.0007911673046701573)
                 double3 xformOp:translate = (-0.0013259948350275996, -0.032029496278301206, 0.17449893701076505)
+
+                over "collisions"
+                {
+                    over "mesh_0"
+                    {
+                        over "cylinder"
+                        {
+                            rel physics:simulationOwner
+                        }
+                    }
+                }
             }
 
             over "link2"
             {
                 vector3f physics:angularVelocity = (0.043487385, -1.1964087, -0.18141578)
+                rel physics:simulationOwner
                 vector3f physics:velocity = (0.00038200704, -0.0017751618, -0.000055605648)
                 quatd xformOp:orient = (0.7071066577290323, 0.7071064612026384, -0.0005351772053979585, -0.0005837003663022416)
                 double3 xformOp:translate = (-0.001325965032705212, -0.032029496278301206, 0.17449892210960385)
+
+                over "collisions"
+                {
+                    over "mesh_0"
+                    {
+                        over "cylinder"
+                        {
+                            rel physics:simulationOwner
+                        }
+                    }
+                }
             }
 
             over "link3"
             {
                 vector3f physics:angularVelocity = (0.043592166, -2.7190068, -0.18141548)
+                rel physics:simulationOwner
                 vector3f physics:velocity = (-0.00049839757, -0.0018145823, 0.00026640683)
                 quatd xformOp:orient = (0.999997707101626, -8.443978537554186e-8, 0.0000343335471967562, -0.0021411708691543366)
                 double3 xformOp:translate = (-0.0013062656976069453, -0.03202937706901188, 0.4614990119934082)
+
+                over "collisions"
+                {
+                    over "mesh_0"
+                    {
+                        over "cylinder"
+                        {
+                            rel physics:simulationOwner
+                        }
+                    }
+
+                    over "mesh_1"
+                    {
+                        over "cylinder"
+                        {
+                            rel physics:simulationOwner
+                        }
+                    }
+                }
             }
 
             over "link4"
             {
                 vector3f physics:angularVelocity = (0.044247948, -2.7190068, -0.028282186)
+                rel physics:simulationOwner
                 vector3f physics:velocity = (-0.00010441987, -0.0018275216, 0.00018356965)
                 quatd xformOp:orient = (0.0015255649848574153, -0.0015024316340137454, -0.707105065435959, 0.7071052550967717)
                 double3 xformOp:translate = (0.016693562164178943, -0.03210650547935123, 0.4614978199005127)
+
+                over "collisions"
+                {
+                    over "mesh_0"
+                    {
+                        over "cylinder"
+                        {
+                            rel physics:simulationOwner
+                        }
+                    }
+                }
             }
 
             over "link5"
             {
                 vector3f physics:angularVelocity = (0.04424432, -2.608985, -0.02828225)
+                rel physics:simulationOwner
                 vector3f physics:velocity = (-0.0005832835, -0.0018291258, -0.00040737665)
                 quatd xformOp:orient = (0.9999980521734623, -8.0435511258186e-9, 0.0000163385715613461, -0.001973672296113262)
                 double3 xformOp:translate = (-0.0012959838963831904, -0.03202949627830143, 0.7754984860420227)
+
+                over "collisions"
+                {
+                    over "mesh_0"
+                    {
+                        over "cylinder"
+                        {
+                            rel physics:simulationOwner
+                        }
+                    }
+                }
             }
 
             over "link6"
             {
                 vector3f physics:angularVelocity = (0.043745324, -2.608985, -0.1546875)
+                rel physics:simulationOwner
                 vector3f physics:velocity = (-0.0006710321, -0.0018442562, -0.00022914473)
                 quatd xformOp:orient = (0.5010063835731198, 0.49903246584983035, -0.5009654402878222, 0.49899181284270616)
                 double3 xformOp:translate = (-0.0012959540940608028, -0.03202937706901188, 0.7754984860420227)
+
+                over "collisions"
+                {
+                    over "mesh_0"
+                    {
+                        over "cylinder"
+                        {
+                            rel physics:simulationOwner
+                        }
+                    }
+                }
             }
 
             over "link7"
             {
                 vector3f physics:angularVelocity = (-2.5656924, -2.6091976, -0.14438614)
+                rel physics:simulationOwner
                 vector3f physics:velocity = (-0.00076119066, -0.0018556484, 0.0013463269)
                 quatd xformOp:orient = (0.49997973732391005, -0.4980423723162196, 0.5019906184514454, -0.49997947620865535)
                 double3 xformOp:translate = (-0.0012959540940608028, -0.03202949627830143, 0.7754984860420227)
@@ -1239,6 +1368,125 @@ def Xform "World"
                             }
                         }
                     }
+
+                    over "LinkerHand_o7"
+                    {
+                        over "joints"
+                        {
+                            over "right_hand_index_joint"
+                            {
+                                float physics:lowerLimit = 0
+                                float physics:upperLimit = 77.962364
+                            }
+
+                            over "right_hand_middle_joint"
+                            {
+                                float physics:lowerLimit = 0
+                                float physics:upperLimit = 77.962364
+                            }
+                        }
+
+                        over "flange"
+                        {
+                            rel physics:simulationOwner
+                        }
+
+                        over "index_proximal"
+                        {
+                            rel physics:simulationOwner
+                        }
+
+                        over "index_middle"
+                        {
+                            rel physics:simulationOwner
+                        }
+
+                        over "index_distal"
+                        {
+                            rel physics:simulationOwner
+                        }
+
+                        over "middle_proximal"
+                        {
+                            rel physics:simulationOwner
+                        }
+
+                        over "middle_middle"
+                        {
+                            rel physics:simulationOwner
+                        }
+
+                        over "middle_distal"
+                        {
+                            rel physics:simulationOwner
+                        }
+
+                        over "pinky_proximal"
+                        {
+                            rel physics:simulationOwner
+                        }
+
+                        over "pinky_middle"
+                        {
+                            rel physics:simulationOwner
+                        }
+
+                        over "pinky_distal"
+                        {
+                            rel physics:simulationOwner
+                        }
+
+                        over "ring_proximal"
+                        {
+                            rel physics:simulationOwner
+                        }
+
+                        over "ring_middle"
+                        {
+                            rel physics:simulationOwner
+                        }
+
+                        over "ring_distal"
+                        {
+                            rel physics:simulationOwner
+                        }
+
+                        over "thumb_metacarpals_base1"
+                        {
+                            rel physics:simulationOwner
+                        }
+
+                        over "thumb_metacarpals_base2"
+                        {
+                            rel physics:simulationOwner
+                        }
+
+                        over "thumb_metacarpals"
+                        {
+                            rel physics:simulationOwner
+                        }
+
+                        over "thumb_proximal"
+                        {
+                            rel physics:simulationOwner
+                        }
+
+                        over "thumb_distal"
+                        {
+                            rel physics:simulationOwner
+                        }
+                    }
+                }
+
+                over "collisions"
+                {
+                    over "mesh_0"
+                    {
+                        over "cylinder"
+                        {
+                            rel physics:simulationOwner
+                        }
+                    }
                 }
             }
 
@@ -1246,42 +1494,58 @@ def Xform "World"
             {
                 over "right_joint1"
                 {
+                    float physics:lowerLimit = -178
+                    float physics:upperLimit = 178
                     float state:angular:physics:position = -0.12686859
                     float state:angular:physics:velocity = 1.2668809
                 }
 
                 over "right_joint2"
                 {
+                    float physics:lowerLimit = -117.99999
+                    float physics:upperLimit = 117.99999
                     float state:angular:physics:position = -0.0041237366
                     float state:angular:physics:velocity = 0.23884691
                 }
 
                 over "right_joint3"
                 {
+                    float physics:lowerLimit = -168
+                    float physics:upperLimit = 168
                     float state:angular:physics:position = -0.15470058
                     float state:angular:physics:velocity = 1.5225978
                 }
 
                 over "right_joint4"
                 {
+                    float drive:angular:physics:targetPosition = 0
+                    float physics:lowerLimit = -142.99998
+                    float physics:upperLimit = 57.999996
                     float state:angular:physics:position = 0.0020591228
                     float state:angular:physics:velocity = -0.15313469
                 }
 
                 over "right_joint5"
                 {
+                    float drive:angular:physics:targetPosition = 0
+                    float physics:lowerLimit = -168
+                    float physics:upperLimit = 168
                     float state:angular:physics:position = 0.019185452
                     float state:angular:physics:velocity = -0.11002169
                 }
 
                 over "right_joint6"
                 {
+                    float physics:lowerLimit = -57.999996
+                    float physics:upperLimit = 57.999996
                     float state:angular:physics:position = -0.0028024425
                     float state:angular:physics:velocity = 0.12640624
                 }
 
                 over "right_joint7"
                 {
+                    float physics:lowerLimit = -78
+                    float physics:upperLimit = 78
                     float state:angular:physics:position = 0.2262421
                     float state:angular:physics:velocity = -2.6094577
                 }
@@ -1291,6 +1555,7 @@ def Xform "World"
         over "base_link"
         {
             vector3f physics:angularVelocity = (0.043946434, 0.000034896155, -0.065074176)
+            rel physics:simulationOwner
             vector3f physics:velocity = (-0.0005710884, -0.0006904311, 0.00016897268)
             quatd xformOp:orient = (0.9999999999981036, -2.0873315103946428e-7, 2.254682469368428e-8, -0.0000019361472074907504)
             double3 xformOp:translate = (-0.0006526739484650212, 9.571958798915148e-7, -0.032030002917781714)
@@ -1299,6 +1564,7 @@ def Xform "World"
         over "body_link1"
         {
             vector3f physics:angularVelocity = (0.043946236, -0.047282588, -0.06507415)
+            rel physics:simulationOwner
             vector3f physics:velocity = (-0.00070322293, -0.0009251865, 0.00016868387)
             quatd xformOp:orient = (0.9999999908099041, -2.0903486368098336e-7, -0.00013555983851906554, -0.0000019178669524269015)
             double3 xformOp:translate = (0.1045973270052093, 6.455229595303535e-7, 0.19747002259300625)
@@ -1307,6 +1573,7 @@ def Xform "World"
         over "body_link2"
         {
             vector3f physics:angularVelocity = (0.043946557, 0.038584437, -0.06507419)
+            rel physics:simulationOwner
             vector3f physics:velocity = (-0.0007202833, -0.0011817244, 0.00016917783)
             quatd xformOp:orient = (0.9999999581443914, -2.0911185494147696e-7, -0.00028932247142547446, -0.0000019181605599112515)
             double3 xformOp:translate = (0.10451003600293574, 7.800794605827832e-7, 0.5194701685051767)
@@ -1315,6 +1582,7 @@ def Xform "World"
         over "body_link3"
         {
             vector3f physics:angularVelocity = (0.04394669, 0.07047225, -0.0650742)
+            rel physics:simulationOwner
             vector3f physics:velocity = (-0.0005908767, -0.0013369393, 0.00015703327)
             quatd xformOp:orient = (0.9999999500749771, -2.0920376891459788e-7, -0.00031598461910144654, -0.0000019287352729603413)
             double3 xformOp:translate = (0.10430463839703974, 0.0019009392708539963, 0.874470187578663)
@@ -1323,6 +1591,7 @@ def Xform "World"
         over "body_link4"
         {
             vector3f physics:angularVelocity = (0.04386925, 0.0704723, 0.05743043)
+            rel physics:simulationOwner
             vector3f physics:velocity = (-0.00008619819, -0.0016567502, 0.00019021636)
             quatd xformOp:orient = (0.9999999500834115, -2.0926672639082262e-7, -0.00031595885350076683, -0.0000017702171563128321)
             double3 xformOp:translate = (0.1041424541586059, 9.974464774131775e-7, 1.0177801384072152)
@@ -1332,9 +1601,21 @@ def Xform "World"
                 over "stand_link3"
                 {
                     vector3f physics:angularVelocity = (0.04386925, 0.0704723, 0.05743043)
+                    rel physics:simulationOwner
                     vector3f physics:velocity = (-0.0005292335, -0.0013632072, 0.00016843324)
                     quatd xformOp:orient = (1, -0, 0, 0)
                     double3 xformOp:translate = (-2.0013089019332853e-8, 1.0297280571392769e-10, 5.474280984074653e-8)
+
+                    over "collisions"
+                    {
+                        over "mesh_0"
+                        {
+                            over "box"
+                            {
+                                rel physics:simulationOwner
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -1344,6 +1625,7 @@ def Xform "World"
             over "head_mount"
             {
                 vector3f physics:angularVelocity = (0.04386925, 0.0704723, 0.05743043)
+                rel physics:simulationOwner
                 vector3f physics:velocity = (0.00017513016, -0.0018262938, 0.00019864136)
                 quatd xformOp:orient = (0.9999999500834115, -2.0926672639082262e-7, -0.00031595885350076683, -0.0000017702171563128321)
                 double3 xformOp:translate = (-0.0013422624356133062, 0.0000012824893929064274, -0.03204430803252789)
@@ -1352,6 +1634,7 @@ def Xform "World"
             over "head_link1"
             {
                 vector3f physics:angularVelocity = (0.043854736, 0.07047231, 0.08040418)
+                rel physics:simulationOwner
                 vector3f physics:velocity = (0.000032686065, -0.0017457041, 0.00020569954)
                 quatd xformOp:orient = (0.9999999499879155, -2.0302835558787067e-7, -0.00031594692948183736, -0.000014200809018366296)
                 double3 xformOp:translate = (-0.0013422624356133062, 0.0000012814998626708984, -0.03204430803252789)
@@ -1360,6 +1643,7 @@ def Xform "World"
             over "head_link2"
             {
                 vector3f physics:angularVelocity = (0.04387213, 0.67975974, 0.08040393)
+                rel physics:simulationOwner
                 vector3f physics:velocity = (-0.00026085033, -0.0019222439, 0.00037673317)
                 quatd xformOp:orient = (0.9999996862740066, -2.0512381251908793e-7, -0.0007919916548706631, -0.00001417973651320231)
                 double3 xformOp:translate = (-0.001437063623128565, 0.0000013355165719985962, 0.1179556681256142)
@@ -1385,28 +1669,48 @@ def Xform "World"
         {
             over "body_joint1"
             {
+                float physics:lowerLimit = -77.49999
+                float physics:upperLimit = 32.5
                 float state:angular:physics:position = -0.015536594
                 float state:angular:physics:velocity = -0.047317464
             }
 
             over "body_joint2"
             {
+                float physics:lowerLimit = -152.40999
+                float physics:upperLimit = 91.96
                 float state:angular:physics:position = 0.017619891
                 float state:angular:physics:velocity = -0.08586701
             }
 
             over "body_joint3"
             {
+                float physics:lowerLimit = -99.99999
+                float physics:upperLimit = 99.99999
                 float state:angular:physics:position = -0.0030552463
                 float state:angular:physics:velocity = 0.031887792
             }
 
             over "body_joint4"
             {
+                float physics:lowerLimit = -180
+                float physics:upperLimit = 180
                 float state:angular:physics:position = -0.000018159964
                 float state:angular:physics:velocity = -0.122504674
             }
         }
+    }
+
+    def Material "PhysicsMaterial" (
+        prepend apiSchemas = ["PhysicsMaterialAPI", "PhysxMaterialAPI"]
+    )
+    {
+        float physics:dynamicFriction = 1.6
+        float physics:staticFriction = 2.0
+        float physics:restitution = 0
+        uniform token physxMaterial:frictionCombineMode = "max"
+        uniform token physxMaterial:restitutionCombineMode = "min"
+        bool physxMaterial:improvePatchFriction = 1
     }
 }
 
@@ -1526,10 +1830,10 @@ over "OmniverseKit_Persp" (
     float exposure:time = 0.02
     float focalLength = 18.147562
     float focusDistance = 400
-    custom uniform vector3d omni:kit:centerOfInterest = (0, 0, -4.6237813185546415)
-    float3 xformOp:rotateXYZ = (42.92169, -8.905553e-14, 122.01838)
+    custom uniform vector3d omni:kit:centerOfInterest = (0, 0, -13.579865629038428)
+    float3 xformOp:rotateXYZ = (58.0004, -3.21236e-13, 95.016426)
     float3 xformOp:scale = (1, 1, 1)
-    double3 xformOp:translate = (3.0278204917957865, 1.1695533497242196, 3.8895107439561145)
+    double3 xformOp:translate = (3.5464424729699697, 0.42823374835232325, 3.0773311909229837)
     uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
 }
 
@@ -1614,6 +1918,7 @@ def PhysicsScene "PhysicsScene" (
 )
 {
     uniform token physxScene:broadphaseType = "SAP"
+    bool physxScene:enableCCD = 1
     bool physxScene:enableGPUDynamics = 0
 }
 
