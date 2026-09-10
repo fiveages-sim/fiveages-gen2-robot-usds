@@ -7,8 +7,8 @@
                 double radius = 5
             }
             dictionary Perspective = {
-                double3 position = (2.3804239983248165, -1.6507766265583745, 3.11054742503761)
-                double3 target = (-2.217736484767402, 2.2069544027666192, -4.663005167558616)
+                double3 position = (0.2071425952011257, -1.246331056108108, 1.5090206934741481)
+                double3 target = (-0.021785973909732165, -0.3564174366498136, 1.7841395555586925)
             }
             dictionary Right = {
                 double3 position = (0, -5, 0)
@@ -65,8 +65,53 @@ def Xform "World"
             {
                 float3 xformOp:rotateZYX = (-0, 0, -0)
                 float3 xformOp:scale = (100, 100, 100)
-                double3 xformOp:translate = (-31.28082245322902, -46.14337226722094, 107.12885057547138)
+                double3 xformOp:translate = (-25.13934076278842, -46.14337226722043, 107.12885057546977)
                 uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateZYX", "xformOp:scale"]
+
+                over "PhysicsMaterials"
+                {
+                    over "physics_mat_tn__defaultMat011_YK"
+                    {
+                        # Stem grasp: apple was ~0.45 — too slippery vs MJWarp pads
+                        float physics:staticFriction = 3.0
+                        float physics:dynamicFriction = 2.8
+                        float physics:restitution = 0.0
+                    }
+                }
+
+                over "Geometry"
+                {
+                    over "model_normalized_0_vis_obj"
+                    {
+                        string isaac:nameOverride (
+                            displayName = "Name Override"
+                        )
+                        token visibility = "inherited"
+
+                        over "model_normalized_0_vis_mesh" (
+                            instanceable = false
+                        )
+                        {
+                            over "model_normalized_0_vis_mesh" (
+                                prepend apiSchemas = ["PhysxConvexHullCollisionAPI", "PhysxConvexDecompositionCollisionAPI", "PhysxSDFMeshCollisionAPI", "NewtonMaterialAPI", "NewtonCollisionAPI"]
+                            )
+                            {
+                                # Keep SDF for stem detail (user). Costly but needed for stem.
+                                token physics:approximation = "sdf"
+                                # Full friction model for thin stem twist/roll
+                                uniform int mjc:condim = 6
+                                float newton:torsionalFriction = 0.25
+                                float newton:rollingFriction = 0.1
+                                float newton:contactFrictionGain = 8000
+                                float newton:contactStiffness = 25000
+                                float newton:contactDamping = 800
+                                int physxConvexDecompositionCollision:hullVertexLimit = 56
+                                int physxConvexDecompositionCollision:maxConvexHulls = 128
+                                int physxConvexHullCollision:hullVertexLimit = 35
+                            }
+                        }
+                    }
+                }
             }
         }
     }
@@ -281,10 +326,10 @@ over "OmniverseKit_Persp" (
     float exposure:time = 0.02
     float focalLength = 18.147562
     float focusDistance = 400
-    custom uniform vector3d omni:kit:centerOfInterest = (0, 0, -9.82106350823307)
-    float3 xformOp:rotateXYZ = (37.672363, -2.2263883e-14, 50.00427)
+    custom uniform vector3d omni:kit:centerOfInterest = (0, 0, -0.9591897247819127)
+    float3 xformOp:rotateXYZ = (106.66792, -2.592152e-13, 14.426428)
     float3 xformOp:scale = (1, 1, 1)
-    double3 xformOp:translate = (2.3804239983248165, -1.6507766265583745, 3.11054742503761)
+    double3 xformOp:translate = (0.2071425952011257, -1.246331056108108, 1.5090206934741481)
     uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
 }
 
@@ -368,5 +413,13 @@ def PhysicsScene "PhysicsScene" (
     prepend apiSchemas = ["NewtonSceneAPI", "MjcSceneAPI"]
 )
 {
+    # FPS: align with Galaxea fruits + Dobot CR5 Newton envs.
+    # timeStepsPerSecond 1000→200 ≈ 5× less physics work (dt 1ms→5ms).
+    # Tradeoff: less stable for very stiff contacts / fast impacts; OK for teleop grasp.
+    # Stem grasp still uses stiff pad ke + elliptic cone (see o7 mujoco + grasp_contact.py).
+    uniform int newton:timeStepsPerSecond = 200
+    uniform int newton:maxSolverIterations = 100
+    uniform token mjc:option:cone = "elliptic"
+    uniform token mjc:option:integrator = "implicit"
 }
 

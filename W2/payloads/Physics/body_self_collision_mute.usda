@@ -1,9 +1,14 @@
 #usda 1.0
 (
-    doc = """W2 NonDexHand mute — subLayer of payloads/Physics/physx.usda.
+    doc = """W2 NonDexHand mute — subLayer of payloads/Physics/physx.usda ONLY.
 
-Always composed with Physics=physx (any Arm_Left/Arm_Right mix). Mutes
-torso/chassis/arm self-pairs while base_link self-col is on.
+PhysX: CollisionGroup + filteredGroups self-filter. Always composed with
+Physics=physx (any Arm_Left/Arm_Right mix).
+
+Newton does NOT reliably honor filteredGroups / CollectionAPI membership;
+see body_self_collision_mute_newton.usda — wired as append references on
+FiveAges_W2 Physics=mujoco (body+chassis only; never Left/Right_Arm).
+Payload subLayer mute is too weak vs base.usda (authored=False).
 
 Dexhand roots listed in excludes stay ungrouped (finger self-col).
 Keep hand prim names in sync with M6 EE dexhand_self_collision.usda.

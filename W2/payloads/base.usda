@@ -56,8 +56,11 @@ def Xform "FiveAges_W2"
             instanceable = false
         )
         {
+            # NEWTON: collision instanceable=false so Physics=mujoco mute can
+            # author physics:collisionEnabled on nested mesh (see body_self_collision_mute_newton).
+            # Visuals above stay instanceable. PhysX CollisionGroup unchanged.
             def Xform "base" (
-                instanceable = true
+                instanceable = false
                 prepend references = @./instances.usda@</Instances/mesh_1>
             )
             {
@@ -96,7 +99,7 @@ def Xform "FiveAges_W2"
         )
         {
             def Xform "link1" (
-                instanceable = true
+                instanceable = false
                 prepend references = @./instances.usda@</Instances/mesh_1_2>
             )
             {
@@ -135,7 +138,7 @@ def Xform "FiveAges_W2"
         )
         {
             def Xform "link2" (
-                instanceable = true
+                instanceable = false
                 prepend references = @./instances.usda@</Instances/mesh_2_1>
             )
             {
@@ -170,7 +173,7 @@ def Xform "FiveAges_W2"
         )
         {
             def Xform "link3" (
-                instanceable = true
+                instanceable = false
                 prepend references = @./instances.usda@</Instances/mesh_3_1>
             )
             {

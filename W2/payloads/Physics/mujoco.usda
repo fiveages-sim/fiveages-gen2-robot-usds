@@ -71,7 +71,10 @@ def "FiveAges_W2"
         prepend apiSchemas = ["NewtonArticulationRootAPI"]
     )
     {
-        bool newton:selfCollisionEnabled = 0
+        # NEWTON: self-col ON. Body/chassis mute via W2 root Physics=mujoco
+        # append-ref body_self_collision_mute_newton (no arm paths). Arms: M6.
+        # PhysX: CollisionGroup NonDexHand. Art root = base_link (unchanged).
+        bool newton:selfCollisionEnabled = 1
     }
 
 

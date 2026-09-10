@@ -1,0 +1,120 @@
+#usda 1.0
+(
+    doc = """W2 Newton body/chassis mute — VALIDATED 2026-09-10.
+
+WIRE: FiveAges_W2 Physics=mujoco → append references = @this@</FiveAges_W2>
+NOT a mujoco.usda subLayer (too weak). NEVER add Left_Arm/Right_Arm here.
+Arms: M6 arm_self_collision_mute_newton. PhysX: CollisionGroup (unchanged).
+Art root: base_link. Diagnose: env/newton_verify_mute.py
+"""
+    metersPerUnit = 1
+    defaultPrim = "FiveAges_W2"
+    upAxis = "Z"
+)
+
+over "FiveAges_W2"
+{
+    over "base_link"
+    {
+        over "collisions"
+        {
+            over "base" (
+                instanceable = false
+            )
+            {
+                over "mesh"
+                {
+                    bool physics:collisionEnabled = 0
+                }
+            }
+        }
+    }
+
+    over "body_link1"
+    {
+        over "collisions"
+        {
+            over "link1" (
+                instanceable = false
+            )
+            {
+                over "mesh_1"
+                {
+                    bool physics:collisionEnabled = 0
+                }
+            }
+        }
+    }
+
+    over "body_link2"
+    {
+        over "collisions"
+        {
+            over "link2" (
+                instanceable = false
+            )
+            {
+                over "mesh_2"
+                {
+                    bool physics:collisionEnabled = 0
+                }
+            }
+        }
+    }
+
+    over "body_link3"
+    {
+        over "collisions"
+        {
+            over "link3" (
+                instanceable = false
+            )
+            {
+                over "mesh_3"
+                {
+                    bool physics:collisionEnabled = 0
+                }
+            }
+        }
+    }
+
+    over "body_link4"
+    {
+        over "Torso"
+        {
+            over "stand_link3"
+            {
+                over "collisions"
+                {
+                    over "mesh_0"
+                    {
+                        over "box"
+                        {
+                            bool physics:collisionEnabled = 0
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    # Chassis body only (not wheels). Does not edit Chassis/*.usda mounts or ROS.
+    over "Linkhou_S2"
+    {
+        over "base_footprint"
+        {
+            over "collisions"
+            {
+                over "base_link" (
+                    instanceable = false
+                )
+                {
+                    over "mesh"
+                    {
+                        bool physics:collisionEnabled = 0
+                    }
+                }
+            }
+        }
+    }
+}

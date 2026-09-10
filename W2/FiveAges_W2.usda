@@ -44,7 +44,8 @@ def Xform "FiveAges_W2" (
         string Chassis = "LinkhouS2_V1"
         string Head = "v1"
         string Torso = "default"
-        string Physics = "physx"
+        # No authored Physics default — VariantSwitcher selects physx/mujoco by engine.
+        # Authored Physics=physx blocked Newton from loading mujoco mute layers.
         string ROS = "none"
         string Robot = "none"
         string Sensor = "none"
@@ -382,6 +383,12 @@ def Xform "FiveAges_W2" (
     variantSet "Physics" = {
         "mujoco" (
             prepend payload = @./payloads/Physics/mujoco.usda@
+            # NEWTON NonDexHand mute (2026-09 validated):
+            # append REFERENCE (not mujoco subLayer) so opinions beat base.usda.
+            # File MUST NOT contain Left_Arm/Right_Arm — that races Arm payloads (Stage red).
+            # Arms muted in M6 Physics=mujoco. PhysX still uses CollisionGroup.
+            # Art root stays base_link. Diagnose: env/newton_verify_mute.py
+            append references = @./payloads/Physics/body_self_collision_mute_newton.usda@</FiveAges_W2>
         ) {
 
         }
