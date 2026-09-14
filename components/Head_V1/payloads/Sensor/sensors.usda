@@ -54,6 +54,23 @@ def Xform "Head_V1"
                 double3 xformOp:translate = (0, 0, 0)
                 uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale", "xformOp:rotateX:unitsResolve"]
             }
+
+            # Optical Camera for RTX / ROS2 (no OmniGraph here).
+            # Orient matches repo convention (Woosh chassis_camera): USD Camera looks -Z;
+            # this quat aligns look direction with the head_camera mount frame.
+            # Apertures set for square pixels at 640x480 (ha/va == width/height).
+            def Camera "head_camera"
+            {
+                float2 clippingRange = (0.05, 10)
+                float focalLength = 18.147562
+                float focusDistance = 1
+                float horizontalAperture = 20.955
+                float verticalAperture = 15.71625
+                quatd xformOp:orient = (0.5, 0.5, -0.5, -0.5)
+                double3 xformOp:scale = (1, 1, 1)
+                double3 xformOp:translate = (0, 0, 0)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
         }
     }
 }

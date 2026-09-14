@@ -7,8 +7,8 @@
                 double radius = 5
             }
             dictionary Perspective = {
-                double3 position = (0.48415573457275096, 0.34824522167526156, 0.4917879546723036)
-                double3 target = (-0.0751390337975848, -0.13183349281496864, 0.08201101154178292)
+                double3 position = (3.212404489962563, 1.303212279161279, 0.8536795701401392)
+                double3 target = (-2.8750789327616286, -0.7876225026908685, -0.8526112830641039)
             }
             dictionary Right = {
                 double3 position = (0, -5, 0)
@@ -48,7 +48,22 @@ def Xform "Head_V1" (
     append variantSets = ["Robot", "Sensor"]
 )
 {
+    over "head_link2"
+    {
+        over "head_camera"
+        {
+            over "head_camera"
+            {
+                quatd xformOp:orient = (6.123233995736766e-17, -1, 0, 0)
+            }
+        }
+    }
     variantSet "Physics" = {
+        "mujoco" (
+            prepend payload = @./payloads/Physics/mujoco.usda@
+        ) {
+
+        }
         "none" (
             prepend payload = @./payloads/Physics/none.usda@
         ) {
@@ -64,19 +79,14 @@ def Xform "Head_V1" (
         ) {
 
         }
-        "mujoco" (
-            prepend payload = @./payloads/Physics/mujoco.usda@
-        ) {
-
-        }
     }
     variantSet "visual" = {
-        "default" {
-
-        }
         "anigon" (
             prepend payload = @./payloads/Visual/anigon.usda@
         ) {
+
+        }
+        "default" {
 
         }
         "white" (
@@ -158,7 +168,7 @@ def "Render" (
                 bool omni:rtx:scene:hydra:mdlMaterialWarmup = 1
                 rel orderedVars = </Render/Vars/LdrColor>
                 custom bool overrideClipRange = 0
-                uniform int2 resolution = (1239, 654)
+                uniform int2 resolution = (1280, 720)
             }
         }
     }
@@ -205,10 +215,10 @@ over "OmniverseKit_Persp" (
     float exposure:time = 0.02
     float focalLength = 18.147562
     float focusDistance = 400
-    custom uniform vector3d omni:kit:centerOfInterest = (0, 0, -0.8433287337417202)
-    float3 xformOp:rotateXYZ = (60.928272, -3.1805547e-15, 130.64162)
+    custom uniform vector3d omni:kit:centerOfInterest = (0, 0, -6.658864241195564)
+    float3 xformOp:rotateXYZ = (75.15272, -2.862499e-14, 108.95578)
     float3 xformOp:scale = (1, 1, 1)
-    double3 xformOp:translate = (0.48415573457275096, 0.34824522167526156, 0.4917879546723036)
+    double3 xformOp:translate = (3.212404489962563, 1.303212279161279, 0.8536795701401392)
     uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
 }
 

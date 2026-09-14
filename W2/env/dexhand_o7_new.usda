@@ -7,8 +7,8 @@
                 double radius = 5
             }
             dictionary Perspective = {
-                double3 position = (3.5464424729699697, 0.42823374835232325, 3.0773311909229837)
-                double3 target = (-7.925875307675449, -0.578778250504782, -4.1188207027479695)
+                double3 position = (4.369275639662473, 1.873456013642091, 4.518701196460158)
+                double3 target = (-7.971320323834118, -4.3983317906415325, -7.646253304060352)
             }
             dictionary Right = {
                 double3 position = (0, -5, 0)
@@ -64,7 +64,6 @@ def Xform "World"
             prepend payload = @https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/ArchVis/Residential/Furniture/DiningSets/EastRural/EastRural_Table.usd@
         )
         {
-            # Kinematic table: infinite mass, stable contacts for grasp tests
             bool physics:kinematicEnabled = 1
             bool physics:rigidBodyEnabled = 1
             quatf xformOp:orient = (1, 0, 0, 0)
@@ -80,14 +79,14 @@ def Xform "World"
             {
                 uniform token physics:approximation = "convexHull"
                 bool physics:collisionEnabled = 1
-                float physics:staticFriction = 1.5
                 float physics:dynamicFriction = 1.2
                 float physics:restitution = 0
-                uniform token physxMaterial:frictionCombineMode = "max"
-                uniform token physxMaterial:restitutionCombineMode = "min"
-                bool physxMaterial:improvePatchFriction = 1
+                float physics:staticFriction = 1.5
                 float physxCollision:contactOffset = 0.002
                 float physxCollision:restOffset = 0
+                uniform token physxMaterial:frictionCombineMode = "max"
+                bool physxMaterial:improvePatchFriction = 1
+                uniform token physxMaterial:restitutionCombineMode = "min"
             }
 
             over "TableBase" (
@@ -97,99 +96,90 @@ def Xform "World"
             {
                 uniform token physics:approximation = "convexDecomposition"
                 bool physics:collisionEnabled = 1
-                float physics:staticFriction = 1.5
                 float physics:dynamicFriction = 1.2
                 float physics:restitution = 0
+                float physics:staticFriction = 1.5
                 uniform token physxMaterial:frictionCombineMode = "max"
                 uniform token physxMaterial:restitutionCombineMode = "min"
             }
 
-            def "Billiard_CueStick" (
-                prepend payload = @https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/ArchVis/Residential/Entertainment/GameRoom/Billiard_CueStick.usd@
+            def "sm_apple_a01_01" (
+                prepend payload = @https://omniverse-content-staging.s3-us-west-2.amazonaws.com/Assets/Isaac/6.0/Isaac/SimReady/Residential/Kitchen/Food/Fruit/Apple_A01/sm_apple_a01_01.usd@
             )
             {
-                quatf xformOp:orient = (0.70710677, 0.70710677, 0, 0)
-                float3 xformOp:scale = (1.4, 1.4, 1)
-                double3 xformOp:scale:unitsResolve = (1, 1, 1)
-                double3 xformOp:translate = (-3.3060634976627057, -31.598996598951725, 93.49936188118262)
+                quatf xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (100, 100, 100)
+                double3 xformOp:translate = (-8.25796788271272, -2.828646396976677, 81.37314657617344)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def "sm_food_produce_banana_a01_01" (
+                prepend payload = @https://omniverse-content-staging.s3-us-west-2.amazonaws.com/Assets/Isaac/6.0/Isaac/SimReady/Residential/Kitchen/Food/Fruit/Banana_A01/sm_food_produce_banana_a01_01.usd@
+            )
+            {
+                quatf xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (100, 100, 100)
+                double3 xformOp:translate = (-15.191919415567263, 14.802437351462663, 76.19999594092279)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def "sm_food_produce_lime_a01_01" (
+                prepend payload = @https://omniverse-content-staging.s3-us-west-2.amazonaws.com/Assets/Isaac/6.0/Isaac/SimReady/Residential/Kitchen/Food/Fruit/Lime_A01/sm_food_produce_lime_a01_01.usd@
+            )
+            {
+                quatf xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (100, 100, 100)
+                double3 xformOp:translate = (3.068215601467571, -5.433901046000862, 76.72705408483168)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def "NaturalBostonRoundBottle_A01_PR_NVD_01" (
+                prepend apiSchemas = ["MaterialBindingAPI", "PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+                prepend payload = @https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/DigitalTwin/Assets/Warehouse/Storage/Bottles/Plastic/NaturalBostonRound_A/NaturalBostonRoundBottle_A01_PR_NVD_01.usd@
+            )
+            {
+                rel material:binding = </World/default_environment/EastRural_Table/NaturalBostonRoundBottle_A01_PR_NVD_01/PhysicsMaterial> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                bool physics:kinematicEnabled = 0
+                float physics:mass = 0.25
+                bool physics:rigidBodyEnabled = 1
+                quatf xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (100, 100, 100)
+                double3 xformOp:scale:unitsResolve = (0.01, 0.01, 0.01)
+                double3 xformOp:translate = (-16.891523777481382, -19.67202345466411, 76.2000019013874)
                 uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale", "xformOp:scale:unitsResolve"]
 
-                over "BillardAccessories_CueStick_PaintedWood" (
-                    prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysxConvexHullCollisionAPI", "PhysicsMeshCollisionAPI", "MaterialBindingAPI"]
+                over "NaturalBostonRoundBottle_A01_01" (
+                    prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysxConvexHullCollisionAPI", "PhysicsMeshCollisionAPI", "MaterialBindingAPI", "PhysicsMaterialAPI", "PhysxMaterialAPI"]
                 )
                 {
-                    rel material:binding = </World/PhysicsMaterial> (
+                    rel material:binding = </World/default_environment/EastRural_Table/NaturalBostonRoundBottle_A01_PR_NVD_01/PhysicsMaterial> (
                         bindMaterialAs = "weakerThanDescendants"
                     )
                     uniform token physics:approximation = "convexHull"
                     bool physics:collisionEnabled = 1
-                    quatf xformOp:orient = (1, 0, 0, 0)
-                    float3 xformOp:scale = (1, 1, 1)
-                    double3 xformOp:translate = (39.17985534667969, 37.48530578613281, 0)
-                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:translate:pivot", "xformOp:orient", "xformOp:scale", "!invert!xformOp:translate:pivot"]
-
-                    over "BillardAccessories_CueStick_BrownWood" (
-                        prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysxConvexHullCollisionAPI", "PhysicsMeshCollisionAPI"]
-                    )
-                    {
-                        uniform token physics:approximation = "convexHull"
-                        bool physics:collisionEnabled = 1
-                    }
-
-                    over "BillardAccessories_CueStick_WhitePlastic" (
-                        prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysxConvexHullCollisionAPI", "PhysicsMeshCollisionAPI"]
-                    )
-                    {
-                        uniform token physics:approximation = "convexHull"
-                        bool physics:collisionEnabled = 1
-                    }
-
-                    over "BillardAccessories_CueStick_ClearWood" (
-                        prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysxConvexHullCollisionAPI", "PhysicsMeshCollisionAPI"]
-                    )
-                    {
-                        uniform token physics:approximation = "convexHull"
-                        bool physics:collisionEnabled = 1
-                    }
+                    float physics:dynamicFriction = 1.6
+                    float physics:restitution = 0
+                    float physics:staticFriction = 2
+                    float physxCollision:contactOffset = 0.002
+                    float physxCollision:restOffset = 0
+                    uniform token physxMaterial:frictionCombineMode = "max"
+                    bool physxMaterial:improvePatchFriction = 1
+                    uniform token physxMaterial:restitutionCombineMode = "min"
                 }
-            }
-        }
 
-        def "NaturalBostonRoundBottle_A01_PR_NVD_01" (
-            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
-            prepend payload = @https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/DigitalTwin/Assets/Warehouse/Storage/Bottles/Plastic/NaturalBostonRound_A/NaturalBostonRoundBottle_A01_PR_NVD_01.usd@
-        )
-        {
-            rel material:binding = </World/PhysicsMaterial> (
-                bindMaterialAs = "weakerThanDescendants"
-            )
-            bool physics:kinematicEnabled = 0
-            float physics:mass = 0.25
-            bool physics:rigidBodyEnabled = 1
-            quatf xformOp:orient = (1, 0, 0, 0)
-            float3 xformOp:scale = (1, 1, 1)
-            double3 xformOp:scale:unitsResolve = (0.01, 0.01, 0.01)
-            double3 xformOp:translate = (0.7205146551132204, -0.22123044729232796, 0.7620005011558533)
-            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale", "xformOp:scale:unitsResolve"]
-
-            # Material on collider directly (binding:physics=None previously wiped friction)
-            over "NaturalBostonRoundBottle_A01_01" (
-                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysxConvexHullCollisionAPI", "PhysicsMeshCollisionAPI", "MaterialBindingAPI", "PhysicsMaterialAPI", "PhysxMaterialAPI"]
-            )
-            {
-                rel material:binding = </World/PhysicsMaterial> (
-                    bindMaterialAs = "weakerThanDescendants"
+                def Material "PhysicsMaterial" (
+                    prepend apiSchemas = ["PhysicsMaterialAPI", "PhysxMaterialAPI"]
                 )
-                uniform token physics:approximation = "convexHull"
-                bool physics:collisionEnabled = 1
-                float physics:staticFriction = 2.0
-                float physics:dynamicFriction = 1.6
-                float physics:restitution = 0
-                uniform token physxMaterial:frictionCombineMode = "max"
-                uniform token physxMaterial:restitutionCombineMode = "min"
-                bool physxMaterial:improvePatchFriction = 1
-                float physxCollision:contactOffset = 0.002
-                float physxCollision:restOffset = 0
+                {
+                    float physics:dynamicFriction = 1.6
+                    float physics:restitution = 0
+                    float physics:staticFriction = 2
+                    uniform token physxMaterial:frictionCombineMode = "max"
+                    bool physxMaterial:improvePatchFriction = 1
+                    uniform token physxMaterial:restitutionCombineMode = "min"
+                }
             }
         }
     }
@@ -203,7 +193,7 @@ def Xform "World"
     {
         quatd xformOp:orient = (1, 0, 0, 0)
         double3 xformOp:scale = (1, 1, 1)
-        double3 xformOp:translate = (0.10051112486564989, 0, 0.07203023299171055)
+        double3 xformOp:translate = (-0.18388290077871555, 0.09478332836271869, 0.07203023299171055)
         uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
 
         over "Linkhou_S2" (
@@ -1620,7 +1610,11 @@ def Xform "World"
             }
         }
 
-        over "Head_V1"
+        over "Head_V1" (
+            variants = {
+                string Sensor = "sensors"
+            }
+        )
         {
             over "head_mount"
             {
@@ -1647,6 +1641,15 @@ def Xform "World"
                 vector3f physics:velocity = (-0.00026085033, -0.0019222439, 0.00037673317)
                 quatd xformOp:orient = (0.9999996862740066, -2.0512381251908793e-7, -0.0007919916548706631, -0.00001417973651320231)
                 double3 xformOp:translate = (-0.001437063623128565, 0.0000013355165719985962, 0.1179556681256142)
+
+                over "head_camera"
+                {
+                    over "head_camera" (
+                        prepend apiSchemas = ["OmniRtxCameraAutoExposureAPI_1", "OmniRtxCameraExposureAPI_1"]
+                    )
+                    {
+                    }
+                }
             }
 
             over "joints"
@@ -1699,18 +1702,6 @@ def Xform "World"
                 float state:angular:physics:velocity = -0.122504674
             }
         }
-    }
-
-    def Material "PhysicsMaterial" (
-        prepend apiSchemas = ["PhysicsMaterialAPI", "PhysxMaterialAPI"]
-    )
-    {
-        float physics:dynamicFriction = 1.6
-        float physics:staticFriction = 2.0
-        float physics:restitution = 0
-        uniform token physxMaterial:frictionCombineMode = "max"
-        uniform token physxMaterial:restitutionCombineMode = "min"
-        bool physxMaterial:improvePatchFriction = 1
     }
 }
 
@@ -1785,6 +1776,21 @@ def "Render" (
                 custom bool overrideClipRange = 0
                 uniform int2 resolution = (1280, 720)
             }
+
+            def RenderProduct "Replicator" (
+                prepend apiSchemas = ["OmniRtxSettingsCommonAdvancedAPI_1", "OmniRtxSettingsRtAdvancedAPI_1", "OmniRtxSettingsPtAdvancedAPI_1", "OmniRtxPostColorGradingAPI_1", "OmniRtxPostChromaticAberrationAPI_1", "OmniRtxPostBloomPhysicalAPI_1", "OmniRtxPostMatteObjectAPI_1", "OmniRtxPostCompositingAPI_1", "OmniRtxPostDofAPI_1", "OmniRtxPostMotionBlurAPI_1", "OmniRtxPostTvNoiseAPI_1", "OmniRtxPostTonemapIrayReinhardAPI_1", "OmniRtxPostDebugSettingsAPI_1", "OmniRtxDebugSettingsAPI_1"]
+                hide_in_stage_window = true
+                no_delete = true
+            )
+            {
+                rel camera = </World/FiveAges_W2/Head_V1/head_link2/head_camera/head_camera>
+                bool omni:rtx:material:db:syncLoads = 1
+                bool omni:rtx:rt:ecoMode:enabled
+                bool omni:rtx:scene:hydra:materialSyncLoads = 1
+                rel orderedVars = </Render/Vars/LdrColor>
+                custom bool overrideClipRange = 0
+                uniform int2 resolution = (640, 480)
+            }
         }
     }
 
@@ -1793,7 +1799,10 @@ def "Render" (
         no_delete = true
     )
     {
-        rel products = </Render/OmniverseKit/HydraTextures/omni_kit_widget_viewport_ViewportTexture_0>
+        rel products = [
+            </Render/OmniverseKit/HydraTextures/omni_kit_widget_viewport_ViewportTexture_0>,
+            </Render/OmniverseKit/HydraTextures/Replicator>,
+        ]
     }
 
     def "Vars"
@@ -1830,10 +1839,10 @@ over "OmniverseKit_Persp" (
     float exposure:time = 0.02
     float focalLength = 18.147562
     float focusDistance = 400
-    custom uniform vector3d omni:kit:centerOfInterest = (0, 0, -13.579865629038428)
-    float3 xformOp:rotateXYZ = (58.0004, -3.21236e-13, 95.016426)
+    custom uniform vector3d omni:kit:centerOfInterest = (0, 0, -18.4285579738612)
+    float3 xformOp:rotateXYZ = (48.69141, -3.9438879e-13, 116.94077)
     float3 xformOp:scale = (1, 1, 1)
-    double3 xformOp:translate = (3.5464424729699697, 0.42823374835232325, 3.0773311909229837)
+    double3 xformOp:translate = (4.369275639662473, 1.873456013642091, 4.518701196460158)
     uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
 }
 
@@ -1988,6 +1997,186 @@ def "Graph"
             token node:type = "isaacsim.ros2.bridge.ROS2Context"
             int node:typeVersion = 2
             custom uint64 outputs:context
+        }
+    }
+
+    def OmniGraph "ROS_HeadCamera"
+    {
+        token evaluationMode = "Automatic"
+        token evaluator:type = "execution"
+        token fabricCacheBacking = "StageWithoutHistory"
+        int2 fileFormatVersion = (1, 9)
+        token pipelineStage = "pipelineStageSimulation"
+
+        def OmniGraphNode "OnPlaybackTick"
+        {
+            token node:type = "omni.graph.action.OnPlaybackTick"
+            int node:typeVersion = 2
+            custom double outputs:deltaSeconds
+            custom double outputs:frame
+            custom uint outputs:tick (
+                customData = {
+                    bool isExecution = 1
+                }
+            )
+            custom double outputs:time
+        }
+
+        def OmniGraphNode "RunOnce"
+        {
+            custom uint inputs:execIn (
+                customData = {
+                    bool isExecution = 1
+                }
+            )
+            prepend uint inputs:execIn.connect = </Graph/ROS_HeadCamera/OnPlaybackTick.outputs:tick>
+            token node:type = "isaacsim.core.nodes.OgnIsaacRunOneSimulationFrame"
+            int node:typeVersion = 1
+            custom uint outputs:step (
+                customData = {
+                    bool isExecution = 1
+                }
+            )
+        }
+
+        def OmniGraphNode "Context"
+        {
+            custom uchar inputs:domain_id
+            custom bool inputs:useDomainIDEnvVar
+            token node:type = "isaacsim.ros2.bridge.ROS2Context"
+            int node:typeVersion = 2
+            custom uint64 outputs:context
+        }
+
+        def OmniGraphNode "RenderProduct"
+        {
+            custom rel inputs:cameraPrim = </World/FiveAges_W2/Head_V1/head_link2/head_camera/head_camera> (
+                customData = {
+                    dictionary omni = {
+                        dictionary graph = {
+                            string relType = "target"
+                        }
+                    }
+                }
+            )
+            custom bool inputs:enabled
+            custom uint inputs:execIn (
+                customData = {
+                    bool isExecution = 1
+                }
+            )
+            prepend uint inputs:execIn.connect = </Graph/ROS_HeadCamera/RunOnce.outputs:step>
+            custom uint inputs:height = 480
+            custom rel inputs:renderProductPrim (
+                customData = {
+                    dictionary omni = {
+                        dictionary graph = {
+                            string relType = "target"
+                        }
+                    }
+                }
+            )
+            custom uint inputs:width = 640
+            token node:type = "isaacsim.core.nodes.IsaacCreateRenderProduct"
+            int node:typeVersion = 2
+            custom uint outputs:execOut (
+                customData = {
+                    bool isExecution = 1
+                }
+            )
+            custom token outputs:renderProductPath
+        }
+
+        def OmniGraphNode "CameraInfoPublish"
+        {
+            custom uint64 inputs:context
+            prepend uint64 inputs:context.connect = </Graph/ROS_HeadCamera/Context.outputs:context>
+            custom bool inputs:enabled
+            custom uint inputs:execIn (
+                customData = {
+                    bool isExecution = 1
+                }
+            )
+            prepend uint inputs:execIn.connect = </Graph/ROS_HeadCamera/RenderProduct.outputs:execOut>
+            custom string inputs:frameId = "head_camera"
+            custom string inputs:frameIdRight
+            custom uint inputs:frameSkipCount
+            custom string inputs:nodeNamespace = "head_camera"
+            custom string inputs:qosProfile
+            custom uint64 inputs:queueSize
+            custom token inputs:renderProductPath
+            prepend token inputs:renderProductPath.connect = </Graph/ROS_HeadCamera/RenderProduct.outputs:renderProductPath>
+            custom token inputs:renderProductPathRight
+            custom bool inputs:resetSimulationTimeOnStop = 1
+            custom string inputs:topicName = "camera_info"
+            custom string inputs:topicNameRight
+            custom bool inputs:useSystemTime
+            token node:type = "isaacsim.ros2.bridge.ROS2CameraInfoHelper"
+            int node:typeVersion = 1
+        }
+
+        def OmniGraphNode "RGBPublish"
+        {
+            custom uint64 inputs:context
+            prepend uint64 inputs:context.connect = </Graph/ROS_HeadCamera/Context.outputs:context>
+            custom bool inputs:enabled
+            custom bool inputs:enableSemanticLabels
+            custom uint inputs:execIn (
+                customData = {
+                    bool isExecution = 1
+                }
+            )
+            prepend uint inputs:execIn.connect = </Graph/ROS_HeadCamera/RenderProduct.outputs:execOut>
+            custom string inputs:frameId = "head_camera"
+            custom uint inputs:frameSkipCount
+            custom string inputs:nodeNamespace = "head_camera"
+            custom string inputs:qosProfile
+            custom uint64 inputs:queueSize
+            custom token inputs:renderProductPath
+            prepend token inputs:renderProductPath.connect = </Graph/ROS_HeadCamera/RenderProduct.outputs:renderProductPath>
+            custom bool inputs:resetSimulationTimeOnStop = 1
+            custom string inputs:semanticLabelsTopicName
+            custom string inputs:srtxCompressionType
+            custom float2 inputs:stereoOffset
+            custom string inputs:topicName = "rgb"
+            custom token inputs:type = "rgb" (
+                allowedTokens = ["rgb", "rgb_h264", "depth", "depth_pcl", "instance_segmentation", "semantic_segmentation", "bbox_2d_tight", "bbox_2d_loose", "bbox_3d"]
+            )
+            custom bool inputs:useSystemTime
+            token node:type = "isaacsim.ros2.bridge.ROS2CameraHelper"
+            int node:typeVersion = 2
+        }
+
+        def OmniGraphNode "DepthPublish"
+        {
+            custom uint64 inputs:context
+            prepend uint64 inputs:context.connect = </Graph/ROS_HeadCamera/Context.outputs:context>
+            custom bool inputs:enabled
+            custom bool inputs:enableSemanticLabels
+            custom uint inputs:execIn (
+                customData = {
+                    bool isExecution = 1
+                }
+            )
+            prepend uint inputs:execIn.connect = </Graph/ROS_HeadCamera/RenderProduct.outputs:execOut>
+            custom string inputs:frameId = "head_camera"
+            custom uint inputs:frameSkipCount
+            custom string inputs:nodeNamespace = "head_camera"
+            custom string inputs:qosProfile
+            custom uint64 inputs:queueSize
+            custom token inputs:renderProductPath
+            prepend token inputs:renderProductPath.connect = </Graph/ROS_HeadCamera/RenderProduct.outputs:renderProductPath>
+            custom bool inputs:resetSimulationTimeOnStop = 1
+            custom string inputs:semanticLabelsTopicName
+            custom string inputs:srtxCompressionType
+            custom float2 inputs:stereoOffset
+            custom string inputs:topicName = "depth"
+            custom token inputs:type = "depth" (
+                allowedTokens = ["rgb", "rgb_h264", "depth", "depth_pcl", "instance_segmentation", "semantic_segmentation", "bbox_2d_tight", "bbox_2d_loose", "bbox_3d"]
+            )
+            custom bool inputs:useSystemTime
+            token node:type = "isaacsim.ros2.bridge.ROS2CameraHelper"
+            int node:typeVersion = 2
         }
     }
 }
