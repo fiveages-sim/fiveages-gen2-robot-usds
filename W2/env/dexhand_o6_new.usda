@@ -206,35 +206,35 @@ def Xform "World"
 
         over "Linkhou_S2" (
             variants = {
-                string ROS = "enable"
+                string ROS = "none"
             }
         )
         {
             over "base_footprint"
             {
-                vector3f physics:angularVelocity = (0.043946434, 0.000034896155, -0.065074176)
+                vector3f physics:angularVelocity = (0, 0, 0)
                 rel physics:simulationOwner
-                vector3f physics:velocity = (-0.0005710437, -0.0006196523, 0.00016904081)
-                quatd xformOp:orient = (0.9999999999981048, -2.0876279595934086e-7, 2.2514391826881178e-8, -0.0000019355135244297823)
-                double3 xformOp:translate = (-0.0006527037507874089, 9.404029697179794e-7, -0.03203002437545383)
+                vector3f physics:velocity = (0, 0, 0)
+                quatd xformOp:orient = (1, 0, 0, 0)
+                double3 xformOp:translate = (0, 0, 0)
             }
 
             over "fl_steer"
             {
-                vector3f physics:angularVelocity = (0.04394667, 0.000035324232, 0.7158716)
+                vector3f physics:angularVelocity = (0, 0, 0)
                 rel physics:simulationOwner
-                vector3f physics:velocity = (-0.0006262602, -0.00084076176, 0.0003544012)
-                quatd xformOp:orient = (0.999999999985274, -2.504322892525626e-7, 6.170028055998108e-9, -0.000005421184556560753)
-                double3 xformOp:translate = (0.23006835271054682, 0.2173803150653839, 0.17396996096180356)
+                vector3f physics:velocity = (0, 0, 0)
+                quatd xformOp:orient = (1, 0, 0, 0)
+                double3 xformOp:translate = (0, 0, 0)
             }
 
             over "fl_wheel"
             {
-                vector3f physics:angularVelocity = (0.043933075, -1.2250471, 0.71587235)
+                vector3f physics:angularVelocity = (0, 0, 0)
                 rel physics:simulationOwner
-                vector3f physics:velocity = (-0.0002919261, -0.00078333466, 0.00033368403)
-                quatd xformOp:orient = (0.9999898467408254, -2.360275504964593e-7, -0.0045062607860198445, -0.000005378966148818942)
-                double3 xformOp:translate = (0.2307848303430694, 0.21381421387195587, 0.03796988651560223)
+                vector3f physics:velocity = (0, 0, 0)
+                quatd xformOp:orient = (1, 0, 0, 0)
+                double3 xformOp:translate = (0, 0, 0)
 
                 over "collisions"
                 {
@@ -250,20 +250,20 @@ def Xform "World"
 
             over "fr_steer"
             {
-                vector3f physics:angularVelocity = (0.04394642, 0.00003485971, -0.20595948)
+                vector3f physics:angularVelocity = (0, 0, 0)
                 rel physics:simulationOwner
-                vector3f physics:velocity = (-0.000904655, -0.0008450933, -0.000016188902)
-                quatd xformOp:orient = (0.9999999999999674, -2.0833470351369756e-7, 3.4831245137660335e-8, -1.4375169397950792e-7)
-                double3 xformOp:translate = (0.2286265461557525, -0.21737995743751526, 0.17397018447922147)
+                vector3f physics:velocity = (0, 0, 0)
+                quatd xformOp:orient = (1, 0, 0, 0)
+                double3 xformOp:translate = (0, 0, 0)
             }
 
             over "fr_wheel"
             {
-                vector3f physics:angularVelocity = (0.04394603, -0.975081, -0.20595916)
+                vector3f physics:angularVelocity = (0, 0, 0)
                 rel physics:simulationOwner
-                vector3f physics:velocity = (-0.0008342478, -0.0007879472, -0.0000012330056)
-                quatd xformOp:orient = (0.9999898419894637, -1.9289018869018738e-7, -0.004507318252750455, -1.363478111496717e-7)
-                double3 xformOp:translate = (0.22791000891858515, -0.2209460288286209, 0.037970139835342524)
+                vector3f physics:velocity = (0, 0, 0)
+                quatd xformOp:orient = (1, 0, 0, 0)
+                double3 xformOp:translate = (0, 0, 0)
 
                 over "collisions"
                 {
@@ -279,20 +279,20 @@ def Xform "World"
 
             over "rl_steer"
             {
-                vector3f physics:angularVelocity = (0.043946493, 0.00003535301, 0.88736403)
+                vector3f physics:angularVelocity = (0, 0, 0)
                 rel physics:simulationOwner
-                vector3f physics:velocity = (-0.0006986986, -0.00031630372, 0.00035468268)
-                quatd xformOp:orient = (0.9999999999650914, -2.2723380656316504e-7, -2.7706842440661903e-8, -0.000008352536154294146)
-                double3 xformOp:translate = (-0.22993195365732733, 0.21738199889659882, 0.17396997586296475)
+                vector3f physics:velocity = (0, 0, 0)
+                quatd xformOp:orient = (1, 0, 0, 0)
+                double3 xformOp:translate = (0, 0, 0)
             }
 
             over "rl_wheel"
             {
-                vector3f physics:angularVelocity = (0.04393713, -0.55883646, 0.8873644)
+                vector3f physics:angularVelocity = (0, 0, 0)
                 rel physics:simulationOwner
-                vector3f physics:velocity = (-0.000394596, -0.00025874167, 0.00033954845)
-                quatd xformOp:orient = (0.9999898441713492, -2.692941114409618e-7, -0.004506826504577745, -0.000008303367585825936)
-                double3 xformOp:translate = (-0.2292153270131928, 0.22094792127609253, 0.037969968471988795)
+                vector3f physics:velocity = (0, 0, 0)
+                quatd xformOp:orient = (1, 0, 0, 0)
+                double3 xformOp:translate = (0, 0, 0)
 
                 over "collisions"
                 {
@@ -308,20 +308,20 @@ def Xform "World"
 
             over "rr_steer"
             {
-                vector3f physics:angularVelocity = (0.043946452, 0.00003492212, 0.060722742)
+                vector3f physics:angularVelocity = (0, 0, 0)
                 rel physics:simulationOwner
-                vector3f physics:velocity = (-0.0007920052, -0.0003257639, -0.000015907392)
-                quatd xformOp:orient = (0.9999999999965331, -2.0269234924079492e-7, 3.4458988581669874e-8, -0.00000262516956931302)
-                double3 xformOp:translate = (-0.23137367080515447, -0.21737819910049438, 0.17397021428154386)
+                vector3f physics:velocity = (0, 0, 0)
+                quatd xformOp:orient = (1, 0, 0, 0)
+                double3 xformOp:translate = (0, 0, 0)
             }
 
             over "rr_wheel"
             {
-                vector3f physics:angularVelocity = (0.043937385, -1.6925246, 0.060723357)
+                vector3f physics:angularVelocity = (0, 0, 0)
                 rel physics:simulationOwner
-                vector3f physics:velocity = (-0.0008130584, -0.00026886433, -0.0000011238626)
-                quatd xformOp:orient = (0.9999898530675643, -2.3742746060853743e-7, -0.004504859045535273, -0.0000026143270958137325)
-                double3 xformOp:translate = (-0.23209023784464422, -0.22094424068927765, 0.037970139835342524)
+                vector3f physics:velocity = (0, 0, 0)
+                quatd xformOp:orient = (1, 0, 0, 0)
+                double3 xformOp:translate = (0, 0, 0)
 
                 over "collisions"
                 {
@@ -339,50 +339,50 @@ def Xform "World"
             {
                 over "fl_steer_joint"
                 {
-                    float state:angular:physics:position = -0.00039991396
-                    float state:angular:physics:velocity = 0.78094566
+                    float state:angular:physics:position = 0
+                    float state:angular:physics:velocity = 0
                 }
 
                 over "fr_steer_joint"
                 {
-                    float state:angular:physics:position = 0.00020782101
-                    float state:angular:physics:velocity = -0.1408853
+                    float state:angular:physics:position = 0
+                    float state:angular:physics:velocity = 0
                 }
 
                 over "rl_steer_joint"
                 {
-                    float state:angular:physics:position = -0.00073347136
-                    float state:angular:physics:velocity = 0.9524382
+                    float state:angular:physics:position = 0
+                    float state:angular:physics:velocity = 0
                 }
 
                 over "rr_steer_joint"
                 {
-                    float state:angular:physics:position = -0.00007750642
-                    float state:angular:physics:velocity = 0.12579688
+                    float state:angular:physics:position = 0
+                    float state:angular:physics:velocity = 0
                 }
 
                 over "fl_wheel_joint"
                 {
-                    float state:angular:physics:position = -0.5163808
-                    float state:angular:physics:velocity = -1.2250822
+                    float state:angular:physics:position = 0
+                    float state:angular:physics:velocity = 0
                 }
 
                 over "fr_wheel_joint"
                 {
-                    float state:angular:physics:position = -0.51650774
-                    float state:angular:physics:velocity = -0.97511584
+                    float state:angular:physics:position = 0
+                    float state:angular:physics:velocity = 0
                 }
 
                 over "rl_wheel_joint"
                 {
-                    float state:angular:physics:position = -0.51644665
-                    float state:angular:physics:velocity = -0.55887175
+                    float state:angular:physics:position = 0
+                    float state:angular:physics:velocity = 0
                 }
 
                 over "rr_wheel_joint"
                 {
-                    float state:angular:physics:position = -0.51622117
-                    float state:angular:physics:velocity = -1.6925595
+                    float state:angular:physics:position = 0
+                    float state:angular:physics:velocity = 0
                 }
             }
         }
@@ -395,9 +395,9 @@ def Xform "World"
         {
             over "base_link"
             {
-                vector3f physics:angularVelocity = (0.04386925, 0.0704723, 0.05743043)
+                vector3f physics:angularVelocity = (0, 0, 0)
                 rel physics:simulationOwner
-                vector3f physics:velocity = (0.000038852413, -0.0017816231, 0.00024792465)
+                vector3f physics:velocity = (0, 0, 0)
                 quatd xformOp:orient = (0.9999999500827665, -4.5427132939459375e-7, 0.0000017769177178497973, -0.00031596059979828374)
                 double3 xformOp:translate = (-0.0013249219514216426, 0.032029796170726765, 0.0000012097060680324456)
 
@@ -1555,56 +1555,56 @@ def Xform "World"
 
         over "base_link"
         {
-            vector3f physics:angularVelocity = (0.043946434, 0.000034896155, -0.065074176)
+            vector3f physics:angularVelocity = (0, 0, 0)
             rel physics:simulationOwner
-            vector3f physics:velocity = (-0.0005710884, -0.0006904311, 0.00016897268)
-            quatd xformOp:orient = (0.9999999999981036, -2.0873315103946428e-7, 2.254682469368428e-8, -0.0000019361472074907504)
-            double3 xformOp:translate = (-0.0006526739484650212, 9.571958798915148e-7, -0.032030002917781714)
+            vector3f physics:velocity = (0, 0, 0)
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:translate = (0, 0, 0)
         }
 
         over "body_link1"
         {
-            vector3f physics:angularVelocity = (0.043946236, -0.047282588, -0.06507415)
+            vector3f physics:angularVelocity = (0, 0, 0)
             rel physics:simulationOwner
-            vector3f physics:velocity = (-0.00070322293, -0.0009251865, 0.00016868387)
-            quatd xformOp:orient = (0.9999999908099041, -2.0903486368098336e-7, -0.00013555983851906554, -0.0000019178669524269015)
+            vector3f physics:velocity = (0, 0, 0)
+            quatd xformOp:orient = (1, 0, 0, 0)
             double3 xformOp:translate = (0.1045973270052093, 6.455229595303535e-7, 0.19747002259300625)
         }
 
         over "body_link2"
         {
-            vector3f physics:angularVelocity = (0.043946557, 0.038584437, -0.06507419)
+            vector3f physics:angularVelocity = (0, 0, 0)
             rel physics:simulationOwner
-            vector3f physics:velocity = (-0.0007202833, -0.0011817244, 0.00016917783)
-            quatd xformOp:orient = (0.9999999581443914, -2.0911185494147696e-7, -0.00028932247142547446, -0.0000019181605599112515)
+            vector3f physics:velocity = (0, 0, 0)
+            quatd xformOp:orient = (1, 0, 0, 0)
             double3 xformOp:translate = (0.10451003600293574, 7.800794605827832e-7, 0.5194701685051767)
         }
 
         over "body_link3"
         {
-            vector3f physics:angularVelocity = (0.04394669, 0.07047225, -0.0650742)
+            vector3f physics:angularVelocity = (0, 0, 0)
             rel physics:simulationOwner
-            vector3f physics:velocity = (-0.0005908767, -0.0013369393, 0.00015703327)
-            quatd xformOp:orient = (0.9999999500749771, -2.0920376891459788e-7, -0.00031598461910144654, -0.0000019287352729603413)
+            vector3f physics:velocity = (0, 0, 0)
+            quatd xformOp:orient = (1, 0, 0, 0)
             double3 xformOp:translate = (0.10430463839703974, 0.0019009392708539963, 0.874470187578663)
         }
 
         over "body_link4"
         {
-            vector3f physics:angularVelocity = (0.04386925, 0.0704723, 0.05743043)
+            vector3f physics:angularVelocity = (0, 0, 0)
             rel physics:simulationOwner
-            vector3f physics:velocity = (-0.00008619819, -0.0016567502, 0.00019021636)
-            quatd xformOp:orient = (0.9999999500834115, -2.0926672639082262e-7, -0.00031595885350076683, -0.0000017702171563128321)
+            vector3f physics:velocity = (0, 0, 0)
+            quatd xformOp:orient = (1, 0, 0, 0)
             double3 xformOp:translate = (0.1041424541586059, 9.974464774131775e-7, 1.0177801384072152)
 
             over "Torso"
             {
                 over "stand_link3"
                 {
-                    vector3f physics:angularVelocity = (0.04386925, 0.0704723, 0.05743043)
+                    vector3f physics:angularVelocity = (0, 0, 0)
                     rel physics:simulationOwner
-                    vector3f physics:velocity = (-0.0005292335, -0.0013632072, 0.00016843324)
-                    quatd xformOp:orient = (1, -0, 0, 0)
+                    vector3f physics:velocity = (0, 0, 0)
+                    quatd xformOp:orient = (1, 0, 0, 0)
                     double3 xformOp:translate = (-2.0013089019332853e-8, 1.0297280571392769e-10, 5.474280984074653e-8)
 
                     over "collisions"
@@ -1915,12 +1915,18 @@ over "OmniverseKit_Top" (
 
 def PhysicsScene "PhysicsScene" (
     delete apiSchemas = ["MjcSceneAPI", "NewtonXpbdSceneAPI"]
-    prepend apiSchemas = ["NewtonSceneAPI", "PhysxSceneAPI"]
+    prepend apiSchemas = ["NewtonSceneAPI", "PhysxSceneAPI", "MjcSceneAPI"]
 )
 {
     uniform token physxScene:broadphaseType = "SAP"
     bool physxScene:enableCCD = 1
     bool physxScene:enableGPUDynamics = 0
+    uniform int newton:timeStepsPerSecond = 200
+    uniform int newton:maxSolverIterations = 100
+    uniform token mjc:option:cone = "elliptic"
+    uniform double mjc:option:impratio
+    uniform token mjc:option:integrator = "implicit"
+    uniform int mjc:option:iterations = 100
 }
 
 def "Graph"

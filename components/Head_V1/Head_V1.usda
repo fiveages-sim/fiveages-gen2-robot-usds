@@ -39,13 +39,13 @@ Generated from Composed Stage of root layer /home/fiveages/Documents/FaSim-Isaac
 def Xform "Head_V1" (
     prepend references = @./payloads/base.usda@
     variants = {
-        string Physics = "physx"
+        string ROS = "none"
         string Robot = "none"
         string Sensor = "sensors"
         string visual = "default"
     }
     prepend variantSets = ["Physics", "visual"]
-    append variantSets = ["Robot", "Sensor"]
+    append variantSets = ["Robot", "Sensor", "ROS"]
 )
 {
     over "head_link2"
@@ -116,6 +116,16 @@ def Xform "Head_V1" (
         "sensors" (
             prepend payload = @./payloads/Sensor/sensors.usda@
         ) {
+
+        }
+    }
+    variantSet "ROS" = {
+        "enable" (
+            prepend payload = @./payloads/ROS/ros2.usda@
+        ) {
+
+        }
+        "none" {
 
         }
     }

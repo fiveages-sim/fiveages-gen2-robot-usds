@@ -44,8 +44,33 @@ def Xform "FiveAges_W2"
         double3 xformOp:translate = (0, 0, -0.04)
         uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
 
+
+        # W2: chassis DOFs live on whole-robot art root base_link.
+        # MUST author jointNames here — stock S2 graph had broken Agilex connects; under Newton,
+        # empty jointNames + commands on base_link stomps the first DOFs (head/arms). PhysX often ignored that.
+        over "Graph"
+        {
+            over "ROS_Steering_Controller"
+            {
+                over "articulation_controller"
+                {
+                    custom token[] inputs:jointNames = ["fl_steer_joint", "rl_steer_joint", "rr_steer_joint", "fr_steer_joint"]
+                    # Drop stock script connect (bare "delete ...connect" without =path is illegal USDA → Chassis payload fails → red W2).
+                    delete token[] inputs:jointNames.connect = </Linkhou_S2_V1/Graph/ROS_Steering_Controller/script_node.outputs:Steer_Joints>
+                    rel inputs:targetPrim = </FiveAges_W2/base_link>
+                }
+                over "articulation_controller_01"
+                {
+                    custom token[] inputs:jointNames = ["fl_wheel_joint", "rl_wheel_joint", "rr_wheel_joint", "fr_wheel_joint"]
+                    delete token[] inputs:jointNames.connect = </Linkhou_S2_V1/Graph/ROS_Steering_Controller/script_node.outputs:Wheel_Joints>
+                    rel inputs:targetPrim = </FiveAges_W2/base_link>
+                }
+            }
+        }
+
         over "base_footprint" (
-            delete apiSchemas = ["PhysicsArticulationRootAPI"]
+            # Match V2: strip nested Newton artic root so W2 base_link is sole root.
+            delete apiSchemas = ["PhysicsArticulationRootAPI", "NewtonArticulationRootAPI"]
         )
         {
             def PhysicsFixedJoint "AssemblerFixedJoint"

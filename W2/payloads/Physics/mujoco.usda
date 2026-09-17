@@ -72,8 +72,9 @@ def "FiveAges_W2"
     )
     {
         # NEWTON: self-col ON. Body/chassis mute via W2 root Physics=mujoco
-        # append-ref body_self_collision_mute_newton (no arm paths). Arms: M6.
-        # PhysX: CollisionGroup NonDexHand. Art root = base_link (unchanged).
+        # append-ref body_self_collision_mute_newton (collisionEnabled=0; no arm paths).
+        # Arms: M6 arm_self_collision_mute_newton. PhysX: CollisionGroup NonDexHand.
+        # Art root = base_link (unchanged). Do not swap mute to filteredPairs lightly.
         bool newton:selfCollisionEnabled = 1
     }
 

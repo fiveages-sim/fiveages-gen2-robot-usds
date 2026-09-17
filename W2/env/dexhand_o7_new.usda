@@ -7,8 +7,8 @@
                 double radius = 5
             }
             dictionary Perspective = {
-                double3 position = (4.369275639662473, 1.873456013642091, 4.518701196460158)
-                double3 target = (-7.971320323834118, -4.3983317906415325, -7.646253304060352)
+                double3 position = (3.9201346437753077, 1.645191752439362, 4.0759527428645885)
+                double3 target = (-7.971320323834124, -4.398331790641536, -7.646253304060359)
             }
             dictionary Right = {
                 double3 position = (0, -5, 0)
@@ -198,35 +198,37 @@ def Xform "World"
 
         over "Linkhou_S2" (
             variants = {
+                # enable: cmd_vel Ackermann → wheel/steer on W2 base_link (Chassis mount overs).
+                # Camera Graph now lives in Head_V1 ROS; chassis+head can both enable under Newton.
                 string ROS = "enable"
             }
         )
         {
             over "base_footprint"
             {
-                vector3f physics:angularVelocity = (0.043946434, 0.000034896155, -0.065074176)
+                vector3f physics:angularVelocity = (0, 0, 0)
                 rel physics:simulationOwner
-                vector3f physics:velocity = (-0.0005710437, -0.0006196523, 0.00016904081)
-                quatd xformOp:orient = (0.9999999999981048, -2.0876279595934086e-7, 2.2514391826881178e-8, -0.0000019355135244297823)
-                double3 xformOp:translate = (-0.0006527037507874089, 9.404029697179794e-7, -0.03203002437545383)
+                vector3f physics:velocity = (0, 0, 0)
+                quatd xformOp:orient = (1, 0, 0, 0)
+                double3 xformOp:translate = (0, 0, 0)
             }
 
             over "fl_steer"
             {
-                vector3f physics:angularVelocity = (0.04394667, 0.000035324232, 0.7158716)
+                vector3f physics:angularVelocity = (0, 0, 0)
                 rel physics:simulationOwner
-                vector3f physics:velocity = (-0.0006262602, -0.00084076176, 0.0003544012)
-                quatd xformOp:orient = (0.999999999985274, -2.504322892525626e-7, 6.170028055998108e-9, -0.000005421184556560753)
-                double3 xformOp:translate = (0.23006835271054682, 0.2173803150653839, 0.17396996096180356)
+                vector3f physics:velocity = (0, 0, 0)
+                quatd xformOp:orient = (1, 0, 0, 0)
+                double3 xformOp:translate = (0, 0, 0)
             }
 
             over "fl_wheel"
             {
-                vector3f physics:angularVelocity = (0.043933075, -1.2250471, 0.71587235)
+                vector3f physics:angularVelocity = (0, 0, 0)
                 rel physics:simulationOwner
-                vector3f physics:velocity = (-0.0002919261, -0.00078333466, 0.00033368403)
-                quatd xformOp:orient = (0.9999898467408254, -2.360275504964593e-7, -0.0045062607860198445, -0.000005378966148818942)
-                double3 xformOp:translate = (0.2307848303430694, 0.21381421387195587, 0.03796988651560223)
+                vector3f physics:velocity = (0, 0, 0)
+                quatd xformOp:orient = (1, 0, 0, 0)
+                double3 xformOp:translate = (0, 0, 0)
 
                 over "collisions"
                 {
@@ -242,20 +244,20 @@ def Xform "World"
 
             over "fr_steer"
             {
-                vector3f physics:angularVelocity = (0.04394642, 0.00003485971, -0.20595948)
+                vector3f physics:angularVelocity = (0, 0, 0)
                 rel physics:simulationOwner
-                vector3f physics:velocity = (-0.000904655, -0.0008450933, -0.000016188902)
-                quatd xformOp:orient = (0.9999999999999674, -2.0833470351369756e-7, 3.4831245137660335e-8, -1.4375169397950792e-7)
-                double3 xformOp:translate = (0.2286265461557525, -0.21737995743751526, 0.17397018447922147)
+                vector3f physics:velocity = (0, 0, 0)
+                quatd xformOp:orient = (1, 0, 0, 0)
+                double3 xformOp:translate = (0, 0, 0)
             }
 
             over "fr_wheel"
             {
-                vector3f physics:angularVelocity = (0.04394603, -0.975081, -0.20595916)
+                vector3f physics:angularVelocity = (0, 0, 0)
                 rel physics:simulationOwner
-                vector3f physics:velocity = (-0.0008342478, -0.0007879472, -0.0000012330056)
-                quatd xformOp:orient = (0.9999898419894637, -1.9289018869018738e-7, -0.004507318252750455, -1.363478111496717e-7)
-                double3 xformOp:translate = (0.22791000891858515, -0.2209460288286209, 0.037970139835342524)
+                vector3f physics:velocity = (0, 0, 0)
+                quatd xformOp:orient = (1, 0, 0, 0)
+                double3 xformOp:translate = (0, 0, 0)
 
                 over "collisions"
                 {
@@ -271,20 +273,20 @@ def Xform "World"
 
             over "rl_steer"
             {
-                vector3f physics:angularVelocity = (0.043946493, 0.00003535301, 0.88736403)
+                vector3f physics:angularVelocity = (0, 0, 0)
                 rel physics:simulationOwner
-                vector3f physics:velocity = (-0.0006986986, -0.00031630372, 0.00035468268)
-                quatd xformOp:orient = (0.9999999999650914, -2.2723380656316504e-7, -2.7706842440661903e-8, -0.000008352536154294146)
-                double3 xformOp:translate = (-0.22993195365732733, 0.21738199889659882, 0.17396997586296475)
+                vector3f physics:velocity = (0, 0, 0)
+                quatd xformOp:orient = (1, 0, 0, 0)
+                double3 xformOp:translate = (0, 0, 0)
             }
 
             over "rl_wheel"
             {
-                vector3f physics:angularVelocity = (0.04393713, -0.55883646, 0.8873644)
+                vector3f physics:angularVelocity = (0, 0, 0)
                 rel physics:simulationOwner
-                vector3f physics:velocity = (-0.000394596, -0.00025874167, 0.00033954845)
-                quatd xformOp:orient = (0.9999898441713492, -2.692941114409618e-7, -0.004506826504577745, -0.000008303367585825936)
-                double3 xformOp:translate = (-0.2292153270131928, 0.22094792127609253, 0.037969968471988795)
+                vector3f physics:velocity = (0, 0, 0)
+                quatd xformOp:orient = (1, 0, 0, 0)
+                double3 xformOp:translate = (0, 0, 0)
 
                 over "collisions"
                 {
@@ -300,20 +302,20 @@ def Xform "World"
 
             over "rr_steer"
             {
-                vector3f physics:angularVelocity = (0.043946452, 0.00003492212, 0.060722742)
+                vector3f physics:angularVelocity = (0, 0, 0)
                 rel physics:simulationOwner
-                vector3f physics:velocity = (-0.0007920052, -0.0003257639, -0.000015907392)
-                quatd xformOp:orient = (0.9999999999965331, -2.0269234924079492e-7, 3.4458988581669874e-8, -0.00000262516956931302)
-                double3 xformOp:translate = (-0.23137367080515447, -0.21737819910049438, 0.17397021428154386)
+                vector3f physics:velocity = (0, 0, 0)
+                quatd xformOp:orient = (1, 0, 0, 0)
+                double3 xformOp:translate = (0, 0, 0)
             }
 
             over "rr_wheel"
             {
-                vector3f physics:angularVelocity = (0.043937385, -1.6925246, 0.060723357)
+                vector3f physics:angularVelocity = (0, 0, 0)
                 rel physics:simulationOwner
-                vector3f physics:velocity = (-0.0008130584, -0.00026886433, -0.0000011238626)
-                quatd xformOp:orient = (0.9999898530675643, -2.3742746060853743e-7, -0.004504859045535273, -0.0000026143270958137325)
-                double3 xformOp:translate = (-0.23209023784464422, -0.22094424068927765, 0.037970139835342524)
+                vector3f physics:velocity = (0, 0, 0)
+                quatd xformOp:orient = (1, 0, 0, 0)
+                double3 xformOp:translate = (0, 0, 0)
 
                 over "collisions"
                 {
@@ -331,50 +333,50 @@ def Xform "World"
             {
                 over "fl_steer_joint"
                 {
-                    float state:angular:physics:position = -0.00039991396
-                    float state:angular:physics:velocity = 0.78094566
+                    float state:angular:physics:position = 0
+                    float state:angular:physics:velocity = 0
                 }
 
                 over "fr_steer_joint"
                 {
-                    float state:angular:physics:position = 0.00020782101
-                    float state:angular:physics:velocity = -0.1408853
+                    float state:angular:physics:position = 0
+                    float state:angular:physics:velocity = 0
                 }
 
                 over "rl_steer_joint"
                 {
-                    float state:angular:physics:position = -0.00073347136
-                    float state:angular:physics:velocity = 0.9524382
+                    float state:angular:physics:position = 0
+                    float state:angular:physics:velocity = 0
                 }
 
                 over "rr_steer_joint"
                 {
-                    float state:angular:physics:position = -0.00007750642
-                    float state:angular:physics:velocity = 0.12579688
+                    float state:angular:physics:position = 0
+                    float state:angular:physics:velocity = 0
                 }
 
                 over "fl_wheel_joint"
                 {
-                    float state:angular:physics:position = -0.5163808
-                    float state:angular:physics:velocity = -1.2250822
+                    float state:angular:physics:position = 0
+                    float state:angular:physics:velocity = 0
                 }
 
                 over "fr_wheel_joint"
                 {
-                    float state:angular:physics:position = -0.51650774
-                    float state:angular:physics:velocity = -0.97511584
+                    float state:angular:physics:position = 0
+                    float state:angular:physics:velocity = 0
                 }
 
                 over "rl_wheel_joint"
                 {
-                    float state:angular:physics:position = -0.51644665
-                    float state:angular:physics:velocity = -0.55887175
+                    float state:angular:physics:position = 0
+                    float state:angular:physics:velocity = 0
                 }
 
                 over "rr_wheel_joint"
                 {
-                    float state:angular:physics:position = -0.51622117
-                    float state:angular:physics:velocity = -1.6925595
+                    float state:angular:physics:position = 0
+                    float state:angular:physics:velocity = 0
                 }
             }
         }
@@ -387,9 +389,9 @@ def Xform "World"
         {
             over "base_link"
             {
-                vector3f physics:angularVelocity = (0.04386925, 0.0704723, 0.05743043)
+                vector3f physics:angularVelocity = (0, 0, 0)
                 rel physics:simulationOwner
-                vector3f physics:velocity = (0.000038852413, -0.0017816231, 0.00024792465)
+                vector3f physics:velocity = (0, 0, 0)
                 quatd xformOp:orient = (0.9999999500827665, -4.5427132939459375e-7, 0.0000017769177178497973, -0.00031596059979828374)
                 double3 xformOp:translate = (-0.0013249219514216426, 0.032029796170726765, 0.0000012097060680324456)
 
@@ -1544,56 +1546,56 @@ def Xform "World"
 
         over "base_link"
         {
-            vector3f physics:angularVelocity = (0.043946434, 0.000034896155, -0.065074176)
+            vector3f physics:angularVelocity = (0, 0, 0)
             rel physics:simulationOwner
-            vector3f physics:velocity = (-0.0005710884, -0.0006904311, 0.00016897268)
-            quatd xformOp:orient = (0.9999999999981036, -2.0873315103946428e-7, 2.254682469368428e-8, -0.0000019361472074907504)
-            double3 xformOp:translate = (-0.0006526739484650212, 9.571958798915148e-7, -0.032030002917781714)
+            vector3f physics:velocity = (0, 0, 0)
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:translate = (0, 0, 0)
         }
 
         over "body_link1"
         {
-            vector3f physics:angularVelocity = (0.043946236, -0.047282588, -0.06507415)
+            vector3f physics:angularVelocity = (0, 0, 0)
             rel physics:simulationOwner
-            vector3f physics:velocity = (-0.00070322293, -0.0009251865, 0.00016868387)
-            quatd xformOp:orient = (0.9999999908099041, -2.0903486368098336e-7, -0.00013555983851906554, -0.0000019178669524269015)
+            vector3f physics:velocity = (0, 0, 0)
+            quatd xformOp:orient = (1, 0, 0, 0)
             double3 xformOp:translate = (0.1045973270052093, 6.455229595303535e-7, 0.19747002259300625)
         }
 
         over "body_link2"
         {
-            vector3f physics:angularVelocity = (0.043946557, 0.038584437, -0.06507419)
+            vector3f physics:angularVelocity = (0, 0, 0)
             rel physics:simulationOwner
-            vector3f physics:velocity = (-0.0007202833, -0.0011817244, 0.00016917783)
-            quatd xformOp:orient = (0.9999999581443914, -2.0911185494147696e-7, -0.00028932247142547446, -0.0000019181605599112515)
+            vector3f physics:velocity = (0, 0, 0)
+            quatd xformOp:orient = (1, 0, 0, 0)
             double3 xformOp:translate = (0.10451003600293574, 7.800794605827832e-7, 0.5194701685051767)
         }
 
         over "body_link3"
         {
-            vector3f physics:angularVelocity = (0.04394669, 0.07047225, -0.0650742)
+            vector3f physics:angularVelocity = (0, 0, 0)
             rel physics:simulationOwner
-            vector3f physics:velocity = (-0.0005908767, -0.0013369393, 0.00015703327)
-            quatd xformOp:orient = (0.9999999500749771, -2.0920376891459788e-7, -0.00031598461910144654, -0.0000019287352729603413)
+            vector3f physics:velocity = (0, 0, 0)
+            quatd xformOp:orient = (1, 0, 0, 0)
             double3 xformOp:translate = (0.10430463839703974, 0.0019009392708539963, 0.874470187578663)
         }
 
         over "body_link4"
         {
-            vector3f physics:angularVelocity = (0.04386925, 0.0704723, 0.05743043)
+            vector3f physics:angularVelocity = (0, 0, 0)
             rel physics:simulationOwner
-            vector3f physics:velocity = (-0.00008619819, -0.0016567502, 0.00019021636)
-            quatd xformOp:orient = (0.9999999500834115, -2.0926672639082262e-7, -0.00031595885350076683, -0.0000017702171563128321)
+            vector3f physics:velocity = (0, 0, 0)
+            quatd xformOp:orient = (1, 0, 0, 0)
             double3 xformOp:translate = (0.1041424541586059, 9.974464774131775e-7, 1.0177801384072152)
 
             over "Torso"
             {
                 over "stand_link3"
                 {
-                    vector3f physics:angularVelocity = (0.04386925, 0.0704723, 0.05743043)
+                    vector3f physics:angularVelocity = (0, 0, 0)
                     rel physics:simulationOwner
-                    vector3f physics:velocity = (-0.0005292335, -0.0013632072, 0.00016843324)
-                    quatd xformOp:orient = (1, -0, 0, 0)
+                    vector3f physics:velocity = (0, 0, 0)
+                    quatd xformOp:orient = (1, 0, 0, 0)
                     double3 xformOp:translate = (-2.0013089019332853e-8, 1.0297280571392769e-10, 5.474280984074653e-8)
 
                     over "collisions"
@@ -1613,6 +1615,9 @@ def Xform "World"
         over "Head_V1" (
             variants = {
                 string Sensor = "sensors"
+                # Camera pub moved into Head_V1 payloads/ROS; none avoids 6.1 Newton SDG crash.
+                # Flip to enable to test /head_camera/{rgb,depth,camera_info}.
+                string ROS = "none"
             }
         )
         {
@@ -1718,7 +1723,7 @@ def "Render" (
         )
         {
             def RenderProduct "omni_kit_widget_viewport_ViewportTexture_0" (
-                prepend apiSchemas = ["OmniRtxSettingsCommonAdvancedAPI_1", "OmniRtxSettingsRtAdvancedAPI_1", "OmniRtxSettingsPtAdvancedAPI_1", "OmniRtxPostColorGradingAPI_1", "OmniRtxPostChromaticAberrationAPI_1", "OmniRtxPostBloomPhysicalAPI_1", "OmniRtxPostMatteObjectAPI_1", "OmniRtxPostCompositingAPI_1", "OmniRtxPostDofAPI_1", "OmniRtxPostMotionBlurAPI_1", "OmniRtxPostTvNoiseAPI_1", "OmniRtxPostTonemapIrayReinhardAPI_1", "OmniRtxPostDebugSettingsAPI_1", "OmniRtxDebugSettingsAPI_1"]
+                prepend apiSchemas = ["OmniRtxSettingsCommonAdvancedAPI_1", "OmniRtxSettingsRtAdvancedAPI_1", "OmniRtxSettingsPtAdvancedAPI_1", "OmniRtxPostColorGradingAPI_1", "OmniRtxPostChromaticAberrationAPI_1", "OmniRtxPostBloomPhysicalAPI_1", "OmniRtxPostMatteObjectAPI_1", "OmniRtxPostCompositingAPI_1", "OmniRtxPostDofAPI_1", "OmniRtxPostMotionBlurAPI_1", "OmniRtxPostTvNoiseAPI_1", "OmniRtxPostTonemapIrayReinhardAPI_1", "OmniRtxPostDebugSettingsAPI_1", "OmniRtxDebugSettingsAPI_1", "OmniRtxSettingsParticleFieldAPI_1"]
                 hide_in_stage_window = true
                 no_delete = true
             )
@@ -1777,20 +1782,6 @@ def "Render" (
                 uniform int2 resolution = (1280, 720)
             }
 
-            def RenderProduct "Replicator" (
-                prepend apiSchemas = ["OmniRtxSettingsCommonAdvancedAPI_1", "OmniRtxSettingsRtAdvancedAPI_1", "OmniRtxSettingsPtAdvancedAPI_1", "OmniRtxPostColorGradingAPI_1", "OmniRtxPostChromaticAberrationAPI_1", "OmniRtxPostBloomPhysicalAPI_1", "OmniRtxPostMatteObjectAPI_1", "OmniRtxPostCompositingAPI_1", "OmniRtxPostDofAPI_1", "OmniRtxPostMotionBlurAPI_1", "OmniRtxPostTvNoiseAPI_1", "OmniRtxPostTonemapIrayReinhardAPI_1", "OmniRtxPostDebugSettingsAPI_1", "OmniRtxDebugSettingsAPI_1"]
-                hide_in_stage_window = true
-                no_delete = true
-            )
-            {
-                rel camera = </World/FiveAges_W2/Head_V1/head_link2/head_camera/head_camera>
-                bool omni:rtx:material:db:syncLoads = 1
-                bool omni:rtx:rt:ecoMode:enabled
-                bool omni:rtx:scene:hydra:materialSyncLoads = 1
-                rel orderedVars = </Render/Vars/LdrColor>
-                custom bool overrideClipRange = 0
-                uniform int2 resolution = (640, 480)
-            }
         }
     }
 
@@ -1801,7 +1792,6 @@ def "Render" (
     {
         rel products = [
             </Render/OmniverseKit/HydraTextures/omni_kit_widget_viewport_ViewportTexture_0>,
-            </Render/OmniverseKit/HydraTextures/Replicator>,
         ]
     }
 
@@ -1839,10 +1829,10 @@ over "OmniverseKit_Persp" (
     float exposure:time = 0.02
     float focalLength = 18.147562
     float focusDistance = 400
-    custom uniform vector3d omni:kit:centerOfInterest = (0, 0, -18.4285579738612)
+    custom uniform vector3d omni:kit:centerOfInterest = (0, 0, -17.757843131107443)
     float3 xformOp:rotateXYZ = (48.69141, -3.9438879e-13, 116.94077)
     float3 xformOp:scale = (1, 1, 1)
-    double3 xformOp:translate = (4.369275639662473, 1.873456013642091, 4.518701196460158)
+    double3 xformOp:translate = (3.9201346437753077, 1.645191752439362, 4.0759527428645885)
     uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
 }
 
@@ -1923,9 +1913,207 @@ over "OmniverseKit_Top" (
 
 def PhysicsScene "PhysicsScene" (
     delete apiSchemas = ["MjcSceneAPI", "NewtonXpbdSceneAPI"]
-    prepend apiSchemas = ["NewtonSceneAPI", "PhysxSceneAPI"]
+    prepend apiSchemas = ["NewtonSceneAPI", "PhysxSceneAPI", "MjcSceneAPI"]
 )
 {
+    uniform bool mjc:compiler:alignFree (
+        displayName = "Align Free"
+    )
+    uniform token mjc:compiler:angle (
+        displayName = "Angle"
+    )
+    uniform bool mjc:compiler:autoLimits (
+        displayName = "Automatic Limits"
+    )
+    uniform bool mjc:compiler:balanceInertia (
+        displayName = "Balance Inertia"
+    )
+    uniform double mjc:compiler:boundInertia (
+        displayName = "Bound Inertia"
+    )
+    uniform double mjc:compiler:boundMass (
+        displayName = "Bound Mass"
+    )
+    uniform bool mjc:compiler:fitAABB (
+        displayName = "Fit AABB"
+    )
+    uniform bool mjc:compiler:fuseStatic (
+        displayName = "Fuse Static"
+    )
+    uniform token mjc:compiler:inertiaFromGeom (
+        displayName = "Inertia From Geom"
+    )
+    uniform int mjc:compiler:inertiaGroupRange:max (
+        displayName = "Inertia Group Range Max"
+    )
+    uniform int mjc:compiler:inertiaGroupRange:min (
+        displayName = "Inertia Group Range Min"
+    )
+    uniform bool mjc:compiler:saveInertial (
+        displayName = "Save Inertial"
+    )
+    uniform double mjc:compiler:setTotalMass (
+        displayName = "Set Total Mass"
+    )
+    uniform bool mjc:compiler:useThread (
+        displayName = "Use Thread"
+    )
+    uniform bool mjc:flag:actuation (
+        displayName = "Actuation Forces Toggle"
+    )
+    uniform bool mjc:flag:autoreset (
+        displayName = "Automatic Simulation Reset Toggle"
+    )
+    uniform bool mjc:flag:clampctrl (
+        displayName = "Control Input Clamping Toggle"
+    )
+    uniform bool mjc:flag:constraint (
+        displayName = "Constraint Solver Toggle"
+    )
+    uniform bool mjc:flag:contact (
+        displayName = "Contact Constraints and Collision Detection Toggle"
+    )
+    uniform bool mjc:flag:damper (
+        displayName = "Damper Forces Toggle"
+    )
+    uniform bool mjc:flag:energy (
+        displayName = "Energy Computation Toggle"
+    )
+    uniform bool mjc:flag:equality (
+        displayName = "Equality Constraints Toggle"
+    )
+    uniform bool mjc:flag:eulerdamp (
+        displayName = "Euler Integrator Damping Toggle"
+    )
+    uniform bool mjc:flag:filterparent (
+        displayName = "Parent-Child Contact Filtering Toggle"
+    )
+    uniform bool mjc:flag:frictionloss (
+        displayName = "Friction Loss Constraints Toggle"
+    )
+    uniform bool mjc:flag:fwdinv (
+        displayName = "Forward/Inverse Dynamics Comparison Toggle"
+    )
+    uniform bool mjc:flag:gravity (
+        displayName = "Gravity Toggle"
+    )
+    uniform bool mjc:flag:invdiscrete (
+        displayName = "Discrete-Time Inverse Dynamics Toggle"
+    )
+    uniform bool mjc:flag:island (
+        displayName = "Constraint Island Discovery Toggle"
+    )
+    uniform bool mjc:flag:limit (
+        displayName = "Joint and Tendon Limit Constraints Toggle"
+    )
+    uniform bool mjc:flag:midphase (
+        displayName = "Mid-Phase Collision Filtering Toggle"
+    )
+    uniform bool mjc:flag:multiccd (
+        displayName = "Multiple Contact Collision Detection (CCD) Toggle"
+    )
+    uniform bool mjc:flag:nativeccd (
+        displayName = "Native Convex Collision Detection Toggle"
+    )
+    uniform bool mjc:flag:override (
+        displayName = "Contact Override Mechanism Toggle"
+    )
+    uniform bool mjc:flag:refsafe (
+        displayName = "Solver Reference Safety Mechanism Toggle"
+    )
+    uniform bool mjc:flag:sensor (
+        displayName = "Sensor Computations Toggle"
+    )
+    uniform bool mjc:flag:spring (
+        displayName = "Spring Forces Toggle"
+    )
+    uniform bool mjc:flag:warmstart (
+        displayName = "Solver Warm-Starting Toggle"
+    )
+    uniform int[] mjc:option:actuatorgroupdisable (
+        displayName = "Actuator Group Disable"
+    )
+    uniform int mjc:option:ccd_iterations (
+        displayName = "CCD Iterations"
+    )
+    uniform double mjc:option:ccd_tolerance (
+        displayName = "CCD Tolerance"
+    )
+    uniform token mjc:option:cone = "elliptic" (
+        displayName = "Friction Cone Type"
+    )
+    uniform double mjc:option:density (
+        displayName = "Density"
+    )
+    uniform double mjc:option:impratio (
+        displayName = "Impedance Ratio"
+    )
+    uniform token mjc:option:integrator = "implicit" (
+        displayName = "Integrator"
+    )
+    uniform int mjc:option:iterations = 100 (
+        displayName = "Solver Iterations"
+    )
+    uniform token mjc:option:jacobian (
+        displayName = "Jacobian Type"
+    )
+    uniform int mjc:option:ls_iterations (
+        displayName = "Linesearch Iterations"
+    )
+    uniform double mjc:option:ls_tolerance (
+        displayName = "Linesearch Tolerance"
+    )
+    uniform double3 mjc:option:magnetic (
+        displayName = "Magnetic Flux"
+    )
+    uniform int mjc:option:noslip_iterations (
+        displayName = "Noslip Iterations"
+    )
+    uniform double mjc:option:noslip_tolerance (
+        displayName = "Noslip Tolerance"
+    )
+    uniform double[] mjc:option:o_friction (
+        displayName = "Contact Override Friction"
+    )
+    uniform double mjc:option:o_margin (
+        displayName = "Contact Override Margin"
+    )
+    uniform double[] mjc:option:o_solimp (
+        displayName = "Contact Override SolImp"
+    )
+    uniform double[] mjc:option:o_solref (
+        displayName = "Contact Override SolRef"
+    )
+    uniform int mjc:option:sdf_initpoints (
+        displayName = "SDF Initial Points"
+    )
+    uniform int mjc:option:sdf_iterations (
+        displayName = "SDF Iterations"
+    )
+    uniform token mjc:option:solver (
+        displayName = "Solver"
+    )
+    uniform double mjc:option:timestep (
+        displayName = "Timestep"
+    )
+    uniform double mjc:option:tolerance (
+        displayName = "Solver Tolerance"
+    )
+    uniform double mjc:option:viscosity (
+        displayName = "Viscosity"
+    )
+    uniform double3 mjc:option:wind (
+        displayName = "Wind Velocity"
+    )
+    bool newton:gravityEnabled (
+        displayName = "Gravity Enabled"
+    )
+    uniform int newton:maxSolverIterations = 100 (
+        displayName = "Max Solver Iterations"
+    )
+    uniform int newton:timeStepsPerSecond = 200 (
+        displayName = "Time Steps Per Second"
+    )
     uniform token physxScene:broadphaseType = "SAP"
     bool physxScene:enableCCD = 1
     bool physxScene:enableGPUDynamics = 0
@@ -2000,184 +2188,5 @@ def "Graph"
         }
     }
 
-    def OmniGraph "ROS_HeadCamera"
-    {
-        token evaluationMode = "Automatic"
-        token evaluator:type = "execution"
-        token fabricCacheBacking = "StageWithoutHistory"
-        int2 fileFormatVersion = (1, 9)
-        token pipelineStage = "pipelineStageSimulation"
-
-        def OmniGraphNode "OnPlaybackTick"
-        {
-            token node:type = "omni.graph.action.OnPlaybackTick"
-            int node:typeVersion = 2
-            custom double outputs:deltaSeconds
-            custom double outputs:frame
-            custom uint outputs:tick (
-                customData = {
-                    bool isExecution = 1
-                }
-            )
-            custom double outputs:time
-        }
-
-        def OmniGraphNode "RunOnce"
-        {
-            custom uint inputs:execIn (
-                customData = {
-                    bool isExecution = 1
-                }
-            )
-            prepend uint inputs:execIn.connect = </Graph/ROS_HeadCamera/OnPlaybackTick.outputs:tick>
-            token node:type = "isaacsim.core.nodes.OgnIsaacRunOneSimulationFrame"
-            int node:typeVersion = 1
-            custom uint outputs:step (
-                customData = {
-                    bool isExecution = 1
-                }
-            )
-        }
-
-        def OmniGraphNode "Context"
-        {
-            custom uchar inputs:domain_id
-            custom bool inputs:useDomainIDEnvVar
-            token node:type = "isaacsim.ros2.bridge.ROS2Context"
-            int node:typeVersion = 2
-            custom uint64 outputs:context
-        }
-
-        def OmniGraphNode "RenderProduct"
-        {
-            custom rel inputs:cameraPrim = </World/FiveAges_W2/Head_V1/head_link2/head_camera/head_camera> (
-                customData = {
-                    dictionary omni = {
-                        dictionary graph = {
-                            string relType = "target"
-                        }
-                    }
-                }
-            )
-            custom bool inputs:enabled
-            custom uint inputs:execIn (
-                customData = {
-                    bool isExecution = 1
-                }
-            )
-            prepend uint inputs:execIn.connect = </Graph/ROS_HeadCamera/RunOnce.outputs:step>
-            custom uint inputs:height = 480
-            custom rel inputs:renderProductPrim (
-                customData = {
-                    dictionary omni = {
-                        dictionary graph = {
-                            string relType = "target"
-                        }
-                    }
-                }
-            )
-            custom uint inputs:width = 640
-            token node:type = "isaacsim.core.nodes.IsaacCreateRenderProduct"
-            int node:typeVersion = 2
-            custom uint outputs:execOut (
-                customData = {
-                    bool isExecution = 1
-                }
-            )
-            custom token outputs:renderProductPath
-        }
-
-        def OmniGraphNode "CameraInfoPublish"
-        {
-            custom uint64 inputs:context
-            prepend uint64 inputs:context.connect = </Graph/ROS_HeadCamera/Context.outputs:context>
-            custom bool inputs:enabled
-            custom uint inputs:execIn (
-                customData = {
-                    bool isExecution = 1
-                }
-            )
-            prepend uint inputs:execIn.connect = </Graph/ROS_HeadCamera/RenderProduct.outputs:execOut>
-            custom string inputs:frameId = "head_camera"
-            custom string inputs:frameIdRight
-            custom uint inputs:frameSkipCount
-            custom string inputs:nodeNamespace = "head_camera"
-            custom string inputs:qosProfile
-            custom uint64 inputs:queueSize
-            custom token inputs:renderProductPath
-            prepend token inputs:renderProductPath.connect = </Graph/ROS_HeadCamera/RenderProduct.outputs:renderProductPath>
-            custom token inputs:renderProductPathRight
-            custom bool inputs:resetSimulationTimeOnStop = 1
-            custom string inputs:topicName = "camera_info"
-            custom string inputs:topicNameRight
-            custom bool inputs:useSystemTime
-            token node:type = "isaacsim.ros2.bridge.ROS2CameraInfoHelper"
-            int node:typeVersion = 1
-        }
-
-        def OmniGraphNode "RGBPublish"
-        {
-            custom uint64 inputs:context
-            prepend uint64 inputs:context.connect = </Graph/ROS_HeadCamera/Context.outputs:context>
-            custom bool inputs:enabled
-            custom bool inputs:enableSemanticLabels
-            custom uint inputs:execIn (
-                customData = {
-                    bool isExecution = 1
-                }
-            )
-            prepend uint inputs:execIn.connect = </Graph/ROS_HeadCamera/RenderProduct.outputs:execOut>
-            custom string inputs:frameId = "head_camera"
-            custom uint inputs:frameSkipCount
-            custom string inputs:nodeNamespace = "head_camera"
-            custom string inputs:qosProfile
-            custom uint64 inputs:queueSize
-            custom token inputs:renderProductPath
-            prepend token inputs:renderProductPath.connect = </Graph/ROS_HeadCamera/RenderProduct.outputs:renderProductPath>
-            custom bool inputs:resetSimulationTimeOnStop = 1
-            custom string inputs:semanticLabelsTopicName
-            custom string inputs:srtxCompressionType
-            custom float2 inputs:stereoOffset
-            custom string inputs:topicName = "rgb"
-            custom token inputs:type = "rgb" (
-                allowedTokens = ["rgb", "rgb_h264", "depth", "depth_pcl", "instance_segmentation", "semantic_segmentation", "bbox_2d_tight", "bbox_2d_loose", "bbox_3d"]
-            )
-            custom bool inputs:useSystemTime
-            token node:type = "isaacsim.ros2.bridge.ROS2CameraHelper"
-            int node:typeVersion = 2
-        }
-
-        def OmniGraphNode "DepthPublish"
-        {
-            custom uint64 inputs:context
-            prepend uint64 inputs:context.connect = </Graph/ROS_HeadCamera/Context.outputs:context>
-            custom bool inputs:enabled
-            custom bool inputs:enableSemanticLabels
-            custom uint inputs:execIn (
-                customData = {
-                    bool isExecution = 1
-                }
-            )
-            prepend uint inputs:execIn.connect = </Graph/ROS_HeadCamera/RenderProduct.outputs:execOut>
-            custom string inputs:frameId = "head_camera"
-            custom uint inputs:frameSkipCount
-            custom string inputs:nodeNamespace = "head_camera"
-            custom string inputs:qosProfile
-            custom uint64 inputs:queueSize
-            custom token inputs:renderProductPath
-            prepend token inputs:renderProductPath.connect = </Graph/ROS_HeadCamera/RenderProduct.outputs:renderProductPath>
-            custom bool inputs:resetSimulationTimeOnStop = 1
-            custom string inputs:semanticLabelsTopicName
-            custom string inputs:srtxCompressionType
-            custom float2 inputs:stereoOffset
-            custom string inputs:topicName = "depth"
-            custom token inputs:type = "depth" (
-                allowedTokens = ["rgb", "rgb_h264", "depth", "depth_pcl", "instance_segmentation", "semantic_segmentation", "bbox_2d_tight", "bbox_2d_loose", "bbox_3d"]
-            )
-            custom bool inputs:useSystemTime
-            token node:type = "isaacsim.ros2.bridge.ROS2CameraHelper"
-            int node:typeVersion = 2
-        }
-    }
 }
 

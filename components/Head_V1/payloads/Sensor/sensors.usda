@@ -55,7 +55,8 @@ def Xform "Head_V1"
                 uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale", "xformOp:rotateX:unitsResolve"]
             }
 
-            # Optical Camera for RTX / ROS2 (no OmniGraph here).
+            # Optical Camera for RTX / ROS2.
+            # OmniGraph publishers live in payloads/ROS/ros2.usda (variant ROS=enable).
             # Orient matches repo convention (Woosh chassis_camera): USD Camera looks -Z;
             # this quat aligns look direction with the head_camera mount frame.
             # Apertures set for square pixels at 640x480 (ha/va == width/height).

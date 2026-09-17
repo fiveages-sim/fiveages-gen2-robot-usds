@@ -105,7 +105,9 @@ def Xform "FiveAges_W2"
                 over "articulation_controller"
                 {
                     custom token[] inputs:jointNames = ["fl_steer_joint", "rl_steer_joint", "rr_steer_joint", "fr_steer_joint"]
-                    custom rel inputs:targetPrim = </FiveAges_W2> (
+                    # Bare "delete ...connect" (no =path) is illegal USDA and drops the whole Chassis payload.
+                    delete token[] inputs:jointNames.connect = </S2_V2/Graph/ROS_Steering_Controller/script_node.outputs:Steer_Joints>
+                    custom rel inputs:targetPrim = </FiveAges_W2/base_link> (
                         customData = {
                             dictionary omni = {
                                 dictionary graph = {
@@ -119,7 +121,8 @@ def Xform "FiveAges_W2"
                 over "articulation_controller_01"
                 {
                     custom token[] inputs:jointNames = ["fl_wheel_joint", "rl_wheel_joint", "rr_wheel_joint", "fr_wheel_joint"]
-                    custom rel inputs:targetPrim = </FiveAges_W2> (
+                    delete token[] inputs:jointNames.connect = </S2_V2/Graph/ROS_Steering_Controller/script_node.outputs:Wheel_Joints>
+                    custom rel inputs:targetPrim = </FiveAges_W2/base_link> (
                         customData = {
                             dictionary omni = {
                                 dictionary graph = {
