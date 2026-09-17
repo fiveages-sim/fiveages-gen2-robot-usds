@@ -812,11 +812,7 @@ def Xform "World"
                         }
                     }
 
-                    over "Wuji_hand2" (
-                        variants = {
-                            string Physics = "physx"
-                        }
-                    )
+                    over "Wuji_hand2"
                     {
                     }
                 }
@@ -1475,11 +1471,7 @@ def Xform "World"
                         }
                     }
 
-                    over "Wuji_hand2" (
-                        variants = {
-                            string Physics = "physx"
-                        }
-                    )
+                    over "Wuji_hand2"
                     {
                     }
                 }
