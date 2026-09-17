@@ -60,9 +60,11 @@ over "FiveAges_W2"
             prepend rel collection:colliders:excludes = [
                 </FiveAges_W2/Left_Arm/link7/tcp/LinkerHand_o6>,
                 </FiveAges_W2/Left_Arm/link7/tcp/LinkerHand_o7>,
+                </FiveAges_W2/Left_Arm/link7/tcp/L6>,
                 </FiveAges_W2/Left_Arm/link7/tcp/Wuji_hand2>,
                 </FiveAges_W2/Right_Arm/link7/tcp/LinkerHand_o6>,
                 </FiveAges_W2/Right_Arm/link7/tcp/LinkerHand_o7>,
+                </FiveAges_W2/Right_Arm/link7/tcp/L6>,
                 </FiveAges_W2/Right_Arm/link7/tcp/Wuji_hand2>,
             ]
             prepend rel physics:filteredGroups = [
