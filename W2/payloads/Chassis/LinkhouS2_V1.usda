@@ -57,12 +57,20 @@ def Xform "FiveAges_W2"
                     custom token[] inputs:jointNames = ["fl_steer_joint", "rl_steer_joint", "rr_steer_joint", "fr_steer_joint"]
                     # Drop stock script connect (bare "delete ...connect" without =path is illegal USDA → Chassis payload fails → red W2).
                     delete token[] inputs:jointNames.connect = </Linkhou_S2_V1/Graph/ROS_Steering_Controller/script_node.outputs:Steer_Joints>
+                    # Re-pin command connects to composed W2 paths (stock Linkhou_S2_V1 paths can go stale).
+                    prepend double[] inputs:positionCommand.connect = [
+                        </FiveAges_W2/Linkhou_S2/Graph/ROS_Steering_Controller/script_node.outputs:Steer_Position_Command>
+                    ]
                     rel inputs:targetPrim = </FiveAges_W2/base_link>
                 }
                 over "articulation_controller_01"
                 {
                     custom token[] inputs:jointNames = ["fl_wheel_joint", "rl_wheel_joint", "rr_wheel_joint", "fr_wheel_joint"]
                     delete token[] inputs:jointNames.connect = </Linkhou_S2_V1/Graph/ROS_Steering_Controller/script_node.outputs:Wheel_Joints>
+                    # Critical: without velocityCommand, Newton holds wheels at 0 → ice-skate on low μ.
+                    prepend double[] inputs:velocityCommand.connect = [
+                        </FiveAges_W2/Linkhou_S2/Graph/ROS_Steering_Controller/script_node.outputs:Wheel_Velocity_Command>
+                    ]
                     rel inputs:targetPrim = </FiveAges_W2/base_link>
                 }
             }

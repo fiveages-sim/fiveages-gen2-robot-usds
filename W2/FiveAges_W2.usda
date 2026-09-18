@@ -278,14 +278,16 @@ def Xform "FiveAges_W2" (
         {
             over "ROS_Steering_Controller"
             {
+                # Must target art root base_link (DOF host). FiveAges_W2 Xform alone
+                # can resolve inconsistently under Newton vs Chassis mount intent.
                 over "articulation_controller"
                 {
-                    custom rel inputs:targetPrim = </FiveAges_W2>
+                    custom rel inputs:targetPrim = </FiveAges_W2/base_link>
                 }
 
                 over "articulation_controller_01"
                 {
-                    custom rel inputs:targetPrim = </FiveAges_W2>
+                    custom rel inputs:targetPrim = </FiveAges_W2/base_link>
                 }
             }
 
