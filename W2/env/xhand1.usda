@@ -7,8 +7,8 @@
                 double radius = 5
             }
             dictionary Perspective = {
-                double3 position = (2.1583410481414016, 1.9904052798393923, 2.552166300762483)
-                double3 target = (-2.588935857159387, -1.3482601802612029, -0.17814669171907838)
+                double3 position = (1.664467347596369, 0.28978976325549993, 1.7341329333039868)
+                double3 target = (-3.162108108369548, -3.1778967857187235, 0.6797628110066223)
             }
             dictionary Right = {
                 double3 position = (0, -5, 0)
@@ -69,6 +69,25 @@ def Xform "World"
             }
         )
         {
+            over "link7"
+            {
+                over "tcp"
+                {
+                    over "Xhand1" (
+                        variants = {
+                            string Sensor = "d405"
+                        }
+                    )
+                    {
+                        over "hand_base"
+                        {
+                            string isaac:nameOverride (
+                                displayName = "Name Override"
+                            )
+                        }
+                    }
+                }
+            }
         }
 
         over "Left_Arm" (
@@ -77,6 +96,40 @@ def Xform "World"
             }
         )
         {
+            over "link7"
+            {
+                over "tcp"
+                {
+                    over "Xhand1" (
+                        variants = {
+                            string Sensor = "d405"
+                        }
+                    )
+                    {
+                        over "hand_base"
+                        {
+                            over "d405_kit"
+                            {
+                                quatd xformOp:orient = (1, 0, 0, 0)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        over "Linkhou_S2"
+        {
+            over "Graph"
+            {
+                over "ROS_Steering_Controller"
+                {
+                    over "script_node"
+                    {
+                        custom token inputs:scriptPath
+                    }
+                }
+            }
         }
     }
 }
@@ -178,10 +231,10 @@ over "OmniverseKit_Persp" (
     float exposure:time = 0.02
     float focalLength = 18.147562
     float focusDistance = 400
-    custom uniform vector3d omni:kit:centerOfInterest = (0, 0, -6.413886037885657)
-    float3 xformOp:rotateXYZ = (64.80579, -7.951387e-14, 125.11796)
+    custom uniform vector3d omni:kit:centerOfInterest = (0, 0, -6.035923872023463)
+    float3 xformOp:rotateXYZ = (79.93982, -1.9083328e-13, 125.69562)
     float3 xformOp:scale = (1, 1, 1)
-    double3 xformOp:translate = (2.1583410481414016, 1.9904052798393923, 2.552166300762483)
+    double3 xformOp:translate = (1.664467347596369, 0.28978976325549993, 1.7341329333039868)
     uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
 }
 
