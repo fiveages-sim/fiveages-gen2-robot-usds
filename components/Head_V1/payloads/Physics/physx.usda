@@ -16,14 +16,14 @@ def "Head_V1"
             prepend apiSchemas = ["PhysxJointAPI"]
         )
         {
-            float physxJoint:maxJointVelocity = 57.295776
+            float physxJoint:maxJointVelocity = 68.754931
         }
 
         over "head_joint2" (
             prepend apiSchemas = ["PhysxJointAPI"]
         )
         {
-            float physxJoint:maxJointVelocity = 57.295776
+            float physxJoint:maxJointVelocity = 68.754931
         }
     }
 

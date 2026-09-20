@@ -37,6 +37,9 @@ def Xform "FiveAges_W2"
 {
     def "Linkhou_S2" (
         prepend payload = @../../../../../../mobile_base/Linkhou/S2_V1/Linkhou_S2_V1.usda@
+        variants = {
+            string ROS = "enable"
+        }
     )
     {
         quatd xformOp:orient = (1, 0, 0, 0)
@@ -50,6 +53,14 @@ def Xform "FiveAges_W2"
         # empty jointNames + commands on base_link stomps the first DOFs (head/arms). PhysX often ignored that.
         over "Graph"
         {
+            over "ROS_Odometry"
+            {
+                over "ComputeOdometry"
+                {
+                    custom rel inputs:chassisPrim = </FiveAges_W2/base_link>
+                }
+            }
+
             over "ROS_Steering_Controller"
             {
                 over "articulation_controller"

@@ -181,11 +181,7 @@ def Xform "FiveAges_W2" (
         }
     }
 
-    over "Linkhou_S2" (
-        variants = {
-            string ROS = "none"
-        }
-    )
+    over "Linkhou_S2"
     {
         over "base_footprint"
         {
@@ -566,10 +562,25 @@ def Xform "FiveAges_W2" (
             }
             prepend payload = @./payloads/ROS/ros2.usda@
         ) {
-
+            # Nested cmd_vel / odom stay on Linkhou. Parent ROS must push the
+            # child variant (Split Aloha pattern). Do not sticky ROS on the
+            # chassis over — that froze Linkhou at none when W2 ROS=enable.
+            over "Linkhou_S2" (
+                variants = {
+                    string ROS = "enable"
+                }
+            )
+            {
+            }
         }
         "none" {
-
+            over "Linkhou_S2" (
+                variants = {
+                    string ROS = "none"
+                }
+            )
+            {
+            }
         }
     }
 }

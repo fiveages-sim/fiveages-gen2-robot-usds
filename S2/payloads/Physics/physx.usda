@@ -23,14 +23,14 @@ def "FiveAges_S2"
             prepend apiSchemas = ["PhysxJointAPI"]
         )
         {
-            float physxJoint:maxJointVelocity = 57.295776
+            float physxJoint:maxJointVelocity = 68.754931
         }
 
         over "body_joint2" (
             prepend apiSchemas = ["PhysxJointAPI"]
         )
         {
-            float physxJoint:maxJointVelocity = 57.295776
+            float physxJoint:maxJointVelocity = 68.754931
         }
     }
 

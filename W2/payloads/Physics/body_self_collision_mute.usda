@@ -5,13 +5,20 @@
 PhysX: CollisionGroup + filteredGroups self-filter. Always composed with
 Physics=physx (any Arm_Left/Arm_Right mix).
 
+Nested M6 also authors CollisionGroups/NonDexHand on the same arm links.
+A collider may belong to only ONE PhysX group — dual membership spams
+  [omni.physx.plugin] Collisions are supported currently only in one collision group
+especially for gripper/EE colliders (not in the dexhand excludes). Deactivate
+the nested arm groups so body/chassis/arm/gripper live only in this parent
+group. Dexhand roots stay excluded (ungrouped finger self-col).
+
 Newton does NOT reliably honor filteredGroups / CollectionAPI membership;
 see body_self_collision_mute_newton.usda — wired as append references on
 FiveAges_W2 Physics=mujoco (body+chassis only; never Left/Right_Arm).
 Payload subLayer mute is too weak vs base.usda (authored=False).
 
-Dexhand roots listed in excludes stay ungrouped (finger self-col).
 Keep hand prim names in sync with M6 EE dexhand_self_collision.usda.
+Grippers are intentionally not excluded.
 """
     metersPerUnit = 1
     upAxis = "Z"
@@ -25,37 +32,16 @@ over "FiveAges_W2"
             prepend apiSchemas = ["CollectionAPI:colliders"]
         )
         {
+            uniform token collection:colliders:expansionRule = "expandPrims"
             prepend rel collection:colliders:includes = [
                 </FiveAges_W2/base_link>,
                 </FiveAges_W2/body_link1>,
                 </FiveAges_W2/body_link2>,
                 </FiveAges_W2/body_link3>,
                 </FiveAges_W2/body_link4>,
-                </FiveAges_W2/Linkhou_S2/base_footprint>,
-                </FiveAges_W2/Linkhou_S2/fl_steer>,
-                </FiveAges_W2/Linkhou_S2/fl_wheel>,
-                </FiveAges_W2/Linkhou_S2/fr_steer>,
-                </FiveAges_W2/Linkhou_S2/fr_wheel>,
-                </FiveAges_W2/Linkhou_S2/rl_steer>,
-                </FiveAges_W2/Linkhou_S2/rl_wheel>,
-                </FiveAges_W2/Linkhou_S2/rr_steer>,
-                </FiveAges_W2/Linkhou_S2/rr_wheel>,
-                </FiveAges_W2/Left_Arm/base_link>,
-                </FiveAges_W2/Left_Arm/link1>,
-                </FiveAges_W2/Left_Arm/link2>,
-                </FiveAges_W2/Left_Arm/link3>,
-                </FiveAges_W2/Left_Arm/link4>,
-                </FiveAges_W2/Left_Arm/link5>,
-                </FiveAges_W2/Left_Arm/link6>,
-                </FiveAges_W2/Left_Arm/link7>,
-                </FiveAges_W2/Right_Arm/base_link>,
-                </FiveAges_W2/Right_Arm/link1>,
-                </FiveAges_W2/Right_Arm/link2>,
-                </FiveAges_W2/Right_Arm/link3>,
-                </FiveAges_W2/Right_Arm/link4>,
-                </FiveAges_W2/Right_Arm/link5>,
-                </FiveAges_W2/Right_Arm/link6>,
-                </FiveAges_W2/Right_Arm/link7>,
+                </FiveAges_W2/Linkhou_S2>,
+                </FiveAges_W2/Left_Arm>,
+                </FiveAges_W2/Right_Arm>,
             ]
             prepend rel collection:colliders:excludes = [
                 </FiveAges_W2/Left_Arm/link7/tcp/LinkerHand_o6>,
@@ -72,6 +58,30 @@ over "FiveAges_W2"
             prepend rel physics:filteredGroups = [
                 </FiveAges_W2/CollisionGroups/NonDexHand>,
             ]
+        }
+    }
+
+    over "Left_Arm"
+    {
+        over "CollisionGroups"
+        {
+            over "NonDexHand" (
+                active = false
+            )
+            {
+            }
+        }
+    }
+
+    over "Right_Arm"
+    {
+        over "CollisionGroups"
+        {
+            over "NonDexHand" (
+                active = false
+            )
+            {
+            }
         }
     }
 }

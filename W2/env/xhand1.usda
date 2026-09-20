@@ -7,8 +7,8 @@
                 double radius = 5
             }
             dictionary Perspective = {
-                double3 position = (0.4305968773154972, 0.9733372087983294, 1.671028051033163)
-                double3 target = (-2.4304563972167053, 0.8643973924720415, 0.8089580293664975)
+                double3 position = (2.1583410481414016, 1.9904052798393923, 2.552166300762483)
+                double3 target = (-2.588935857159387, -1.3482601802612029, -0.17814669171907838)
             }
             dictionary Right = {
                 double3 position = (0, -5, 0)
@@ -21,7 +21,7 @@
             string boundCamera = "/OmniverseKit_Persp"
         }
         dictionary omni_layer = {
-            string authoring_layer = "./revo2.usda"
+            string authoring_layer = "./xhand1.usda"
             dictionary locked = {
             }
             dictionary muteness = {
@@ -52,6 +52,10 @@ def Xform "World"
 
     def "FiveAges_W2" (
         prepend payload = @../FiveAges_W2.usda@
+        variants = {
+            string Chassis = "LinkhouS2_V2"
+            string ROS = "enable"
+        }
     )
     {
         quatd xformOp:orient = (1, 0, 0, 0)
@@ -174,10 +178,10 @@ over "OmniverseKit_Persp" (
     float exposure:time = 0.02
     float focalLength = 18.147562
     float focusDistance = 400
-    custom uniform vector3d omni:kit:centerOfInterest = (0, 0, -2.9900933840850206)
-    float3 xformOp:rotateXYZ = (73.24327, -8.905553e-14, 92.18059)
+    custom uniform vector3d omni:kit:centerOfInterest = (0, 0, -6.413886037885657)
+    float3 xformOp:rotateXYZ = (64.80579, -7.951387e-14, 125.11796)
     float3 xformOp:scale = (1, 1, 1)
-    double3 xformOp:translate = (0.4305968773154972, 0.9733372087983294, 1.671028051033163)
+    double3 xformOp:translate = (2.1583410481414016, 1.9904052798393923, 2.552166300762483)
     uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
 }
 
