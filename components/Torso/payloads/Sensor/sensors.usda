@@ -14,11 +14,11 @@ def Xform "Torso"
             over "body_camera1"
             {
                 def "orbbec_336" (
-                    prepend payload = @../../../../../../../sensors/orbbec_336.usd@
+                    prepend payload = @../../../../../../../sensors/orbbec/336.usd@
                 )
                 {
                     quatf xformOp:orient = (1, 0, 0, 0)
-                    double xformOp:rotateX:unitsResolve = 90
+                    double xformOp:rotateX:unitsResolve = 0
                     float3 xformOp:scale = (1, 1, 1)
                     double3 xformOp:translate = (0, 0, 0)
                     uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale", "xformOp:rotateX:unitsResolve"]
@@ -28,11 +28,11 @@ def Xform "Torso"
             over "body_camera2"
             {
                 def "orbbec_336" (
-                    prepend payload = @../../../../../../../sensors/orbbec_336.usd@
+                    prepend payload = @../../../../../../../sensors/orbbec/336.usd@
                 )
                 {
                     quatf xformOp:orient = (1, 0, 0, 0)
-                    double xformOp:rotateX:unitsResolve = 90
+                    double xformOp:rotateX:unitsResolve = 0
                     float3 xformOp:scale = (1, 1, 1)
                     double3 xformOp:translate = (0, 0, 0)
                     uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale", "xformOp:rotateX:unitsResolve"]
@@ -41,3 +41,4 @@ def Xform "Torso"
         }
     }
 }
+

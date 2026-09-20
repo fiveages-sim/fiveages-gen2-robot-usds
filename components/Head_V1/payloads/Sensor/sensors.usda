@@ -45,7 +45,7 @@ def Xform "Head_V1"
         over "head_camera"
         {
             def "orbbec_336L" (
-                prepend payload = @../../../../../../../sensors/orbbec_336L.usd@
+                prepend payload = @../../../../../../../sensors/orbbec/336L.usd@
             )
             {
                 quatf xformOp:orient = (1, 0, 0, 0)
@@ -55,11 +55,6 @@ def Xform "Head_V1"
                 uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale", "xformOp:rotateX:unitsResolve"]
             }
 
-            # Optical Camera for RTX / ROS2.
-            # OmniGraph publishers live in payloads/ROS/ros2.usda (variant ROS=enable).
-            # Orient matches repo convention (Woosh chassis_camera): USD Camera looks -Z;
-            # this quat aligns look direction with the head_camera mount frame.
-            # Apertures set for square pixels at 640x480 (ha/va == width/height).
             def Camera "head_camera"
             {
                 float2 clippingRange = (0.05, 10)
