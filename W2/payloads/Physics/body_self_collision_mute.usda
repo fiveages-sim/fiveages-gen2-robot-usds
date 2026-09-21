@@ -14,11 +14,12 @@ group. Dexhand roots stay excluded (ungrouped finger self-col).
 
 Newton does NOT reliably honor filteredGroups / CollectionAPI membership;
 see body_self_collision_mute_newton.usda — wired as append references on
-FiveAges_W2 Physics=mujoco (body+chassis only; never Left/Right_Arm).
+FiveAges_W2 Physics=mujoco (body+chassis+Head; never Left/Right_Arm).
 Payload subLayer mute is too weak vs base.usda (authored=False).
 
 Keep hand prim names in sync with M6 EE dexhand_self_collision.usda.
 Grippers are intentionally not excluded.
+Head_V1 is included so head↔torso/body self-col is filtered (yaw was jammed).
 """
     metersPerUnit = 1
     upAxis = "Z"
@@ -39,6 +40,7 @@ over "FiveAges_W2"
                 </FiveAges_W2/body_link2>,
                 </FiveAges_W2/body_link3>,
                 </FiveAges_W2/body_link4>,
+                </FiveAges_W2/Head_V1>,
                 </FiveAges_W2/Linkhou_S2>,
                 </FiveAges_W2/Left_Arm>,
                 </FiveAges_W2/Right_Arm>,

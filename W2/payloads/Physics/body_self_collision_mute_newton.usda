@@ -1,11 +1,14 @@
 #usda 1.0
 (
-    doc = """W2 Newton body/chassis mute — VALIDATED 2026-09-10.
+    doc = """W2 Newton body/chassis/Head mute — VALIDATED 2026-09-10.
 
 WIRE: FiveAges_W2 Physics=mujoco → append references = @this@</FiveAges_W2>
 NOT a mujoco.usda subLayer (too weak). NEVER add Left_Arm/Right_Arm here.
 Arms: M6 arm_self_collision_mute_newton. PhysX: CollisionGroup (unchanged).
 Art root: base_link. Diagnose: env/newton_verify_mute.py
+
+Head_V1 collision shapes muted to match PhysX NonDexHand (head yaw was
+jammed by torso/self-col when Head stayed enabled).
 """
     metersPerUnit = 1
     defaultPrim = "FiveAges_W2"
@@ -92,6 +95,43 @@ over "FiveAges_W2"
                         {
                             bool physics:collisionEnabled = 0
                         }
+                    }
+                }
+            }
+        }
+    }
+
+    # Align with PhysX NonDexHand includes (Head_V1). Instance proxies →
+    # instanceable=false then mute CollisionAPI mesh child (same as body).
+    over "Head_V1"
+    {
+        over "head_link1"
+        {
+            over "collisions"
+            {
+                over "head_yaw" (
+                    instanceable = false
+                )
+                {
+                    over "mesh"
+                    {
+                        bool physics:collisionEnabled = 0
+                    }
+                }
+            }
+        }
+
+        over "head_link2"
+        {
+            over "collisions"
+            {
+                over "head_pitch" (
+                    instanceable = false
+                )
+                {
+                    over "mesh_1"
+                    {
+                        bool physics:collisionEnabled = 0
                     }
                 }
             }
