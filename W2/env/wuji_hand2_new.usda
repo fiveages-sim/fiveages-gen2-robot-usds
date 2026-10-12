@@ -7,8 +7,8 @@
                 double radius = 5
             }
             dictionary Perspective = {
-                double3 position = (1.2113572682725777, 1.0203259256543875, 2.601357729808342)
-                double3 target = (-1.1013935612686165, -2.509043770723603, -3.3513399984116665)
+                double3 position = (3.3610989273541834, 0.14681254178033878, 1.8441637424073087)
+                double3 target = (-4.069317927758291, 0.2038428324975797, -0.7500144127716701)
             }
             dictionary Right = {
                 double3 position = (0, -5, 0)
@@ -30,9 +30,17 @@
     doc = """Clean W2 + Wuji Hand2 grasp env.
 Grid floor + EastRural table + apple/banana/bottle + YCB mug (handle) + SimReady lime (irregular).
 Scene-level Newton/MuJoCo contact & PhysicsScene tune (robot assets untouched).
+PhysX robot↔table mute (scene only; do not dual-group NonDexHand colliders):
+1) EastRural_Table FilteredPairs → FiveAges_W2 for body/arms (already in W2
+   NonDexHand; one group/collider).
+2) World/CollisionGroups DexHand↔Table for Wuji_hand2 only — hands are excluded
+   from NonDexHand and already author finger FilteredPairs, so hierarchy pairs
+   from the table often miss them; they may safely join a Hands-only group.
+Props stay out of Table group / filteredPairs → table↔props & robot↔props OK.
 Right Hand2: Sensor=contact_force (Hand2 asset). Left: set Sensor=contact_force to enable.
 Topics: /wuji_rh/* (RH), /wuji_lh/* (LH). See Hand2/payloads/Sensor/CONTACT_FORCE_README.md.
 Reopen stage after Newton→PhysX for contact sensors.
+Spawn joints match fa-w2-description ocs2_wbc_controller.home_1 (USD degrees).
 """
     endTimeCode = 1000000
     metersPerUnit = 1
@@ -48,10 +56,14 @@ def Xform "World"
     )
     {
         def "EastRural_Table" (
-            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysxRigidBodyAPI"]
+            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsFilteredPairsAPI"]
             prepend payload = @https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/ArchVis/Residential/Furniture/DiningSets/EastRural/EastRural_Table.usd@
         )
         {
+            # Body/arms (NonDexHand members). Hands need DexHand↔Table groups below.
+            prepend rel physics:filteredPairs = [
+                </World/FiveAges_W2>,
+            ]
             bool physics:kinematicEnabled = 1
             bool physics:rigidBodyEnabled = 1
             quatf xformOp:orient = (1, 0, 0, 0)
@@ -119,10 +131,44 @@ def Xform "World"
                 prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysxConvexHullCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMaterialAPI", "PhysxMaterialAPI", "MjcCollisionAPI"]
             )
             {
-                uniform int mjc:condim = 3
+                uniform int mjc:condim = 3 (
+                    displayName = "ConDim"
+                )
+                uniform double mjc:gap (
+                    displayName = "Gap"
+                )
+                uniform int mjc:group (
+                    displayName = "Group"
+                )
+                uniform double mjc:margin (
+                    displayName = "Margin"
+                )
+                uniform int mjc:priority (
+                    displayName = "Priority"
+                )
+                uniform bool mjc:shellinertia (
+                    displayName = "Shell Inertia"
+                )
+                uniform double[] mjc:solimp (
+                    displayName = "SolImp"
+                )
+                uniform double mjc:solmix (
+                    displayName = "SolMix"
+                )
+                uniform double[] mjc:solref (
+                    displayName = "SolMix"
+                )
+                float newton:contactGap (
+                    displayName = "Contact Gap"
+                )
+                float newton:contactMargin (
+                    displayName = "Contact Margin"
+                )
                 int newton:maxHullVertices = 48
                 uniform token physics:approximation = "convexHull"
-                bool physics:collisionEnabled = 1
+                bool physics:collisionEnabled = 1 (
+                    displayName = "Collision Enabled"
+                )
                 float physics:dynamicFriction = 1.4
                 float physics:restitution = 0
                 float physics:staticFriction = 1.8
@@ -136,7 +182,7 @@ def Xform "World"
             {
                 quatf xformOp:orient = (1, 0, 0, 0)
                 float3 xformOp:scale = (100, 100, 100)
-                double3 xformOp:translate = (-2.68086663011519, -21.085257324728257, 94.49615662815259)
+                double3 xformOp:translate = (-2.680866630116711, -23.096873533936876, 79.18205717527044)
                 uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
 
                 over "Geometry"
@@ -184,13 +230,14 @@ def Xform "World"
             {
                 quatf xformOp:orient = (0.9238795, 0, 0, 0.38268352)
                 float3 xformOp:scale = (100, 100, 100)
-                double3 xformOp:translate = (14.259275860209584, 2.552130180273554, 90.00000000000007)
+                double3 xformOp:translate = (14.259275860208135, 2.5521301802735468, 77.85504755346572)
                 uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
 
                 over "banana"
                 {
                     over "banana" (
-                        prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysxCollisionAPI", "PhysxConvexHullCollisionAPI", "PhysicsMaterialAPI", "MjcCollisionAPI", "PhysxConvexDecompositionCollisionAPI"]
+                        delete apiSchemas = ["PhysxConvexHullCollisionAPI"]
+                        prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysxCollisionAPI", "PhysxConvexDecompositionCollisionAPI", "PhysicsMaterialAPI", "MjcCollisionAPI"]
                     )
                     {
                         uniform int mjc:condim = 3 (
@@ -227,7 +274,7 @@ def Xform "World"
                         float newton:contactMargin (
                             displayName = "Contact Margin"
                         )
-                        int newton:maxHullVertices = 48
+                        int newton:maxHullVertices = 64
                         float physics:angularDamping = 0.8
                         uniform token physics:approximation = "convexDecomposition"
                         bool physics:collisionEnabled = 1 (
@@ -239,6 +286,8 @@ def Xform "World"
                         float physics:restitution = 0
                         bool physics:rigidBodyEnabled = 1
                         float physics:staticFriction = 1.5
+                        float physxCollision:contactOffset = 0.003
+                        float physxCollision:restOffset = 0
                     }
                 }
             }
@@ -249,7 +298,7 @@ def Xform "World"
             {
                 quatf xformOp:orient = (1, 0, 0, 0)
                 float3 xformOp:scale = (100, 100, 100)
-                double3 xformOp:translate = (-4.664164226313403, 22.33081319072058, 80.18630475677222)
+                double3 xformOp:translate = (-4.664164226318093, 22.330813190720583, 76.51260572038335)
                 uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
 
                 over "Geometry"
@@ -306,7 +355,7 @@ def Xform "World"
             {
                 quatf xformOp:orient = (1, 0, 0, 0)
                 float3 xformOp:scale = (100, 100, 100)
-                double3 xformOp:translate = (-17.996991901701342, -4.093611474105462, 82)
+                double3 xformOp:translate = (-17.996991901701342, -4.093611474105462, 75.85155163048181)
                 uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
 
                 over "Geometry"
@@ -348,7 +397,7 @@ def Xform "World"
             {
                 quatf xformOp:orient = (1, 0, 0, 0)
                 float3 xformOp:scale = (100, 100, 100)
-                double3 xformOp:translate = (7.555667981277196, -12.70905201772507, 83.0802559117363)
+                double3 xformOp:translate = (7.555667981274354, -12.70905201772507, 76.30829108428735)
                 uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
 
                 over "Grasp"
@@ -392,6 +441,58 @@ def Xform "World"
             }
         )
         {
+            over "joints"
+            {
+                over "left_joint1"
+                {
+                    float drive:angular:physics:targetPosition = 83.48762
+                    float state:angular:physics:position = 83.48762
+                    float state:angular:physics:velocity = 0
+                }
+
+                over "left_joint2"
+                {
+                    float drive:angular:physics:targetPosition = -60.926613
+                    float state:angular:physics:position = -60.926613
+                    float state:angular:physics:velocity = 0
+                }
+
+                over "left_joint3"
+                {
+                    float drive:angular:physics:targetPosition = -68.72093
+                    float state:angular:physics:position = -68.72093
+                    float state:angular:physics:velocity = 0
+                }
+
+                over "left_joint4"
+                {
+                    float drive:angular:physics:targetPosition = -46.261753
+                    float state:angular:physics:position = -46.261753
+                    float state:angular:physics:velocity = 0
+                }
+
+                over "left_joint5"
+                {
+                    float drive:angular:physics:targetPosition = -39.81804
+                    float state:angular:physics:position = -39.81804
+                    float state:angular:physics:velocity = 0
+                }
+
+                over "left_joint6"
+                {
+                    float drive:angular:physics:targetPosition = -39.33001
+                    float state:angular:physics:position = -39.33001
+                    float state:angular:physics:velocity = 0
+                }
+
+                over "left_joint7"
+                {
+                    float drive:angular:physics:targetPosition = -7.421093
+                    float state:angular:physics:position = -7.421093
+                    float state:angular:physics:velocity = 0
+                }
+            }
+
             over "link7"
             {
                 over "tcp"
@@ -413,6 +514,58 @@ def Xform "World"
             }
         )
         {
+            over "joints"
+            {
+                over "right_joint1"
+                {
+                    float drive:angular:physics:targetPosition = -83.48762
+                    float state:angular:physics:position = -83.48762
+                    float state:angular:physics:velocity = 0
+                }
+
+                over "right_joint2"
+                {
+                    float drive:angular:physics:targetPosition = -60.926613
+                    float state:angular:physics:position = -60.926613
+                    float state:angular:physics:velocity = 0
+                }
+
+                over "right_joint3"
+                {
+                    float drive:angular:physics:targetPosition = 68.72093
+                    float state:angular:physics:position = 68.72093
+                    float state:angular:physics:velocity = 0
+                }
+
+                over "right_joint4"
+                {
+                    float drive:angular:physics:targetPosition = -46.261753
+                    float state:angular:physics:position = -46.261753
+                    float state:angular:physics:velocity = 0
+                }
+
+                over "right_joint5"
+                {
+                    float drive:angular:physics:targetPosition = 39.81804
+                    float state:angular:physics:position = 39.81804
+                    float state:angular:physics:velocity = 0
+                }
+
+                over "right_joint6"
+                {
+                    float drive:angular:physics:targetPosition = -39.33001
+                    float state:angular:physics:position = -39.33001
+                    float state:angular:physics:velocity = 0
+                }
+
+                over "right_joint7"
+                {
+                    float drive:angular:physics:targetPosition = 7.421093
+                    float state:angular:physics:position = 7.421093
+                    float state:angular:physics:velocity = 0
+                }
+            }
+
             over "link7"
             {
                 over "tcp"
@@ -790,29 +943,70 @@ def Xform "World"
                 }
             }
         }
+
+        over "joints"
+        {
+            over "body_joint1"
+            {
+                float drive:angular:physics:targetPosition = -51.5662
+                float state:angular:physics:position = -51.5662
+                float state:angular:physics:velocity = 0
+            }
+
+            over "body_joint2"
+            {
+                float drive:angular:physics:targetPosition = -103.1324
+                float state:angular:physics:position = -103.1324
+                float state:angular:physics:velocity = 0
+            }
+
+            over "body_joint3"
+            {
+                float drive:angular:physics:targetPosition = -51.5662
+                float state:angular:physics:position = -51.5662
+                float state:angular:physics:velocity = 0
+            }
+
+            over "body_joint4"
+            {
+                float drive:angular:physics:targetPosition = 0
+                float state:angular:physics:position = 0
+                float state:angular:physics:velocity = 0
+            }
+        }
     }
-}
 
-def Xform "Environment"
-{
-    quatd xformOp:orient = (1, 0, 0, 0)
-    double3 xformOp:scale = (1, 1, 1)
-    double3 xformOp:translate = (0, 0, 0)
-    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
-
-    def DistantLight "defaultLight" (
-        prepend apiSchemas = ["ShapingAPI"]
-    )
+    # Hands only — safe: Wuji_hand2 is excluded from W2/M6 NonDexHand, so this
+    # is their sole CollisionGroup (no dual-membership warning with body/arms).
+    def Scope "CollisionGroups"
     {
-        float inputs:angle = 1
-        float inputs:exposure = 1.5
-        float inputs:intensity = 3000
-        bool inputs:normalize = 1
-        float inputs:shaping:cone:angle = 180
-        quatd xformOp:orient = (0.6532814824381883, 0.2705980500730985, 0.27059805007309845, 0.6532814824381882)
-        double3 xformOp:scale = (1, 1, 1)
-        double3 xformOp:translate = (0, 0, 0)
-        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        def PhysicsCollisionGroup "DexHand" (
+            prepend apiSchemas = ["CollectionAPI:colliders"]
+        )
+        {
+            uniform token collection:colliders:expansionRule = "expandPrims"
+            prepend rel collection:colliders:includes = [
+                </World/FiveAges_W2/Left_Arm/link7/tcp/Wuji_hand2>,
+                </World/FiveAges_W2/Right_Arm/link7/tcp/Wuji_hand2>,
+            ]
+            prepend rel physics:filteredGroups = [
+                </World/CollisionGroups/Table>,
+            ]
+        }
+
+        def PhysicsCollisionGroup "Table" (
+            prepend apiSchemas = ["CollectionAPI:colliders"]
+        )
+        {
+            uniform token collection:colliders:expansionRule = "expandPrims"
+            prepend rel collection:colliders:includes = [
+                </World/default_environment/EastRural_Table/TableTop>,
+                </World/default_environment/EastRural_Table/TableBase>,
+            ]
+            prepend rel physics:filteredGroups = [
+                </World/CollisionGroups/DexHand>,
+            ]
+        }
     }
 }
 
@@ -953,10 +1147,10 @@ over "OmniverseKit_Persp" (
     float exposure:time = 0.02
     float focalLength = 18.147562
     float focusDistance = 400
-    custom uniform vector3d omni:kit:centerOfInterest = (-4.703421452807297e-17, 9.406842905614593e-16, -7.296566116798395)
-    float3 xformOp:rotateXYZ = (35.3313, 6.36111e-14, 146.76369)
+    custom uniform vector3d omni:kit:centerOfInterest = (-5.073356410383843e-17, 1.0146712820767688e-15, -7.870457889831232)
+    float3 xformOp:rotateXYZ = (70.75492, 9.223609e-14, 89.56025)
     float3 xformOp:scale = (1, 1, 1)
-    double3 xformOp:translate = (1.2113572682725777, 1.0203259256543875, 2.601357729808342)
+    double3 xformOp:translate = (3.3610989273541834, 0.14681254178033878, 1.8441637424073087)
     uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
 }
 
