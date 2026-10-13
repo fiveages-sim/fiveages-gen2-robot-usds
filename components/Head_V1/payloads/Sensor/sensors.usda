@@ -55,13 +55,14 @@ def Xform "Head_V1"
                 uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale", "xformOp:rotateX:unitsResolve"]
             }
 
+            # Orbbec Gemini 336L-G color: H94° × V68°, keep Isaac default focalLength.
             def Camera "head_camera"
             {
-                float2 clippingRange = (0.05, 10)
+                float2 clippingRange = (0.05, 30)
                 float focalLength = 18.147562
                 float focusDistance = 1
-                float horizontalAperture = 20.955
-                float verticalAperture = 15.71625
+                float horizontalAperture = 38.92176
+                float verticalAperture = 24.48137
                 quatd xformOp:orient = (0.5, 0.5, -0.5, -0.5)
                 double3 xformOp:scale = (1, 1, 1)
                 double3 xformOp:translate = (0, 0, 0)
