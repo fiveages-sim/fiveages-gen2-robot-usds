@@ -7,8 +7,8 @@
                 double radius = 5
             }
             dictionary Perspective = {
-                double3 position = (3.3610989273541834, 0.14681254178033878, 1.8441637424073087)
-                double3 target = (-4.069317927758291, 0.2038428324975797, -0.7500144127716701)
+                double3 position = (1.0789450190300762, -4.0401114498805, 1.2896700255524065)
+                double3 target = (-0.21734714814538103, 5.647581629733436, -0.0751058930786126)
             }
             dictionary Right = {
                 double3 position = (0, -5, 0)
@@ -39,8 +39,11 @@ PhysX robot↔table mute (scene only; do not dual-group NonDexHand colliders):
 Props stay out of Table group / filteredPairs → table↔props & robot↔props OK.
 Right Hand2: Sensor=contact_force (Hand2 asset). Left: set Sensor=contact_force to enable.
 Topics: /wuji_rh/* (RH), /wuji_lh/* (LH). See Hand2/payloads/Sensor/CONTACT_FORCE_README.md.
-Reopen stage after Newton→PhysX for contact sensors.
-Spawn joints match fa-w2-description ocs2_wbc_controller.home_1 (USD degrees).
+PhysX orchestration (this file, not wuji_hand2_newton.usda):
+  newton.kit → open this usda → switch engine to PhysX
+  → log must include Left_Arm and Wuji_hand2 in the physx variant switch
+  → Play → motion-generation Reset env=yes (STOP→PLAY, same as other demos).
+Spawn at x=-2 for nav. Joints match ocs2_wbc_controller.home_1 (USD degrees).
 """
     endTimeCode = 1000000
     metersPerUnit = 1
@@ -60,16 +63,13 @@ def Xform "World"
             prepend payload = @https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/ArchVis/Residential/Furniture/DiningSets/EastRural/EastRural_Table.usd@
         )
         {
-            # Body/arms (NonDexHand members). Hands need DexHand↔Table groups below.
-            prepend rel physics:filteredPairs = [
-                </World/FiveAges_W2>,
-            ]
+            prepend rel physics:filteredPairs = </World/FiveAges_W2>
             bool physics:kinematicEnabled = 1
             bool physics:rigidBodyEnabled = 1
             quatf xformOp:orient = (1, 0, 0, 0)
             float3 xformOp:scale = (1, 1, 1)
             double3 xformOp:scale:unitsResolve = (0.009999999776482582, 0.009999999776482582, 0.009999999776482582)
-            double3 xformOp:translate = (0.7809491800025677, -0.024510217142726755, 4.99174007018155e-7)
+            double3 xformOp:translate = (0.7809491800025677, -0.024510217142726755, -0.058035352000739136)
             uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale", "xformOp:scale:unitsResolve"]
 
             over "TableTop" (
@@ -182,13 +182,13 @@ def Xform "World"
             {
                 quatf xformOp:orient = (1, 0, 0, 0)
                 float3 xformOp:scale = (100, 100, 100)
-                double3 xformOp:translate = (-2.680866630116711, -23.096873533936876, 79.18205717527044)
+                double3 xformOp:translate = (-16.435497517058067, -34.388480366126146, 79.18205717526872)
                 uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
 
                 over "Geometry"
                 {
                     over "model_normalized_0_vis_obj" (
-                        prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI"]
+                        prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI", "PhysxRigidBodyAPI"]
                     )
                     {
                         float physics:angularDamping = 0.8
@@ -424,7 +424,7 @@ def Xform "World"
     {
         quatd xformOp:orient = (1, 0, 0, 0)
         double3 xformOp:scale = (1, 1, 1)
-        double3 xformOp:translate = (-0.18388290077871555, 0.09478332836271869, 0.08575797662769072)
+        double3 xformOp:translate = (-2, 0.09478332836271869, 0.08575797662769072)
         uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
 
         over "Linkhou_S2" (
@@ -568,6 +568,10 @@ def Xform "World"
 
             over "link7"
             {
+                string isaac:nameOverride (
+                    displayName = "Name Override"
+                )
+
                 over "tcp"
                 {
                     string isaac:Description (
@@ -595,7 +599,7 @@ def Xform "World"
                                 float2 threshold = (0.0001, 100000)
                                 quatd xformOp:orient = (1, 0, 0, 0)
                                 double3 xformOp:scale = (1, 1, 1)
-                                double3 xformOp:translate = (-7.450580596923828e-9, 0, 0)
+                                double3 xformOp:translate = (0, 0, 0)
                                 uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
                             }
                         }
@@ -611,7 +615,7 @@ def Xform "World"
                                 float2 threshold = (0.0001, 100000)
                                 quatd xformOp:orient = (1, 1.4781406321162649e-8, 8.411027430099693e-10, 1.6873604735678782e-9)
                                 double3 xformOp:scale = (1, 1, 1)
-                                double3 xformOp:translate = (0, 0, -5.960464477539063e-8)
+                                double3 xformOp:translate = (0, 0, -1.1920928955078125e-7)
                                 uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
                             }
                         }
@@ -627,7 +631,7 @@ def Xform "World"
                                 float2 threshold = (0.0001, 100000)
                                 quatd xformOp:orient = (1, 1.4781406321162649e-8, 8.411027430099693e-10, 1.6873604735678782e-9)
                                 double3 xformOp:scale = (1, 1, 1)
-                                double3 xformOp:translate = (-2.9802322387695312e-8, 0, 0)
+                                double3 xformOp:translate = (0, -1.1920928955078125e-7, 0)
                                 uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
                             }
                         }
@@ -675,7 +679,7 @@ def Xform "World"
                                 float2 threshold = (0.0001, 100000)
                                 quatd xformOp:orient = (1, 1.489513667962683e-8, 4.2051614967952844e-10, 5.171179109919599e-11)
                                 double3 xformOp:scale = (1, 1, 1)
-                                double3 xformOp:translate = (0, 0, 5.960464477539063e-8)
+                                double3 xformOp:translate = (0, 0, 0)
                                 uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
                             }
                         }
@@ -691,7 +695,7 @@ def Xform "World"
                                 float2 threshold = (0.0001, 100000)
                                 quatd xformOp:orient = (1, 1.489513667962683e-8, 4.2051614967952844e-10, 5.171179109919599e-11)
                                 double3 xformOp:scale = (1, 1, 1)
-                                double3 xformOp:translate = (-7.450580596923828e-9, 0, 0)
+                                double3 xformOp:translate = (0, 0, 0)
                                 uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
                             }
                         }
@@ -707,7 +711,7 @@ def Xform "World"
                                 float2 threshold = (0.0001, 100000)
                                 quatd xformOp:orient = (1, 1.489513667962683e-8, 4.2051614967952844e-10, 5.171179109919599e-11)
                                 double3 xformOp:scale = (1, 1, 1)
-                                double3 xformOp:translate = (0, 0, 0)
+                                double3 xformOp:translate = (1.1920928955078125e-7, 0, 0)
                                 uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
                             }
                         }
@@ -723,7 +727,7 @@ def Xform "World"
                                 float2 threshold = (0.0001, 100000)
                                 quatd xformOp:orient = (1, 1.489513667962683e-8, 4.2051614967952844e-10, 5.171179109919599e-11)
                                 double3 xformOp:scale = (1, 1, 1)
-                                double3 xformOp:translate = (0, 1.1920928955078125e-7, 0)
+                                double3 xformOp:translate = (1.1920928955078125e-7, 1.1920928955078125e-7, 0)
                                 uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
                             }
                         }
@@ -739,7 +743,7 @@ def Xform "World"
                                 float2 threshold = (0.0001, 100000)
                                 quatd xformOp:orient = (1, -3.102098133922482e-8, -6.2796168265322194e-9, 1.0415761586557437e-8)
                                 double3 xformOp:scale = (1, 1, 1)
-                                double3 xformOp:translate = (0, 0, -5.960464477539063e-8)
+                                double3 xformOp:translate = (1.1920928955078125e-7, 0, -1.1920928955078125e-7)
                                 uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
                             }
                         }
@@ -755,7 +759,7 @@ def Xform "World"
                                 float2 threshold = (0.0001, 100000)
                                 quatd xformOp:orient = (1, -3.102098133922482e-8, -6.2796168265322194e-9, 1.0415761586557437e-8)
                                 double3 xformOp:scale = (1, 1, 1)
-                                double3 xformOp:translate = (0, -1.1920928955078125e-7, 0)
+                                double3 xformOp:translate = (0, -1.1920928955078125e-7, -1.1920928955078125e-7)
                                 uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
                             }
                         }
@@ -771,7 +775,7 @@ def Xform "World"
                                 float2 threshold = (0.0001, 100000)
                                 quatd xformOp:orient = (1, -3.102098133922482e-8, -6.2796168265322194e-9, 1.0415761586557437e-8)
                                 double3 xformOp:scale = (1, 1, 1)
-                                double3 xformOp:translate = (0, 0, -5.960464477539063e-8)
+                                double3 xformOp:translate = (0, 0, 0)
                                 uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
                             }
                         }
@@ -787,7 +791,7 @@ def Xform "World"
                                 float2 threshold = (0.0001, 100000)
                                 quatd xformOp:orient = (1, -3.102098133922482e-8, -6.2796168265322194e-9, 1.0415761586557437e-8)
                                 double3 xformOp:scale = (1, 1, 1)
-                                double3 xformOp:translate = (0, 0, -5.960464477539063e-8)
+                                double3 xformOp:translate = (0, 0, -1.1920928955078125e-7)
                                 uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
                             }
                         }
@@ -803,7 +807,7 @@ def Xform "World"
                                 float2 threshold = (0.0001, 100000)
                                 quatd xformOp:orient = (1, 2.254735420592624e-8, 1.1402675248461946e-8, 5.265892166761432e-9)
                                 double3 xformOp:scale = (1, 1, 1)
-                                double3 xformOp:translate = (-1.4901161193847656e-8, 0, 0)
+                                double3 xformOp:translate = (-1.1920928955078125e-7, -1.1920928955078125e-7, 0)
                                 uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
                             }
                         }
@@ -819,7 +823,7 @@ def Xform "World"
                                 float2 threshold = (0.0001, 100000)
                                 quatd xformOp:orient = (1, 2.254735420592624e-8, 1.1402675248461946e-8, 5.265892166761432e-9)
                                 double3 xformOp:scale = (1, 1, 1)
-                                double3 xformOp:translate = (0, 0, 5.960464477539063e-8)
+                                double3 xformOp:translate = (0, 0, 0)
                                 uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
                             }
                         }
@@ -851,7 +855,7 @@ def Xform "World"
                                 float2 threshold = (0.0001, 100000)
                                 quatd xformOp:orient = (1, 2.254735420592624e-8, 1.1402675248461946e-8, 5.265892166761432e-9)
                                 double3 xformOp:scale = (1, 1, 1)
-                                double3 xformOp:translate = (-1.4901161193847656e-8, 0, 0)
+                                double3 xformOp:translate = (-1.1920928955078125e-7, -1.1920928955078125e-7, 0)
                                 uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
                             }
                         }
@@ -867,7 +871,7 @@ def Xform "World"
                                 float2 threshold = (0.0001, 100000)
                                 quatd xformOp:orient = (1, 1.8394391787524e-8, -4.59859839097021e-9, -9.19719678194042e-9)
                                 double3 xformOp:scale = (1, 1, 1)
-                                double3 xformOp:translate = (0, -5.960464477539063e-8, -5.960464477539063e-8)
+                                double3 xformOp:translate = (0, -5.960464477539063e-8, 0)
                                 uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
                             }
                         }
@@ -883,7 +887,7 @@ def Xform "World"
                                 float2 threshold = (0.0001, 100000)
                                 quatd xformOp:orient = (1, -2.48387479473422e-8, 1.5628003779966093e-8, 5.194284113940739e-9)
                                 double3 xformOp:scale = (1, 1, 1)
-                                double3 xformOp:translate = (0, 0, -2.9802322387695312e-8)
+                                double3 xformOp:translate = (0, -1.4901161193847656e-8, -1.1920928955078125e-7)
                                 uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
                             }
                         }
@@ -899,7 +903,7 @@ def Xform "World"
                                 float2 threshold = (0.0001, 100000)
                                 quatd xformOp:orient = (1, -8.596295231200202e-9, -9.384932830869275e-9, -2.245351993224176e-8)
                                 double3 xformOp:scale = (1, 1, 1)
-                                double3 xformOp:translate = (0, -1.862645149230957e-8, -2.9802322387695312e-8)
+                                double3 xformOp:translate = (0, -1.1920928955078125e-7, -1.1920928955078125e-7)
                                 uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
                             }
                         }
@@ -915,7 +919,7 @@ def Xform "World"
                                 float2 threshold = (0.0001, 100000)
                                 quatd xformOp:orient = (1, -8.596295231200202e-9, -9.384932830869275e-9, -2.245351993224176e-8)
                                 double3 xformOp:scale = (1, 1, 1)
-                                double3 xformOp:translate = (0, -1.862645149230957e-9, 0)
+                                double3 xformOp:translate = (0, -1.1920928955078125e-7, -1.1920928955078125e-7)
                                 uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
                             }
                         }
@@ -974,10 +978,14 @@ def Xform "World"
                 float state:angular:physics:velocity = 0
             }
         }
+
+        over "base_link" (
+            prepend apiSchemas = ["PhysxRigidBodyAPI"]
+        )
+        {
+        }
     }
 
-    # Hands only — safe: Wuji_hand2 is excluded from W2/M6 NonDexHand, so this
-    # is their sole CollisionGroup (no dual-membership warning with body/arms).
     def Scope "CollisionGroups"
     {
         def PhysicsCollisionGroup "DexHand" (
@@ -989,9 +997,7 @@ def Xform "World"
                 </World/FiveAges_W2/Left_Arm/link7/tcp/Wuji_hand2>,
                 </World/FiveAges_W2/Right_Arm/link7/tcp/Wuji_hand2>,
             ]
-            prepend rel physics:filteredGroups = [
-                </World/CollisionGroups/Table>,
-            ]
+            prepend rel physics:filteredGroups = </World/CollisionGroups/Table>
         }
 
         def PhysicsCollisionGroup "Table" (
@@ -1003,9 +1009,7 @@ def Xform "World"
                 </World/default_environment/EastRural_Table/TableTop>,
                 </World/default_environment/EastRural_Table/TableBase>,
             ]
-            prepend rel physics:filteredGroups = [
-                </World/CollisionGroups/DexHand>,
-            ]
+            prepend rel physics:filteredGroups = </World/CollisionGroups/DexHand>
         }
     }
 }
@@ -1147,10 +1151,10 @@ over "OmniverseKit_Persp" (
     float exposure:time = 0.02
     float focalLength = 18.147562
     float focusDistance = 400
-    custom uniform vector3d omni:kit:centerOfInterest = (-5.073356410383843e-17, 1.0146712820767688e-15, -7.870457889831232)
-    float3 xformOp:rotateXYZ = (70.75492, 9.223609e-14, 89.56025)
+    custom uniform vector3d omni:kit:centerOfInterest = (-6.361541005218639e-17, 1.2723082010437281e-15, -9.868859300626154)
+    float3 xformOp:rotateXYZ = (82.051025, 1.04958306e-13, 7.621371)
     float3 xformOp:scale = (1, 1, 1)
-    double3 xformOp:translate = (3.3610989273541834, 0.14681254178033878, 1.8441637424073087)
+    double3 xformOp:translate = (1.0789450190300762, -4.0401114498805, 1.2896700255524065)
     uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
 }
 

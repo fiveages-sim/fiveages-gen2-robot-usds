@@ -1,0 +1,1422 @@
+#usda 1.0
+(
+    customLayerData = {
+        dictionary cameraSettings = {
+            dictionary Front = {
+                double3 position = (5, 0, 0)
+                double radius = 5
+            }
+            dictionary Perspective = {
+                double3 position = (3.4384478364806057, 0.3537238199756283, 2.0675252179420105)
+                double3 target = (-6.10270609048845, -1.5234209918007617, -1.3594645420947051)
+            }
+            dictionary Right = {
+                double3 position = (0, -5, 0)
+                double radius = 5
+            }
+            dictionary Top = {
+                double3 position = (0, 0, 5)
+                double radius = 5
+            }
+            string boundCamera = "/OmniverseKit_Persp"
+        }
+        dictionary omni_layer = {
+            string authoring_layer = "./wuji_hand2_newton.usda"
+        }
+        dictionary renderSettings = {
+        }
+    }
+    defaultPrim = "World"
+    doc = """Newton + Wuji Hand2 test env (sibling of PhysX wuji_hand2_new.usda).
+
+Open with isaac-sim.newton.sh only. Do NOT hot-switch PhysX↔Newton — reopen stage.
+References FiveAges_W2 + Wuji Hand2 only; this layer owns scene/Newton PhysicsScene.
+
+Aligned with PhysX wuji_hand2_new (scene only; robot assets untouched):
+- Robot spawn (-2, y, z), table, props XYZ, filteredPairs, CollisionGroups,
+  home_1 joint state/drive, RH Sensor=contact_force, hammer present.
+Newton-only deltas (engine contact, not layout):
+- PhysicsScene: NewtonSceneAPI + MjcSceneAPI (+ elliptic/implicit/noslip tune)
+- Props: banana convexHull (PhysX uses decomp); lime + MjcCollisionAPI
+- After Play: run env/newton_apply_home_pose.py so MjcActuator ctrl matches
+  USD joint state (DriveAPI stripped under Physics=mujoco).
+"""
+    endTimeCode = 1000000
+    metersPerUnit = 1
+    startTimeCode = 0
+    timeCodesPerSecond = 60
+    upAxis = "Z"
+)
+
+def Xform "World"
+{
+    def "default_environment" (
+        prepend payload = @../../../../../../environment/fiveages_env/background/Grid/default_environment.usd@
+    )
+    {
+        def "EastRural_Table" (
+            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsFilteredPairsAPI"]
+            prepend payload = @https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/ArchVis/Residential/Furniture/DiningSets/EastRural/EastRural_Table.usd@
+        )
+        {
+            # Body/arms (NonDexHand members). Hands need DexHand↔Table groups below.
+            prepend rel physics:filteredPairs = [
+                </World/FiveAges_W2>,
+            ]
+            bool physics:kinematicEnabled = 1
+            bool physics:rigidBodyEnabled = 1
+            quatf xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (1, 1, 1)
+            double3 xformOp:scale:unitsResolve = (0.009999999776482582, 0.009999999776482582, 0.009999999776482582)
+            double3 xformOp:translate = (0.7809491800025677, -0.024510217142726755, 4.99174007018155e-7)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale", "xformOp:scale:unitsResolve"]
+
+            over "TableTop" (
+                delete apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysicsMeshCollisionAPI", "PhysxTriangleMeshCollisionAPI"]
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysxConvexHullCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMaterialAPI", "PhysxMaterialAPI", "MjcCollisionAPI"]
+            )
+            {
+                uniform int mjc:condim = 3 (
+                    displayName = "ConDim"
+                )
+                double[] mjc:friction = [1.8, 1.4, 0.005]
+                uniform double mjc:gap (
+                    displayName = "Gap"
+                )
+                uniform int mjc:group (
+                    displayName = "Group"
+                )
+                uniform double mjc:margin (
+                    displayName = "Margin"
+                )
+                uniform int mjc:priority (
+                    displayName = "Priority"
+                )
+                uniform bool mjc:shellinertia (
+                    displayName = "Shell Inertia"
+                )
+                double[] mjc:solimp = [0.9, 0.95, 0.001, 0.5, 2] (
+                    displayName = "SolImp"
+                )
+                uniform double mjc:solmix (
+                    displayName = "SolMix"
+                )
+                double[] mjc:solref = [0.02, 1] (
+                    displayName = "SolMix"
+                )
+                float newton:contactGap (
+                    displayName = "Contact Gap"
+                )
+                float newton:contactMargin (
+                    displayName = "Contact Margin"
+                )
+                int newton:maxHullVertices = 64
+                uniform token physics:approximation = "convexHull"
+                bool physics:collisionEnabled = 1 (
+                    displayName = "Collision Enabled"
+                )
+                float physics:dynamicFriction = 1.4
+                float physics:restitution = 0
+                float physics:staticFriction = 1.8
+                float physxCollision:contactOffset = 0.002
+                float physxCollision:restOffset = 0
+                uniform token physxMaterial:frictionCombineMode = "max"
+                bool physxMaterial:improvePatchFriction = 1
+                uniform token physxMaterial:restitutionCombineMode = "min"
+            }
+
+            over "TableBase" (
+                delete apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysicsMeshCollisionAPI", "PhysxTriangleMeshCollisionAPI"]
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysxConvexHullCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMaterialAPI", "PhysxMaterialAPI", "MjcCollisionAPI"]
+            )
+            {
+                uniform int mjc:condim = 3 (
+                    displayName = "ConDim"
+                )
+                uniform double mjc:gap (
+                    displayName = "Gap"
+                )
+                uniform int mjc:group (
+                    displayName = "Group"
+                )
+                uniform double mjc:margin (
+                    displayName = "Margin"
+                )
+                uniform int mjc:priority (
+                    displayName = "Priority"
+                )
+                uniform bool mjc:shellinertia (
+                    displayName = "Shell Inertia"
+                )
+                uniform double[] mjc:solimp (
+                    displayName = "SolImp"
+                )
+                uniform double mjc:solmix (
+                    displayName = "SolMix"
+                )
+                uniform double[] mjc:solref (
+                    displayName = "SolMix"
+                )
+                float newton:contactGap (
+                    displayName = "Contact Gap"
+                )
+                float newton:contactMargin (
+                    displayName = "Contact Margin"
+                )
+                int newton:maxHullVertices = 48
+                uniform token physics:approximation = "convexHull"
+                bool physics:collisionEnabled = 1 (
+                    displayName = "Collision Enabled"
+                )
+                float physics:dynamicFriction = 1.4
+                float physics:restitution = 0
+                float physics:staticFriction = 1.8
+                uniform token physxMaterial:frictionCombineMode = "max"
+                uniform token physxMaterial:restitutionCombineMode = "min"
+            }
+
+            def "sm_apple_a01_01" (
+                prepend payload = @https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/6.1/Isaac/SimReady/Residential/Kitchen/Food/Fruit/Apple_A01/sm_apple_a01_01.usd@
+            )
+            {
+                quatf xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (100, 100, 100)
+                double3 xformOp:translate = (-2.680866630116711, -23.096873533936876, 79.18205717527044)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+                over "Geometry"
+                {
+                    over "model_normalized_0_vis_obj" (
+                        prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI"]
+                    )
+                    {
+                        float physics:angularDamping = 0.8
+                        float physics:linearDamping = 0.2
+                        float physics:mass = 0.18
+                        bool physics:rigidBodyEnabled = 1
+
+                        over "model_normalized_0_vis_mesh" (
+                            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysxCollisionAPI", "PhysxConvexHullCollisionAPI", "MjcCollisionAPI"]
+                        )
+                        {
+                            uniform int mjc:condim = 3
+                            double[] mjc:friction = [1.6, 1.3, 0.005]
+                            double[] mjc:solimp = [0.9, 0.95, 0.001, 0.5, 2]
+                            double[] mjc:solref = [0.02, 1]
+                            int newton:maxHullVertices = 64
+                            uniform token physics:approximation = "convexHull"
+                            bool physics:collisionEnabled = 1
+                        }
+                    }
+                }
+
+                over "PhysicsMaterials"
+                {
+                    over "physics_mat_tn__defaultMat011_YK" (
+                        prepend apiSchemas = ["PhysicsMaterialAPI"]
+                    )
+                    {
+                        float physics:dynamicFriction = 1.3
+                        float physics:restitution = 0
+                        float physics:staticFriction = 1.6
+                    }
+                }
+            }
+
+            def "banana" (
+                prepend payload = @../../../../../../environment/fiveages_env/moveable/fruits/banana.usd@
+            )
+            {
+                quatf xformOp:orient = (0.9238795, 0, 0, 0.38268352)
+                float3 xformOp:scale = (100, 100, 100)
+                double3 xformOp:translate = (14.259275860208135, 2.5521301802735468, 77.85504755346572)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+                over "banana"
+                {
+                    over "banana" (
+                        delete apiSchemas = ["PhysxConvexDecompositionCollisionAPI"]
+                        prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysxCollisionAPI", "PhysxConvexHullCollisionAPI", "PhysicsMaterialAPI", "MjcCollisionAPI"]
+                    )
+                    {
+                        uniform int mjc:condim = 3 (
+                            displayName = "ConDim"
+                        )
+                        double[] mjc:friction = [1.5, 1.2, 0.005]
+                        uniform double mjc:gap (
+                            displayName = "Gap"
+                        )
+                        uniform int mjc:group (
+                            displayName = "Group"
+                        )
+                        uniform double mjc:margin (
+                            displayName = "Margin"
+                        )
+                        uniform int mjc:priority (
+                            displayName = "Priority"
+                        )
+                        uniform bool mjc:shellinertia (
+                            displayName = "Shell Inertia"
+                        )
+                        double[] mjc:solimp = [0.9, 0.95, 0.001, 0.5, 2] (
+                            displayName = "SolImp"
+                        )
+                        uniform double mjc:solmix (
+                            displayName = "SolMix"
+                        )
+                        double[] mjc:solref = [0.02, 1] (
+                            displayName = "SolMix"
+                        )
+                        float newton:contactGap (
+                            displayName = "Contact Gap"
+                        )
+                        float newton:contactMargin (
+                            displayName = "Contact Margin"
+                        )
+                        int newton:maxHullVertices = 64
+                        float physics:angularDamping = 0.8
+                        uniform token physics:approximation = "convexHull"
+                        bool physics:collisionEnabled = 1 (
+                            displayName = "Collision Enabled"
+                        )
+                        float physics:dynamicFriction = 1.2
+                        float physics:linearDamping = 0.2
+                        float physics:mass = 0.12
+                        float physics:restitution = 0
+                        bool physics:rigidBodyEnabled = 1
+                        float physics:staticFriction = 1.5
+                        float physxCollision:contactOffset = 0.003
+                        float physxCollision:restOffset = 0
+                    }
+                }
+            }
+
+            def "sm_food_beverage_beerBottle_a01_01" (
+                prepend payload = @https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/6.1/Isaac/SimReady/Residential/Kitchen/Food/Beverages/Beer_Bottle_A01/sm_food_beverage_beerBottle_a01_01.usd@
+            )
+            {
+                quatf xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (100, 100, 100)
+                double3 xformOp:translate = (-4.664164226318093, 22.330813190720583, 76.51260572038335)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+                over "Geometry"
+                {
+                    over "sm_food_beverage_beerBottle_a01_obj_00" (
+                        prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI"]
+                    )
+                    {
+                        float physics:angularDamping = 1
+                        float physics:linearDamping = 0.25
+                        float physics:mass = 0.45
+                        bool physics:rigidBodyEnabled = 1
+
+                        over "sm_food_beverage_beerBottle_a01_mesh_00" (
+                            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysxCollisionAPI", "PhysxConvexHullCollisionAPI", "MjcCollisionAPI"]
+                        )
+                        {
+                            uniform int mjc:condim = 3
+                            double[] mjc:friction = [1.4, 1.1, 0.005]
+                            double[] mjc:solimp = [0.9, 0.95, 0.001, 0.5, 2]
+                            double[] mjc:solref = [0.02, 1]
+                            int newton:maxHullVertices = 64
+                            uniform token physics:approximation = "convexHull"
+                            bool physics:collisionEnabled = 1
+                        }
+                    }
+                }
+
+                over "PhysicsMaterials"
+                {
+                    over "physics_mat_m_trans__glass__beerBottle_a01" (
+                        prepend apiSchemas = ["PhysicsMaterialAPI"]
+                    )
+                    {
+                        float physics:dynamicFriction = 1.1
+                        float physics:restitution = 0
+                        float physics:staticFriction = 1.4
+                    }
+
+                    over "physics_mat_m_opaque__plastic__beerBottle_a01" (
+                        prepend apiSchemas = ["PhysicsMaterialAPI"]
+                    )
+                    {
+                        float physics:dynamicFriction = 1.1
+                        float physics:restitution = 0
+                        float physics:staticFriction = 1.4
+                    }
+                }
+            }
+
+            def "sm_food_produce_lime_a02_01" (
+                prepend payload = @https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/6.1/Isaac/SimReady/Residential/Kitchen/Food/Fruit/Lime_A02/sm_food_produce_lime_a02_01.usd@
+            )
+            {
+                quatf xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (100, 100, 100)
+                double3 xformOp:translate = (-17.996991901701342, -4.093611474105462, 75.85155163048181)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+                over "Geometry"
+                {
+                    over "lime_01_obj_00" (
+                        prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysxCollisionAPI", "PhysxConvexHullCollisionAPI", "PhysicsMaterialAPI", "MjcCollisionAPI"]
+                    )
+                    {
+                        uniform int mjc:condim = 3
+                        double[] mjc:friction = [1.5, 1.2, 0.005]
+                        double[] mjc:solimp = [0.9, 0.95, 0.001, 0.5, 2]
+                        double[] mjc:solref = [0.02, 1]
+                        int newton:maxHullVertices = 64
+                        float physics:angularDamping = 0.7
+                        uniform token physics:approximation = "convexHull"
+                        bool physics:collisionEnabled = 1
+                        float physics:dynamicFriction = 1.2
+                        float physics:linearDamping = 0.2
+                        float physics:mass = 0.08
+                        float physics:restitution = 0
+                        bool physics:rigidBodyEnabled = 1
+                        float physics:staticFriction = 1.5
+                        float physxCollision:contactOffset = 0.002
+                        float physxCollision:restOffset = 0
+                    }
+                }
+
+                over "PhysicsMaterials"
+                {
+                    over "physics_mat_m_opaque__plant__lime_a02" (
+                        prepend apiSchemas = ["PhysicsMaterialAPI"]
+                    )
+                    {
+                        float physics:dynamicFriction = 1.2
+                        float physics:restitution = 0
+                        float physics:staticFriction = 1.5
+                    }
+                }
+            }
+
+            def "sm_handTool_hammer_crossPeen_b01_01" (
+                prepend payload = @https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/6.1/Isaac/SimReady/Industrial/Tools/Hand/Cross_Peen_Hammer_B01/sm_handTool_hammer_crossPeen_b01_01.usd@
+            )
+            {
+                quatf xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (100, 100, 100)
+                double3 xformOp:translate = (7.555667981274354, -12.70905201772507, 76.30829108428735)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+                over "Grasp"
+                {
+                    over "grasp_identifier"
+                    {
+                        over "grasp_identifier_curve" (
+                            prepend apiSchemas = ["OmniSceneVisualizationAPI"]
+                        )
+                        {
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    def "FiveAges_W2" (
+        prepend payload = @../FiveAges_W2.usda@
+        variants = {
+            string ROS = "enable"
+        }
+    )
+    {
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (-2, 0.09478332836271869, 0.08575797662769072)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        over "Linkhou_S2" (
+            variants = {
+                string ROS = "enable"
+            }
+        )
+        {
+        }
+
+        over "Left_Arm" (
+            variants = {
+                string EE = "wuji_hand2"
+            }
+        )
+        {
+            over "joints"
+            {
+                over "left_joint1"
+                {
+                    float drive:angular:physics:targetPosition = 83.48762
+                    float state:angular:physics:position = 83.48762
+                    float state:angular:physics:velocity = 0
+                }
+
+                over "left_joint2"
+                {
+                    float drive:angular:physics:targetPosition = -60.926613
+                    float state:angular:physics:position = -60.926613
+                    float state:angular:physics:velocity = 0
+                }
+
+                over "left_joint3"
+                {
+                    float drive:angular:physics:targetPosition = -68.72093
+                    float state:angular:physics:position = -68.72093
+                    float state:angular:physics:velocity = 0
+                }
+
+                over "left_joint4"
+                {
+                    float drive:angular:physics:targetPosition = -46.261753
+                    float state:angular:physics:position = -46.261753
+                    float state:angular:physics:velocity = 0
+                }
+
+                over "left_joint5"
+                {
+                    float drive:angular:physics:targetPosition = -39.81804
+                    float state:angular:physics:position = -39.81804
+                    float state:angular:physics:velocity = 0
+                }
+
+                over "left_joint6"
+                {
+                    float drive:angular:physics:targetPosition = -39.33001
+                    float state:angular:physics:position = -39.33001
+                    float state:angular:physics:velocity = 0
+                }
+
+                over "left_joint7"
+                {
+                    float drive:angular:physics:targetPosition = -7.421093
+                    float state:angular:physics:position = -7.421093
+                    float state:angular:physics:velocity = 0
+                }
+            }
+
+            over "link7"
+            {
+                over "tcp"
+                {
+                    string isaac:Description (
+                        displayName = "Reference Description"
+                    )
+                    uniform token isaac:forwardAxis (
+                        displayName = "Forward Axis"
+                    )
+                    quatd xformOp:orient = (0.7071067811865476, 0.7071067811865475, 0, 0)
+                }
+            }
+        }
+
+        over "Right_Arm" (
+            variants = {
+                string EE = "wuji_hand2"
+            }
+        )
+        {
+            over "joints"
+            {
+                over "right_joint1"
+                {
+                    float drive:angular:physics:targetPosition = -83.48762
+                    float state:angular:physics:position = -83.48762
+                    float state:angular:physics:velocity = 0
+                }
+
+                over "right_joint2"
+                {
+                    float drive:angular:physics:targetPosition = -60.926613
+                    float state:angular:physics:position = -60.926613
+                    float state:angular:physics:velocity = 0
+                }
+
+                over "right_joint3"
+                {
+                    float drive:angular:physics:targetPosition = 68.72093
+                    float state:angular:physics:position = 68.72093
+                    float state:angular:physics:velocity = 0
+                }
+
+                over "right_joint4"
+                {
+                    float drive:angular:physics:targetPosition = -46.261753
+                    float state:angular:physics:position = -46.261753
+                    float state:angular:physics:velocity = 0
+                }
+
+                over "right_joint5"
+                {
+                    float drive:angular:physics:targetPosition = 39.81804
+                    float state:angular:physics:position = 39.81804
+                    float state:angular:physics:velocity = 0
+                }
+
+                over "right_joint6"
+                {
+                    float drive:angular:physics:targetPosition = -39.33001
+                    float state:angular:physics:position = -39.33001
+                    float state:angular:physics:velocity = 0
+                }
+
+                over "right_joint7"
+                {
+                    float drive:angular:physics:targetPosition = 7.421093
+                    float state:angular:physics:position = 7.421093
+                    float state:angular:physics:velocity = 0
+                }
+            }
+
+            over "link7"
+            {
+                over "tcp"
+                {
+                    string isaac:Description (
+                        displayName = "Reference Description"
+                    )
+                    uniform token isaac:forwardAxis (
+                        displayName = "Forward Axis"
+                    )
+                    quatd xformOp:orient = (6.123233995736766e-17, 4.329780281177466e-17, -0.7071067811865475, 0.7071067811865476)
+
+                    over "Wuji_hand2" (
+                        variants = {
+                            string Sensor = "contact_force"
+                        }
+                    )
+                    {
+                        over "world"
+                        {
+                            float physxContactReport:threshold = 0
+                            float physxRigidBody:sleepThreshold = 0
+
+                            over "Contact_Sensor"
+                            {
+                                float radius = -1
+                                float2 threshold = (0.0001, 100000)
+                                quatd xformOp:orient = (1, 0, 0, 0)
+                                double3 xformOp:scale = (1, 1, 1)
+                                double3 xformOp:translate = (-1.4901161193847656e-8, 0, 0)
+                                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+                            }
+                        }
+
+                        over "index_finger_proximal"
+                        {
+                            float physxContactReport:threshold = 0
+                            float physxRigidBody:sleepThreshold = 0
+
+                            over "Contact_Sensor"
+                            {
+                                float radius = -1
+                                float2 threshold = (0.0001, 100000)
+                                quatd xformOp:orient = (1, 1.4781406321162649e-8, 8.411027430099693e-10, 1.6873604735678782e-9)
+                                double3 xformOp:scale = (1, 1, 1)
+                                double3 xformOp:translate = (0, 0, -5.960464477539063e-8)
+                                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+                            }
+                        }
+
+                        over "index_finger_proximal_abd"
+                        {
+                            float physxContactReport:threshold = 0
+                            float physxRigidBody:sleepThreshold = 0
+
+                            over "Contact_Sensor"
+                            {
+                                float radius = -1
+                                float2 threshold = (0.0001, 100000)
+                                quatd xformOp:orient = (1, 1.4781406321162649e-8, 8.411027430099693e-10, 1.6873604735678782e-9)
+                                double3 xformOp:scale = (1, 1, 1)
+                                double3 xformOp:translate = (-5.960464477539063e-8, 0, -5.960464477539063e-8)
+                                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+                            }
+                        }
+
+                        over "index_finger_middle"
+                        {
+                            float physxContactReport:threshold = 0
+                            float physxRigidBody:sleepThreshold = 0
+
+                            over "Contact_Sensor"
+                            {
+                                float radius = -1
+                                float2 threshold = (0.0001, 100000)
+                                quatd xformOp:orient = (1, 1.4781406321162649e-8, 8.411027430099693e-10, 1.6873604735678782e-9)
+                                double3 xformOp:scale = (1, 1, 1)
+                                double3 xformOp:translate = (0, -2.384185791015625e-7, 0)
+                                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+                            }
+                        }
+
+                        over "index_finger_distal"
+                        {
+                            float physxContactReport:threshold = 0
+                            float physxRigidBody:sleepThreshold = 0
+
+                            over "Contact_Sensor"
+                            {
+                                float radius = -1
+                                float2 threshold = (0.0001, 100000)
+                                quatd xformOp:orient = (1, 1.4781406321162649e-8, 8.411027430099693e-10, 1.6873604735678782e-9)
+                                double3 xformOp:scale = (1, 1, 1)
+                                double3 xformOp:translate = (0, -1.1920928955078125e-7, -1.1920928955078125e-7)
+                                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+                            }
+                        }
+
+                        over "middle_finger_proximal"
+                        {
+                            float physxContactReport:threshold = 0
+                            float physxRigidBody:sleepThreshold = 0
+
+                            over "Contact_Sensor"
+                            {
+                                float radius = -1
+                                float2 threshold = (0.0001, 100000)
+                                quatd xformOp:orient = (1, 1.489513667962683e-8, 4.2051614967952844e-10, 5.171179109919599e-11)
+                                double3 xformOp:scale = (1, 1, 1)
+                                double3 xformOp:translate = (7.450580596923828e-9, 0, 5.960464477539063e-8)
+                                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+                            }
+                        }
+
+                        over "middle_finger_proximal_abd"
+                        {
+                            float physxContactReport:threshold = 0
+                            float physxRigidBody:sleepThreshold = 0
+
+                            over "Contact_Sensor"
+                            {
+                                float radius = -1
+                                float2 threshold = (0.0001, 100000)
+                                quatd xformOp:orient = (1, 1.489513667962683e-8, 4.2051614967952844e-10, 5.171179109919599e-11)
+                                double3 xformOp:scale = (1, 1, 1)
+                                double3 xformOp:translate = (-1.4901161193847656e-8, 0, 0)
+                                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+                            }
+                        }
+
+                        over "middle_finger_middle"
+                        {
+                            float physxContactReport:threshold = 0
+                            float physxRigidBody:sleepThreshold = 0
+
+                            over "Contact_Sensor"
+                            {
+                                float radius = -1
+                                float2 threshold = (0.0001, 100000)
+                                quatd xformOp:orient = (1, 1.489513667962683e-8, 4.2051614967952844e-10, 5.171179109919599e-11)
+                                double3 xformOp:scale = (1, 1, 1)
+                                double3 xformOp:translate = (0, 0, -1.1920928955078125e-7)
+                                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+                            }
+                        }
+
+                        over "middle_finger_distal"
+                        {
+                            float physxContactReport:threshold = 0
+                            float physxRigidBody:sleepThreshold = 0
+
+                            over "Contact_Sensor"
+                            {
+                                float radius = -1
+                                float2 threshold = (0.0001, 100000)
+                                quatd xformOp:orient = (1, 1.489513667962683e-8, 4.2051614967952844e-10, 5.171179109919599e-11)
+                                double3 xformOp:scale = (1, 1, 1)
+                                double3 xformOp:translate = (0, 1.1920928955078125e-7, 0)
+                                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+                            }
+                        }
+
+                        over "pinky_proximal"
+                        {
+                            float physxContactReport:threshold = 0
+                            float physxRigidBody:sleepThreshold = 0
+
+                            over "Contact_Sensor"
+                            {
+                                float radius = -1
+                                float2 threshold = (0.0001, 100000)
+                                quatd xformOp:orient = (1, -3.102098133922482e-8, -6.2796168265322194e-9, 1.0415761586557437e-8)
+                                double3 xformOp:scale = (1, 1, 1)
+                                double3 xformOp:translate = (0, 0, -5.960464477539063e-8)
+                                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+                            }
+                        }
+
+                        over "pinky_proximal_abd"
+                        {
+                            float physxContactReport:threshold = 0
+                            float physxRigidBody:sleepThreshold = 0
+
+                            over "Contact_Sensor"
+                            {
+                                float radius = -1
+                                float2 threshold = (0.0001, 100000)
+                                quatd xformOp:orient = (1, -3.102098133922482e-8, -6.2796168265322194e-9, 1.0415761586557437e-8)
+                                double3 xformOp:scale = (1, 1, 1)
+                                double3 xformOp:translate = (2.9802322387695312e-8, -1.1920928955078125e-7, 0)
+                                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+                            }
+                        }
+
+                        over "pinky_middle"
+                        {
+                            float physxContactReport:threshold = 0
+                            float physxRigidBody:sleepThreshold = 0
+
+                            over "Contact_Sensor"
+                            {
+                                float radius = -1
+                                float2 threshold = (0.0001, 100000)
+                                quatd xformOp:orient = (1, -3.102098133922482e-8, -6.2796168265322194e-9, 1.0415761586557437e-8)
+                                double3 xformOp:scale = (1, 1, 1)
+                                double3 xformOp:translate = (0, -1.1920928955078125e-7, -1.1920928955078125e-7)
+                                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+                            }
+                        }
+
+                        over "pinky_distal"
+                        {
+                            float physxContactReport:threshold = 0
+                            float physxRigidBody:sleepThreshold = 0
+
+                            over "Contact_Sensor"
+                            {
+                                float radius = -1
+                                float2 threshold = (0.0001, 100000)
+                                quatd xformOp:orient = (1, -3.102098133922482e-8, -6.2796168265322194e-9, 1.0415761586557437e-8)
+                                double3 xformOp:scale = (1, 1, 1)
+                                double3 xformOp:translate = (0, 0, -1.1920928955078125e-7)
+                                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+                            }
+                        }
+
+                        over "ring_proximal"
+                        {
+                            float physxContactReport:threshold = 0
+                            float physxRigidBody:sleepThreshold = 0
+
+                            over "Contact_Sensor"
+                            {
+                                float radius = -1
+                                float2 threshold = (0.0001, 100000)
+                                quatd xformOp:orient = (1, 2.254735420592624e-8, 1.1402675248461946e-8, 5.265892166761432e-9)
+                                double3 xformOp:scale = (1, 1, 1)
+                                double3 xformOp:translate = (-2.9802322387695312e-8, 0, -5.960464477539063e-8)
+                                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+                            }
+                        }
+
+                        over "ring_proximal_abd"
+                        {
+                            float physxContactReport:threshold = 0
+                            float physxRigidBody:sleepThreshold = 0
+
+                            over "Contact_Sensor"
+                            {
+                                float radius = -1
+                                float2 threshold = (0.0001, 100000)
+                                quatd xformOp:orient = (1, 2.254735420592624e-8, 1.1402675248461946e-8, 5.265892166761432e-9)
+                                double3 xformOp:scale = (1, 1, 1)
+                                double3 xformOp:translate = (-1.4901161193847656e-8, 0, 5.960464477539063e-8)
+                                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+                            }
+                        }
+
+                        over "ring_middle"
+                        {
+                            float physxContactReport:threshold = 0
+                            float physxRigidBody:sleepThreshold = 0
+
+                            over "Contact_Sensor"
+                            {
+                                float radius = -1
+                                float2 threshold = (0.0001, 100000)
+                                quatd xformOp:orient = (1, 2.254735420592624e-8, 1.1402675248461946e-8, 5.265892166761432e-9)
+                                double3 xformOp:scale = (1, 1, 1)
+                                double3 xformOp:translate = (0, -1.1920928955078125e-7, 0)
+                                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+                            }
+                        }
+
+                        over "ring_distal"
+                        {
+                            float physxContactReport:threshold = 0
+                            float physxRigidBody:sleepThreshold = 0
+
+                            over "Contact_Sensor"
+                            {
+                                float radius = -1
+                                float2 threshold = (0.0001, 100000)
+                                quatd xformOp:orient = (1, 2.254735420592624e-8, 1.1402675248461946e-8, 5.265892166761432e-9)
+                                double3 xformOp:scale = (1, 1, 1)
+                                double3 xformOp:translate = (-1.4901161193847656e-8, 0, 0)
+                                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+                            }
+                        }
+
+                        over "thumb_proximal"
+                        {
+                            float physxContactReport:threshold = 0
+                            float physxRigidBody:sleepThreshold = 0
+
+                            over "Contact_Sensor"
+                            {
+                                float radius = -1
+                                float2 threshold = (0.0001, 100000)
+                                quatd xformOp:orient = (1, 1.8394391787524e-8, -4.59859839097021e-9, -9.19719678194042e-9)
+                                double3 xformOp:scale = (1, 1, 1)
+                                double3 xformOp:translate = (0, -5.960464477539063e-8, -5.960464477539063e-8)
+                                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+                            }
+                        }
+
+                        over "thumb_proximal_abd"
+                        {
+                            float physxContactReport:threshold = 0
+                            float physxRigidBody:sleepThreshold = 0
+
+                            over "Contact_Sensor"
+                            {
+                                float radius = -1
+                                float2 threshold = (0.0001, 100000)
+                                quatd xformOp:orient = (1, -2.48387479473422e-8, 1.5628003779966093e-8, 5.194284113940739e-9)
+                                double3 xformOp:scale = (1, 1, 1)
+                                double3 xformOp:translate = (0, 0, 0)
+                                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+                            }
+                        }
+
+                        over "thumb_middle"
+                        {
+                            float physxContactReport:threshold = 0
+                            float physxRigidBody:sleepThreshold = 0
+
+                            over "Contact_Sensor"
+                            {
+                                float radius = -1
+                                float2 threshold = (0.0001, 100000)
+                                quatd xformOp:orient = (1, -8.596295231200202e-9, -9.384932830869275e-9, -2.245351993224176e-8)
+                                double3 xformOp:scale = (1, 1, 1)
+                                double3 xformOp:translate = (0, -7.82310962677002e-8, -2.9802322387695312e-8)
+                                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+                            }
+                        }
+
+                        over "thumb_distal"
+                        {
+                            float physxContactReport:threshold = 0
+                            float physxRigidBody:sleepThreshold = 0
+
+                            over "Contact_Sensor"
+                            {
+                                float radius = -1
+                                float2 threshold = (0.0001, 100000)
+                                quatd xformOp:orient = (1, -8.596295231200202e-9, -9.384932830869275e-9, -2.245351993224176e-8)
+                                double3 xformOp:scale = (1, 1, 1)
+                                double3 xformOp:translate = (-1.1920928955078125e-7, -3.725290298461914e-9, 0)
+                                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        over "Head_V1" (
+            variants = {
+                string ROS = "enable"
+                string Sensor = "sensors"
+            }
+        )
+        {
+            over "head_link2"
+            {
+                over "head_camera"
+                {
+                    over "head_camera" (
+                        prepend apiSchemas = ["OmniRtxCameraAutoExposureAPI_1", "OmniRtxCameraExposureAPI_1"]
+                    )
+                    {
+                    }
+                }
+            }
+        }
+
+        over "joints"
+        {
+            over "body_joint1"
+            {
+                float drive:angular:physics:targetPosition = -51.5662
+                float state:angular:physics:position = -51.5662
+                float state:angular:physics:velocity = 0
+            }
+
+            over "body_joint2"
+            {
+                float drive:angular:physics:targetPosition = -103.1324
+                float state:angular:physics:position = -103.1324
+                float state:angular:physics:velocity = 0
+            }
+
+            over "body_joint3"
+            {
+                float drive:angular:physics:targetPosition = -51.5662
+                float state:angular:physics:position = -51.5662
+                float state:angular:physics:velocity = 0
+            }
+
+            over "body_joint4"
+            {
+                float drive:angular:physics:targetPosition = 0
+                float state:angular:physics:position = 0
+                float state:angular:physics:velocity = 0
+            }
+        }
+    }
+
+    # Hands only — safe: Wuji_hand2 is excluded from W2/M6 NonDexHand, so this
+    # is their sole CollisionGroup (no dual-membership warning with body/arms).
+    def Scope "CollisionGroups"
+    {
+        def PhysicsCollisionGroup "DexHand" (
+            prepend apiSchemas = ["CollectionAPI:colliders"]
+        )
+        {
+            uniform token collection:colliders:expansionRule = "expandPrims"
+            prepend rel collection:colliders:includes = [
+                </World/FiveAges_W2/Left_Arm/link7/tcp/Wuji_hand2>,
+                </World/FiveAges_W2/Right_Arm/link7/tcp/Wuji_hand2>,
+            ]
+            prepend rel physics:filteredGroups = [
+                </World/CollisionGroups/Table>,
+            ]
+        }
+
+        def PhysicsCollisionGroup "Table" (
+            prepend apiSchemas = ["CollectionAPI:colliders"]
+        )
+        {
+            uniform token collection:colliders:expansionRule = "expandPrims"
+            prepend rel collection:colliders:includes = [
+                </World/default_environment/EastRural_Table/TableTop>,
+                </World/default_environment/EastRural_Table/TableBase>,
+            ]
+            prepend rel physics:filteredGroups = [
+                </World/CollisionGroups/DexHand>,
+            ]
+        }
+    }
+}
+
+def PhysicsScene "PhysicsScene" (
+    delete apiSchemas = ["NewtonXpbdSceneAPI"]
+    prepend apiSchemas = ["NewtonSceneAPI", "MjcSceneAPI", "PhysxSceneAPI"]
+)
+{
+    uniform bool mjc:compiler:alignFree (
+        displayName = "Align Free"
+    )
+    uniform token mjc:compiler:angle (
+        displayName = "Angle"
+    )
+    uniform bool mjc:compiler:autoLimits (
+        displayName = "Automatic Limits"
+    )
+    uniform bool mjc:compiler:balanceInertia (
+        displayName = "Balance Inertia"
+    )
+    uniform double mjc:compiler:boundInertia (
+        displayName = "Bound Inertia"
+    )
+    uniform double mjc:compiler:boundMass (
+        displayName = "Bound Mass"
+    )
+    uniform bool mjc:compiler:fitAABB (
+        displayName = "Fit AABB"
+    )
+    uniform bool mjc:compiler:fuseStatic (
+        displayName = "Fuse Static"
+    )
+    uniform token mjc:compiler:inertiaFromGeom (
+        displayName = "Inertia From Geom"
+    )
+    uniform int mjc:compiler:inertiaGroupRange:max (
+        displayName = "Inertia Group Range Max"
+    )
+    uniform int mjc:compiler:inertiaGroupRange:min (
+        displayName = "Inertia Group Range Min"
+    )
+    uniform bool mjc:compiler:saveInertial (
+        displayName = "Save Inertial"
+    )
+    uniform double mjc:compiler:setTotalMass (
+        displayName = "Set Total Mass"
+    )
+    uniform bool mjc:compiler:useThread (
+        displayName = "Use Thread"
+    )
+    uniform bool mjc:flag:actuation (
+        displayName = "Actuation Forces Toggle"
+    )
+    uniform bool mjc:flag:autoreset (
+        displayName = "Automatic Simulation Reset Toggle"
+    )
+    uniform bool mjc:flag:clampctrl (
+        displayName = "Control Input Clamping Toggle"
+    )
+    uniform bool mjc:flag:constraint (
+        displayName = "Constraint Solver Toggle"
+    )
+    uniform bool mjc:flag:contact (
+        displayName = "Contact Constraints and Collision Detection Toggle"
+    )
+    uniform bool mjc:flag:damper (
+        displayName = "Damper Forces Toggle"
+    )
+    uniform bool mjc:flag:energy (
+        displayName = "Energy Computation Toggle"
+    )
+    uniform bool mjc:flag:equality (
+        displayName = "Equality Constraints Toggle"
+    )
+    uniform bool mjc:flag:eulerdamp (
+        displayName = "Euler Integrator Damping Toggle"
+    )
+    uniform bool mjc:flag:filterparent (
+        displayName = "Parent-Child Contact Filtering Toggle"
+    )
+    uniform bool mjc:flag:frictionloss (
+        displayName = "Friction Loss Constraints Toggle"
+    )
+    uniform bool mjc:flag:fwdinv (
+        displayName = "Forward/Inverse Dynamics Comparison Toggle"
+    )
+    uniform bool mjc:flag:gravity (
+        displayName = "Gravity Toggle"
+    )
+    uniform bool mjc:flag:invdiscrete (
+        displayName = "Discrete-Time Inverse Dynamics Toggle"
+    )
+    uniform bool mjc:flag:island (
+        displayName = "Constraint Island Discovery Toggle"
+    )
+    uniform bool mjc:flag:limit (
+        displayName = "Joint and Tendon Limit Constraints Toggle"
+    )
+    uniform bool mjc:flag:midphase (
+        displayName = "Mid-Phase Collision Filtering Toggle"
+    )
+    uniform bool mjc:flag:multiccd (
+        displayName = "Multiple Contact Collision Detection (CCD) Toggle"
+    )
+    uniform bool mjc:flag:nativeccd (
+        displayName = "Native Convex Collision Detection Toggle"
+    )
+    uniform bool mjc:flag:override (
+        displayName = "Contact Override Mechanism Toggle"
+    )
+    uniform bool mjc:flag:refsafe (
+        displayName = "Solver Reference Safety Mechanism Toggle"
+    )
+    uniform bool mjc:flag:sensor (
+        displayName = "Sensor Computations Toggle"
+    )
+    uniform bool mjc:flag:spring (
+        displayName = "Spring Forces Toggle"
+    )
+    uniform bool mjc:flag:warmstart (
+        displayName = "Solver Warm-Starting Toggle"
+    )
+    uniform int[] mjc:option:actuatorgroupdisable (
+        displayName = "Actuator Group Disable"
+    )
+    uniform int mjc:option:ccd_iterations (
+        displayName = "CCD Iterations"
+    )
+    uniform double mjc:option:ccd_tolerance (
+        displayName = "CCD Tolerance"
+    )
+    uniform token mjc:option:cone = "elliptic" (
+        displayName = "Friction Cone Type"
+    )
+    uniform double mjc:option:density (
+        displayName = "Density"
+    )
+    uniform double mjc:option:impratio = 5 (
+        displayName = "Impedance Ratio"
+    )
+    uniform token mjc:option:integrator = "implicit" (
+        displayName = "Integrator"
+    )
+    uniform int mjc:option:iterations = 100 (
+        displayName = "Solver Iterations"
+    )
+    uniform token mjc:option:jacobian (
+        displayName = "Jacobian Type"
+    )
+    uniform int mjc:option:ls_iterations = 12 (
+        displayName = "Linesearch Iterations"
+    )
+    uniform double mjc:option:ls_tolerance = 0.001 (
+        displayName = "Linesearch Tolerance"
+    )
+    uniform double3 mjc:option:magnetic (
+        displayName = "Magnetic Flux"
+    )
+    uniform int mjc:option:noslip_iterations = 5 (
+        displayName = "Noslip Iterations"
+    )
+    uniform double mjc:option:noslip_tolerance = 0.000001 (
+        displayName = "Noslip Tolerance"
+    )
+    uniform double[] mjc:option:o_friction (
+        displayName = "Contact Override Friction"
+    )
+    uniform double mjc:option:o_margin (
+        displayName = "Contact Override Margin"
+    )
+    uniform double[] mjc:option:o_solimp (
+        displayName = "Contact Override SolImp"
+    )
+    uniform double[] mjc:option:o_solref (
+        displayName = "Contact Override SolRef"
+    )
+    uniform int mjc:option:sdf_initpoints (
+        displayName = "SDF Initial Points"
+    )
+    uniform int mjc:option:sdf_iterations (
+        displayName = "SDF Iterations"
+    )
+    uniform token mjc:option:solver = "newton" (
+        displayName = "Solver"
+    )
+    uniform double mjc:option:timestep (
+        displayName = "Timestep"
+    )
+    uniform double mjc:option:tolerance = 0.000001 (
+        displayName = "Solver Tolerance"
+    )
+    uniform double mjc:option:viscosity (
+        displayName = "Viscosity"
+    )
+    uniform double3 mjc:option:wind (
+        displayName = "Wind Velocity"
+    )
+    bool newton:gravityEnabled = 1 (
+        displayName = "Gravity Enabled"
+    )
+    uniform int newton:maxSolverIterations = 60 (
+        displayName = "Max Solver Iterations"
+    )
+    uniform int newton:timeStepsPerSecond = 448 (
+        displayName = "Time Steps Per Second"
+    )
+    vector3f physics:gravityDirection = (0, 0, -1)
+    float physics:gravityMagnitude = 9.81
+    uniform token physxScene:broadphaseType = "SAP"
+    bool physxScene:enableGPUDynamics = 0
+}
+
+def "Render" (
+    hide_in_stage_window = true
+    no_delete = true
+)
+{
+    def "OmniverseKit"
+    {
+        def "HydraTextures" (
+            hide_in_stage_window = true
+            no_delete = true
+        )
+        {
+            def RenderProduct "omni_kit_widget_viewport_ViewportTexture_0" (
+                prepend apiSchemas = ["OmniRtxSettingsCommonAdvancedAPI_1", "OmniRtxSettingsRtAdvancedAPI_1", "OmniRtxSettingsPtAdvancedAPI_1", "OmniRtxSettingsParticleFieldAPI_1", "OmniRtxPostColorGradingAPI_1", "OmniRtxPostChromaticAberrationAPI_1", "OmniRtxPostBloomPhysicalAPI_1", "OmniRtxPostMatteObjectAPI_1", "OmniRtxPostCompositingAPI_1", "OmniRtxPostDofAPI_1", "OmniRtxPostMotionBlurAPI_1", "OmniRtxPostTvNoiseAPI_1", "OmniRtxPostTonemapIrayReinhardAPI_1", "OmniRtxPostDebugSettingsAPI_1", "OmniRtxDebugSettingsAPI_1"]
+                hide_in_stage_window = true
+                no_delete = true
+            )
+            {
+                rel camera = </OmniverseKit_Persp>
+                token omni:rtx:ambientOcclusion:denoiserMode = "none"
+                token omni:rtx:background:source:texture:textureMode = "repeatMirrored"
+                token omni:rtx:background:source:type = "domeLight"
+                bool omni:rtx:debug:view:pixelDebug:enableFixedTextPos = 1
+                token omni:rtx:directLighting:sampledLighting:denoisingTechnique = "None"
+                bool omni:rtx:dlss:frameGeneration = 0
+                bool omni:rtx:indirectDiffuse:denoiser:enabled = 0
+                bool omni:rtx:material:db:syncLoads = 1
+                token omni:rtx:post:dlss:execMode = "performance"
+                bool omni:rtx:post:registeredCompositing:invertColorCorrection = 1
+                bool omni:rtx:post:registeredCompositing:invertToneMap = 1
+                bool omni:rtx:pt:adaptiveSampling:filterError = 0
+                uint omni:rtx:pt:adaptiveSampling:fixedSppIterations = 2
+                uint omni:rtx:pt:maxSamplesPerLaunch = 2073600
+                uint omni:rtx:pt:mgpu:maxPixelsPerRegionExponent = 12
+                bool omni:rtx:reflections:denoiser:enabled = 0
+                token omni:rtx:rendermode = "RealTimePathTracing"
+                color3f omni:rtx:rt:ambientLight:color = (0.1, 0.1, 0.1)
+                bool omni:rtx:rt:demoire = 0
+                bool omni:rtx:rt:ecoMode:enabled
+                bool omni:rtx:rt:lightcache:spatialCache:dontResolveConflicts = 1
+                int omni:rtx:rt:sss:samples = 1
+                uint omni:rtx:rtpt:maxVolumeBounces = 15
+                float omni:rtx:rtpt:modulatingRoughnessThreshold = 0.08
+                bool omni:rtx:scene:hydra:materialSyncLoads = 1
+                bool omni:rtx:scene:hydra:mdlMaterialWarmup = 1
+                rel orderedVars = </Render/Vars/LdrColor>
+                custom bool overrideClipRange = 0
+                uniform int2 resolution = (1280, 720)
+            }
+
+            def RenderProduct "Replicator" (
+                prepend apiSchemas = ["OmniRtxSettingsCommonAdvancedAPI_1", "OmniRtxSettingsRtAdvancedAPI_1", "OmniRtxSettingsPtAdvancedAPI_1", "OmniRtxSettingsParticleFieldAPI_1", "OmniRtxPostColorGradingAPI_1", "OmniRtxPostChromaticAberrationAPI_1", "OmniRtxPostBloomPhysicalAPI_1", "OmniRtxPostMatteObjectAPI_1", "OmniRtxPostCompositingAPI_1", "OmniRtxPostDofAPI_1", "OmniRtxPostMotionBlurAPI_1", "OmniRtxPostTvNoiseAPI_1", "OmniRtxPostTonemapIrayReinhardAPI_1", "OmniRtxPostDebugSettingsAPI_1", "OmniRtxDebugSettingsAPI_1"]
+                hide_in_stage_window = true
+                no_delete = true
+            )
+            {
+                rel camera = </World/FiveAges_W2/Head_V1/head_link2/head_camera/head_camera>
+                bool omni:rtx:material:db:syncLoads = 1
+                bool omni:rtx:rt:ecoMode:enabled
+                bool omni:rtx:scene:hydra:materialSyncLoads = 1
+                rel orderedVars = </Render/Vars/LdrColor>
+                custom bool overrideClipRange = 0
+                uniform int2 resolution = (640, 480)
+            }
+        }
+    }
+
+    def RenderSettings "OmniverseGlobalRenderSettings" (
+        prepend apiSchemas = ["OmniRtxSettingsGlobalRtAdvancedAPI_1", "OmniRtxSettingsGlobalPtAdvancedAPI_1"]
+        no_delete = true
+    )
+    {
+        rel products = [
+            </Render/OmniverseKit/HydraTextures/omni_kit_widget_viewport_ViewportTexture_0>,
+            </Render/OmniverseKit/HydraTextures/Replicator>,
+        ]
+    }
+
+    def "Vars" (
+        hide_in_stage_window = true
+        no_delete = true
+    )
+    {
+        def RenderVar "LdrColor" (
+            hide_in_stage_window = true
+            no_delete = true
+        )
+        {
+            uniform string sourceName = "LdrColor"
+            uniform token sourceType = "raw"
+        }
+    }
+}
+
+over "OmniverseKit_Persp" (
+    prepend apiSchemas = ["OmniRtxCameraAutoExposureAPI_1", "OmniRtxCameraExposureAPI_1"]
+    customData = {
+        dictionary omni = {
+            dictionary kit = {
+                bool hide_in_stage_window = 1
+                bool no_delete = 1
+            }
+        }
+    }
+    hide_in_stage_window = true
+    kind = "component"
+    no_delete = true
+)
+{
+    float2 clippingRange = (0.01, 10000000)
+    float exposure:fStop = 5
+    float exposure:responsivity = 1.1026709
+    float exposure:time = 0.02
+    float focalLength = 18.147562
+    float focusDistance = 400
+    custom uniform vector3d omni:kit:centerOfInterest = (-6.646073984223072e-17, 1.3292147968446146e-15, -10.310264289429853)
+    float3 xformOp:rotateXYZ = (70.58633, 8.2694424e-14, 101.130325)
+    float3 xformOp:scale = (1, 1, 1)
+    double3 xformOp:translate = (3.4384478364806057, 0.3537238199756283, 2.0675252179420105)
+    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+}
+
+over "OmniverseKit_Front" (
+    customData = {
+        dictionary omni = {
+            dictionary kit = {
+                bool hide_in_stage_window = 1
+                bool no_delete = 1
+            }
+        }
+    }
+    hide_in_stage_window = true
+    kind = "component"
+    no_delete = true
+)
+{
+    float2 clippingRange = (1, 10000000)
+    float horizontalAperture = 50
+    custom uniform vector3d omni:kit:centerOfInterest = (0, 0, -5)
+    token projection = "orthographic"
+    float verticalAperture = 50
+    float3 xformOp:rotateXYZ = (90, -1.2722219e-14, 90)
+    float3 xformOp:scale = (1, 1, 1)
+    double3 xformOp:translate = (5, 0, 0)
+    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+}
+
+over "OmniverseKit_Right" (
+    customData = {
+        dictionary omni = {
+            dictionary kit = {
+                bool hide_in_stage_window = 1
+                bool no_delete = 1
+            }
+        }
+    }
+    hide_in_stage_window = true
+    kind = "component"
+    no_delete = true
+)
+{
+    float2 clippingRange = (1, 10000000)
+    float horizontalAperture = 50
+    custom uniform vector3d omni:kit:centerOfInterest = (0, 0, -5)
+    token projection = "orthographic"
+    float verticalAperture = 50
+    float3 xformOp:rotateXYZ = (90, -1.41245e-30, 1.2722219e-14)
+    float3 xformOp:scale = (1, 1, 1)
+    double3 xformOp:translate = (0, -5, 0)
+    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+}
+
+over "OmniverseKit_Top" (
+    customData = {
+        dictionary omni = {
+            dictionary kit = {
+                bool hide_in_stage_window = 1
+                bool no_delete = 1
+            }
+        }
+    }
+    hide_in_stage_window = true
+    kind = "component"
+    no_delete = true
+)
+{
+    float2 clippingRange = (1, 10000000)
+    float horizontalAperture = 50
+    custom uniform vector3d omni:kit:centerOfInterest = (0, 0, -5)
+    token projection = "orthographic"
+    float verticalAperture = 50
+    float3 xformOp:rotateXYZ = (-1.2722219e-14, -7.016709e-15, -90)
+    float3 xformOp:scale = (1, 1, 1)
+    double3 xformOp:translate = (0, 0, 5)
+    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+}
+
