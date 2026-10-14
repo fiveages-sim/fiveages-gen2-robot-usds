@@ -89,7 +89,8 @@ def Xform "Head_V1"
                 prepend uint inputs:execIn.connect = [
                     </Head_V1/Graph/ROS_HeadCamera/RunOnce.outputs:step>
                 ]
-                custom uint inputs:height = 480
+                # Orbbec Gemini 336L-G color max: 1280×800 @ 60fps
+                custom uint inputs:height = 800
                 custom rel inputs:renderProductPrim (
                     customData = {
                         dictionary omni = {
@@ -99,7 +100,7 @@ def Xform "Head_V1"
                         }
                     }
                 )
-                custom uint inputs:width = 640
+                custom uint inputs:width = 1280
                 token node:type = "isaacsim.core.nodes.IsaacCreateRenderProduct"
                 int node:typeVersion = 2
                 custom uint outputs:execOut (
