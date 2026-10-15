@@ -9,9 +9,6 @@ def Xform "FiveAges_W2"
 {
     def "Linkhou_S2" (
         prepend payload = @../../../../../../mobile_base/Linkhou/S2_V2/S2_V2.usda@
-        variants = {
-            string ROS = "enable"
-        }
     )
     {
         quatd xformOp:orient = (1, 0, 0, 0)

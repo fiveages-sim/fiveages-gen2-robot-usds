@@ -51,7 +51,7 @@ def Xform "FiveAges_W2" (
         string Sensor = "none"
         string Visual = "default"
     }
-    prepend variantSets = ["Physics", "Visual", "Torso", "Head", "Chassis", "Arm_Left", "Arm_Right", "ROS"]
+    prepend variantSets = ["Physics", "ROS", "Visual", "Torso", "Head", "Chassis", "Arm_Left", "Arm_Right"]
     append variantSets = ["Robot", "Sensor"]
 )
 {
