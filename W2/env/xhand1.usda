@@ -7,8 +7,8 @@
                 double radius = 5
             }
             dictionary Perspective = {
-                double3 position = (1.664467347596369, 0.28978976325549993, 1.7341329333039868)
-                double3 target = (-3.162108108369548, -3.1778967857187235, 0.6797628110066223)
+                double3 position = (2.676088553251377, 0.8274949230066134, 2.3621810518861555)
+                double3 target = (-4.817486190185891, -3.018862920342951, 0.44048114933769567)
             }
             dictionary Right = {
                 double3 position = (0, -5, 0)
@@ -75,6 +75,7 @@ def Xform "World"
                 {
                     over "Xhand1" (
                         variants = {
+                            string ROS = "enable"
                             string Sensor = "d405"
                         }
                     )
@@ -102,17 +103,11 @@ def Xform "World"
                 {
                     over "Xhand1" (
                         variants = {
+                            string ROS = "enable"
                             string Sensor = "d405"
                         }
                     )
                     {
-                        over "hand_base"
-                        {
-                            over "d405_kit"
-                            {
-                                quatd xformOp:orient = (1, 0, 0, 0)
-                            }
-                        }
                     }
                 }
             }
@@ -130,6 +125,14 @@ def Xform "World"
                     }
                 }
             }
+        }
+
+        over "Head_V1" (
+            variants = {
+                string ROS = "enable"
+            }
+        )
+        {
         }
     }
 }
@@ -181,7 +184,7 @@ def "Render" (
                 bool omni:rtx:scene:hydra:mdlMaterialWarmup = 1
                 rel orderedVars = </Render/Vars/LdrColor>
                 custom bool overrideClipRange = 0
-                uniform int2 resolution = (1246, 672)
+                uniform int2 resolution = (1280, 720)
             }
         }
     }
@@ -231,10 +234,10 @@ over "OmniverseKit_Persp" (
     float exposure:time = 0.02
     float focalLength = 18.147562
     float focusDistance = 400
-    custom uniform vector3d omni:kit:centerOfInterest = (0, 0, -6.035923872023463)
-    float3 xformOp:rotateXYZ = (79.93982, -1.9083328e-13, 125.69562)
+    custom uniform vector3d omni:kit:centerOfInterest = (0, 0, -8.639505866080096)
+    float3 xformOp:rotateXYZ = (77.1481, -2.0991661e-13, 117.17086)
     float3 xformOp:scale = (1, 1, 1)
-    double3 xformOp:translate = (1.664467347596369, 0.28978976325549993, 1.7341329333039868)
+    double3 xformOp:translate = (2.676088553251377, 0.8274949230066134, 2.3621810518861555)
     uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
 }
 
