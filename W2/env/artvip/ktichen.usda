@@ -7,8 +7,8 @@
                 double radius = 5
             }
             dictionary Perspective = {
-                double3 position = (4.868394135229226, -0.5078541858722353, 2.857558550075223)
-                double3 target = (-18.163226241090307, 1.4440712803432505, -7.424169983999503)
+                double3 position = (0.6090589840778129, -2.2419951661037243, 1.0603882178710142)
+                double3 target = (-5.0384357690080135, 25.449366455051138, -12.53155182619762)
             }
             dictionary Right = {
                 double3 position = (0, -5, 0)
@@ -40,82 +40,6 @@
 
 def Xform "World"
 {
-    def "kitchen" (
-        prepend payload = @../../../../../../../environment/ArtVIP-fasim/kitchen/kitchen.usda@
-    )
-    {
-        quatf xformOp:orient = (1, 0, 0, 0)
-        float3 xformOp:scale = (1, 1, 1)
-        double3 xformOp:translate = (-1.8670123261901344, -4.0629315871640275, -0.04)
-        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
-
-        over "kitchen_all_light"
-        {
-            token visibility = "invisible"
-        }
-
-        over "oven"
-        {
-            over "oven_light"
-            {
-                token visibility = "invisible"
-            }
-
-            over "Heating_light"
-            {
-                token visibility
-            }
-
-            over "oven_E_door_73"
-            {
-                over "RevoluteJoint_oven_door"
-                {
-                    float drive:angular:physics:stiffness = 0.8
-                }
-            }
-        }
-
-        over "model_fridge"
-        {
-            over "fridge_light"
-            {
-                token visibility = "invisible"
-            }
-
-            over "fridge_E_Leftdoor_84"
-            {
-                over "RevoluteJoint_fridge_left"
-                {
-                    float drive:angular:physics:stiffness = 2
-                }
-            }
-
-            over "fridge_E_Rightdoor_73"
-            {
-                over "RevoluteJoint_fridge_right"
-                {
-                    float drive:angular:physics:stiffness = 2
-                }
-            }
-        }
-
-        over "switch"
-        {
-            over "switch_E_button_09"
-            {
-                double3 xformOp:translate = (-0.0019290447235107422, 0.00412750244140625, 0.09463346004486084)
-            }
-        }
-
-        over "Access_control"
-        {
-            over "Access_control_E_button_09"
-            {
-                double3 xformOp:translate = (-0.0019292831420898438, 0.00412750244140625, 0.09463346004486084)
-            }
-        }
-    }
-
     def "FiveAges_W2" (
         prepend references = @../../FiveAges_W2.usda@
         variants = {
@@ -126,6 +50,11 @@ def Xform "World"
         }
     )
     {
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (0, 0, 0.039534088493534236)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
         over "Right_Arm" (
             variants = {
                 string EE = "Xhand1"
@@ -140,6 +69,614 @@ def Xform "World"
             }
         )
         {
+        }
+
+        over "Linkhou_S2"
+        {
+            over "Graph"
+            {
+                over "ROS_Steering_Controller"
+                {
+                    over "script_node"
+                    {
+                        custom double inputs:deltaSeconds
+                        custom double inputs:flipVelocityScale
+                        custom int inputs:msgCount
+                        custom token inputs:profile (
+                            allowedTokens = ["linkhou_s2_v1", "taku"]
+                        )
+                        custom double inputs:simTime
+                    }
+                }
+            }
+        }
+    }
+
+    def "kitchen" (
+        prepend payload = @../../../../../../../environment/artvip-usd/scenes/kitchen.usda@
+    )
+    {
+        quatf xformOp:orient = (1, 0, 0, 0)
+        float3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (-1.8396521395016079, -3.9094121460714484, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        over "model_fridge"
+        {
+            over "FridgeDoorLight"
+            {
+                over "AnyDoorOpen"
+                {
+                    int node:typeVersion = 2
+                }
+
+                over "ReadRightDoor"
+                {
+                    custom rel inputs:prim (
+                        customData = {
+                            dictionary omni = {
+                                dictionary graph = {
+                                    string relType = "target"
+                                }
+                            }
+                        }
+                    )
+                }
+
+                over "ReadLeftDoor"
+                {
+                    custom rel inputs:prim (
+                        customData = {
+                            dictionary omni = {
+                                dictionary graph = {
+                                    string relType = "target"
+                                }
+                            }
+                        }
+                    )
+                }
+
+                over "WriteLightOff"
+                {
+                    custom token inputs:layerIdentifier
+                    custom rel inputs:prim (
+                        customData = {
+                            dictionary omni = {
+                                dictionary graph = {
+                                    string relType = "target"
+                                }
+                            }
+                        }
+                    )
+                    custom bool state:correctlySetup
+                    custom uint64 state:destAttrib
+                    custom uint64 state:destPath
+                    custom uint64 state:destPathToken
+                    custom token state:layerIdentifier
+                    custom token state:resolvedLayerIdentifier
+                }
+
+                over "WriteLightOn"
+                {
+                    custom token inputs:layerIdentifier
+                    custom rel inputs:prim (
+                        customData = {
+                            dictionary omni = {
+                                dictionary graph = {
+                                    string relType = "target"
+                                }
+                            }
+                        }
+                    )
+                    custom bool state:correctlySetup
+                    custom uint64 state:destAttrib
+                    custom uint64 state:destPath
+                    custom uint64 state:destPathToken
+                    custom token state:layerIdentifier
+                    custom token state:resolvedLayerIdentifier
+                }
+
+                over "RightRotation"
+                {
+                    custom token inputs:rotationOrder (
+                        allowedTokens = ["XYZ", "XZY", "YXZ", "YZX", "ZXY", "ZYX"]
+                    )
+                }
+
+                over "LeftRotation"
+                {
+                    custom token inputs:rotationOrder (
+                        allowedTokens = ["XYZ", "XZY", "YXZ", "YZX", "ZXY", "ZYX"]
+                    )
+                }
+            }
+        }
+
+        over "oven"
+        {
+            over "OvenButtonDoor"
+            {
+                over "ReadButtonXform"
+                {
+                    custom rel inputs:prim (
+                        customData = {
+                            dictionary omni = {
+                                dictionary graph = {
+                                    string relType = "target"
+                                }
+                            }
+                        }
+                    )
+                }
+
+                over "ReadDoorXform"
+                {
+                    custom rel inputs:prim (
+                        customData = {
+                            dictionary omni = {
+                                dictionary graph = {
+                                    string relType = "target"
+                                }
+                            }
+                        }
+                    )
+                }
+
+                over "WriteDoorOpen"
+                {
+                    custom token inputs:layerIdentifier
+                    custom rel inputs:prim (
+                        customData = {
+                            dictionary omni = {
+                                dictionary graph = {
+                                    string relType = "target"
+                                }
+                            }
+                        }
+                    )
+                    custom bool state:correctlySetup
+                    custom uint64 state:destAttrib
+                    custom uint64 state:destPath
+                    custom uint64 state:destPathToken
+                    custom token state:layerIdentifier
+                    custom token state:resolvedLayerIdentifier
+                }
+
+                over "WriteDoorClose"
+                {
+                    custom token inputs:layerIdentifier
+                    custom rel inputs:prim (
+                        customData = {
+                            dictionary omni = {
+                                dictionary graph = {
+                                    string relType = "target"
+                                }
+                            }
+                        }
+                    )
+                    custom bool state:correctlySetup
+                    custom uint64 state:destAttrib
+                    custom uint64 state:destPath
+                    custom uint64 state:destPathToken
+                    custom token state:layerIdentifier
+                    custom token state:resolvedLayerIdentifier
+                }
+
+                over "DoorRotation"
+                {
+                    custom token inputs:rotationOrder (
+                        allowedTokens = ["XYZ", "XZY", "YXZ", "YZX", "ZXY", "ZYX"]
+                    )
+                }
+            }
+
+            over "OvenKnobLight"
+            {
+                over "ReadDoorXform"
+                {
+                    custom rel inputs:prim (
+                        customData = {
+                            dictionary omni = {
+                                dictionary graph = {
+                                    string relType = "target"
+                                }
+                            }
+                        }
+                    )
+                }
+
+                over "ReadKnobXform"
+                {
+                    custom rel inputs:prim (
+                        customData = {
+                            dictionary omni = {
+                                dictionary graph = {
+                                    string relType = "target"
+                                }
+                            }
+                        }
+                    )
+                }
+
+                over "WriteKnobLock"
+                {
+                    custom token inputs:layerIdentifier
+                    custom rel inputs:prim (
+                        customData = {
+                            dictionary omni = {
+                                dictionary graph = {
+                                    string relType = "target"
+                                }
+                            }
+                        }
+                    )
+                    custom bool state:correctlySetup
+                    custom uint64 state:destAttrib
+                    custom uint64 state:destPath
+                    custom uint64 state:destPathToken
+                    custom token state:layerIdentifier
+                    custom token state:resolvedLayerIdentifier
+                }
+
+                over "WriteOvenLightOff"
+                {
+                    custom token inputs:layerIdentifier
+                    custom rel inputs:prim (
+                        customData = {
+                            dictionary omni = {
+                                dictionary graph = {
+                                    string relType = "target"
+                                }
+                            }
+                        }
+                    )
+                    custom bool state:correctlySetup
+                    custom uint64 state:destAttrib
+                    custom uint64 state:destPath
+                    custom uint64 state:destPathToken
+                    custom token state:layerIdentifier
+                    custom token state:resolvedLayerIdentifier
+                }
+
+                over "WriteHeatOn"
+                {
+                    custom token inputs:layerIdentifier
+                    custom rel inputs:prim (
+                        customData = {
+                            dictionary omni = {
+                                dictionary graph = {
+                                    string relType = "target"
+                                }
+                            }
+                        }
+                    )
+                    custom bool state:correctlySetup
+                    custom uint64 state:destAttrib
+                    custom uint64 state:destPath
+                    custom uint64 state:destPathToken
+                    custom token state:layerIdentifier
+                    custom token state:resolvedLayerIdentifier
+                }
+
+                over "WriteKnobUnlock"
+                {
+                    custom token inputs:layerIdentifier
+                    custom rel inputs:prim (
+                        customData = {
+                            dictionary omni = {
+                                dictionary graph = {
+                                    string relType = "target"
+                                }
+                            }
+                        }
+                    )
+                    custom bool state:correctlySetup
+                    custom uint64 state:destAttrib
+                    custom uint64 state:destPath
+                    custom uint64 state:destPathToken
+                    custom token state:layerIdentifier
+                    custom token state:resolvedLayerIdentifier
+                }
+
+                over "WriteHeatOff"
+                {
+                    custom token inputs:layerIdentifier
+                    custom rel inputs:prim (
+                        customData = {
+                            dictionary omni = {
+                                dictionary graph = {
+                                    string relType = "target"
+                                }
+                            }
+                        }
+                    )
+                    custom bool state:correctlySetup
+                    custom uint64 state:destAttrib
+                    custom uint64 state:destPath
+                    custom uint64 state:destPathToken
+                    custom token state:layerIdentifier
+                    custom token state:resolvedLayerIdentifier
+                }
+
+                over "WriteOvenLightOn"
+                {
+                    custom token inputs:layerIdentifier
+                    custom rel inputs:prim (
+                        customData = {
+                            dictionary omni = {
+                                dictionary graph = {
+                                    string relType = "target"
+                                }
+                            }
+                        }
+                    )
+                    custom bool state:correctlySetup
+                    custom uint64 state:destAttrib
+                    custom uint64 state:destPath
+                    custom uint64 state:destPathToken
+                    custom token state:layerIdentifier
+                    custom token state:resolvedLayerIdentifier
+                }
+
+                over "DoorRotation"
+                {
+                    custom token inputs:rotationOrder (
+                        allowedTokens = ["XYZ", "XZY", "YXZ", "YZX", "ZXY", "ZYX"]
+                    )
+                }
+            }
+        }
+
+        over "switch"
+        {
+            over "SwitchKitchenLight"
+            {
+                over "ReadButtonXform"
+                {
+                    custom rel inputs:prim (
+                        customData = {
+                            dictionary omni = {
+                                dictionary graph = {
+                                    string relType = "target"
+                                }
+                            }
+                        }
+                    )
+                }
+
+                over "WriteSwitchRest"
+                {
+                    custom token inputs:layerIdentifier
+                    custom rel inputs:prim (
+                        customData = {
+                            dictionary omni = {
+                                dictionary graph = {
+                                    string relType = "target"
+                                }
+                            }
+                        }
+                    )
+                    custom bool state:correctlySetup
+                    custom uint64 state:destAttrib
+                    custom uint64 state:destPath
+                    custom uint64 state:destPathToken
+                    custom token state:layerIdentifier
+                    custom token state:resolvedLayerIdentifier
+                }
+
+                over "WriteSwitchFlip"
+                {
+                    custom token inputs:layerIdentifier
+                    custom rel inputs:prim (
+                        customData = {
+                            dictionary omni = {
+                                dictionary graph = {
+                                    string relType = "target"
+                                }
+                            }
+                        }
+                    )
+                    custom bool state:correctlySetup
+                    custom uint64 state:destAttrib
+                    custom uint64 state:destPath
+                    custom uint64 state:destPathToken
+                    custom token state:layerIdentifier
+                    custom token state:resolvedLayerIdentifier
+                }
+
+                over "WriteLightOn"
+                {
+                    custom token inputs:layerIdentifier
+                    custom rel inputs:prim (
+                        customData = {
+                            dictionary omni = {
+                                dictionary graph = {
+                                    string relType = "target"
+                                }
+                            }
+                        }
+                    )
+                    custom bool state:correctlySetup
+                    custom uint64 state:destAttrib
+                    custom uint64 state:destPath
+                    custom uint64 state:destPathToken
+                    custom token state:layerIdentifier
+                    custom token state:resolvedLayerIdentifier
+                }
+
+                over "WriteLightOff"
+                {
+                    custom token inputs:layerIdentifier
+                    custom rel inputs:prim (
+                        customData = {
+                            dictionary omni = {
+                                dictionary graph = {
+                                    string relType = "target"
+                                }
+                            }
+                        }
+                    )
+                    custom bool state:correctlySetup
+                    custom uint64 state:destAttrib
+                    custom uint64 state:destPath
+                    custom uint64 state:destPathToken
+                    custom token state:layerIdentifier
+                    custom token state:resolvedLayerIdentifier
+                }
+
+                over "ButtonRotation"
+                {
+                    custom token inputs:rotationOrder (
+                        allowedTokens = ["XYZ", "XZY", "YXZ", "YZX", "ZXY", "ZYX"]
+                    )
+                }
+            }
+        }
+
+        over "model_door"
+        {
+            over "DoorAccessOpen"
+            {
+                over "ReadButtonXform"
+                {
+                    custom rel inputs:prim (
+                        customData = {
+                            dictionary omni = {
+                                dictionary graph = {
+                                    string relType = "target"
+                                }
+                            }
+                        }
+                    )
+                }
+
+                over "WriteRightOpen"
+                {
+                    custom token inputs:layerIdentifier
+                    custom rel inputs:prim (
+                        customData = {
+                            dictionary omni = {
+                                dictionary graph = {
+                                    string relType = "target"
+                                }
+                            }
+                        }
+                    )
+                    custom bool state:correctlySetup
+                    custom uint64 state:destAttrib
+                    custom uint64 state:destPath
+                    custom uint64 state:destPathToken
+                    custom token state:layerIdentifier
+                    custom token state:resolvedLayerIdentifier
+                }
+
+                over "WriteLeftOpen"
+                {
+                    custom token inputs:layerIdentifier
+                    custom rel inputs:prim (
+                        customData = {
+                            dictionary omni = {
+                                dictionary graph = {
+                                    string relType = "target"
+                                }
+                            }
+                        }
+                    )
+                    custom bool state:correctlySetup
+                    custom uint64 state:destAttrib
+                    custom uint64 state:destPath
+                    custom uint64 state:destPathToken
+                    custom token state:layerIdentifier
+                    custom token state:resolvedLayerIdentifier
+                }
+
+                over "WriteSwitchOn"
+                {
+                    custom token inputs:layerIdentifier
+                    custom rel inputs:prim (
+                        customData = {
+                            dictionary omni = {
+                                dictionary graph = {
+                                    string relType = "target"
+                                }
+                            }
+                        }
+                    )
+                    custom bool state:correctlySetup
+                    custom uint64 state:destAttrib
+                    custom uint64 state:destPath
+                    custom uint64 state:destPathToken
+                    custom token state:layerIdentifier
+                    custom token state:resolvedLayerIdentifier
+                }
+
+                over "WriteSwitchOff"
+                {
+                    custom token inputs:layerIdentifier
+                    custom rel inputs:prim (
+                        customData = {
+                            dictionary omni = {
+                                dictionary graph = {
+                                    string relType = "target"
+                                }
+                            }
+                        }
+                    )
+                    custom bool state:correctlySetup
+                    custom uint64 state:destAttrib
+                    custom uint64 state:destPath
+                    custom uint64 state:destPathToken
+                    custom token state:layerIdentifier
+                    custom token state:resolvedLayerIdentifier
+                }
+
+                over "WriteRightClose"
+                {
+                    custom token inputs:layerIdentifier
+                    custom rel inputs:prim (
+                        customData = {
+                            dictionary omni = {
+                                dictionary graph = {
+                                    string relType = "target"
+                                }
+                            }
+                        }
+                    )
+                    custom bool state:correctlySetup
+                    custom uint64 state:destAttrib
+                    custom uint64 state:destPath
+                    custom uint64 state:destPathToken
+                    custom token state:layerIdentifier
+                    custom token state:resolvedLayerIdentifier
+                }
+
+                over "WriteLeftClose"
+                {
+                    custom token inputs:layerIdentifier
+                    custom rel inputs:prim (
+                        customData = {
+                            dictionary omni = {
+                                dictionary graph = {
+                                    string relType = "target"
+                                }
+                            }
+                        }
+                    )
+                    custom bool state:correctlySetup
+                    custom uint64 state:destAttrib
+                    custom uint64 state:destPath
+                    custom uint64 state:destPathToken
+                    custom token state:layerIdentifier
+                    custom token state:resolvedLayerIdentifier
+                }
+
+                over "ButtonRotation"
+                {
+                    custom token inputs:rotationOrder (
+                        allowedTokens = ["XYZ", "XZY", "YXZ", "YZX", "ZXY", "ZYX"]
+                    )
+                }
+            }
         }
     }
 }
@@ -219,7 +756,7 @@ def "Render" (
                 bool omni:rtx:scene:hydra:mdlMaterialWarmup = 1
                 rel orderedVars = </Render/Vars/LdrColor>
                 custom bool overrideClipRange = 0
-                uniform int2 resolution = (1183, 711)
+                uniform int2 resolution = (1083, 581)
             }
         }
     }
@@ -269,10 +806,10 @@ over "OmniverseKit_Persp" (
     float exposure:time = 0.02
     float focalLength = 18.147562
     float focusDistance = 400
-    custom uniform vector3d omni:kit:centerOfInterest = (0, 0, -25.297815949859466)
-    float3 xformOp:rotateXYZ = (66.01939, -9.8597196e-14, 85.15577)
+    custom uniform vector3d omni:kit:centerOfInterest = (0, 0, -31.35995120502034)
+    float3 xformOp:rotateXYZ = (64.315384, -8.42847e-14, 11.527065)
     float3 xformOp:scale = (1, 1, 1)
-    double3 xformOp:translate = (4.868394135229226, -0.5078541858722353, 2.857558550075223)
+    double3 xformOp:translate = (0.6090589840778129, -2.2419951661037243, 1.0603882178710142)
     uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
 }
 
