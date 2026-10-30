@@ -7,8 +7,8 @@
                 double radius = 5
             }
             dictionary Perspective = {
-                double3 position = (2.676088553251377, 0.8274949230066134, 2.3621810518861555)
-                double3 target = (-4.817486190185891, -3.018862920342951, 0.44048114933769567)
+                double3 position = (1.4271474069129375, 1.2709307483131806, 2.081995117404053)
+                double3 target = (-4.299846806309717, -3.892522812463383, -3.1240299148425144)
             }
             dictionary Right = {
                 double3 position = (0, -5, 0)
@@ -54,42 +54,14 @@ def Xform "World"
         prepend payload = @../FiveAges_W2.usda@
         variants = {
             string Chassis = "LinkhouS2_V2"
-            string ROS = "enable"
+            string ROS = "fiveages"
         }
     )
     {
         quatd xformOp:orient = (1, 0, 0, 0)
         double3 xformOp:scale = (1, 1, 1)
-        double3 xformOp:translate = (0, 0, 0.036959782086458476)
+        double3 xformOp:translate = (0, 0, 0.04764054941019996)
         uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
-
-        over "Right_Arm" (
-            variants = {
-                string EE = "Xhand1"
-            }
-        )
-        {
-            over "link7"
-            {
-                over "tcp"
-                {
-                    over "Xhand1" (
-                        variants = {
-                            string ROS = "enable"
-                            string Sensor = "d405"
-                        }
-                    )
-                    {
-                        over "hand_base"
-                        {
-                            string isaac:nameOverride (
-                                displayName = "Name Override"
-                            )
-                        }
-                    }
-                }
-            }
-        }
 
         over "Left_Arm" (
             variants = {
@@ -103,11 +75,70 @@ def Xform "World"
                 {
                     over "Xhand1" (
                         variants = {
-                            string ROS = "enable"
                             string Sensor = "d405"
                         }
                     )
                     {
+                        over "hand_base"
+                        {
+                            over "d405_kit"
+                            {
+                                over "d405_mount"
+                                {
+                                    over "left_hand_camera" (
+                                        prepend apiSchemas = ["OmniRtxCameraAutoExposureAPI_1", "OmniRtxCameraExposureAPI_1"]
+                                    )
+                                    {
+                                        float exposure:fStop = 5
+                                        float exposure:responsivity = 1.1026709
+                                        float exposure:time = 0.02
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        over "Right_Arm" (
+            variants = {
+                string EE = "Xhand1"
+            }
+        )
+        {
+            over "link7"
+            {
+                over "tcp"
+                {
+                    over "Xhand1" (
+                        variants = {
+                            string Sensor = "d405"
+                        }
+                    )
+                    {
+                        over "hand_base"
+                        {
+                            over "d405_kit"
+                            {
+                                over "d405_mount"
+                                {
+                                    over "right_hand_camera" (
+                                        prepend apiSchemas = ["OmniRtxCameraAutoExposureAPI_1", "OmniRtxCameraExposureAPI_1"]
+                                    )
+                                    {
+                                        float exposure:fStop = 5
+                                        float exposure:responsivity = 1.1026709
+                                        float exposure:time = 0.02
+                                        custom uniform vector3d omni:kit:centerOfInterest = (0, 0, -400)
+                                        quatd xformOp:orient = (-0.49999999999999983, 0.5000000000000001, 0.5000000000000002, -0.5000000000000001)
+                                        double3 xformOp:scale = (1, 1, 1)
+                                        double3 xformOp:translate = (0, 2.220446049250313e-16, -2.220446049250313e-16)
+                                        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -121,18 +152,46 @@ def Xform "World"
                 {
                     over "script_node"
                     {
+                        custom double inputs:deltaSeconds
+                        custom double inputs:flipVelocityScale
+                        custom int inputs:msgCount
+                        custom token inputs:profile (
+                            allowedTokens = ["linkhou_s2_v1", "taku"]
+                        )
                         custom token inputs:scriptPath
+                        custom double inputs:simTime
                     }
                 }
             }
         }
 
-        over "Head_V1" (
-            variants = {
-                string ROS = "enable"
-            }
-        )
+        over "Graph"
         {
+            over "ROS_Control"
+            {
+                over "PublishClock"
+                {
+                    custom string inputs:nodeNamespace
+                    custom string inputs:qosProfile
+                    custom uint64 inputs:queueSize
+                    custom string inputs:topicName
+                }
+
+                over "ReadSimTime"
+                {
+                    custom uint64 inputs:referenceTimeDenominator
+                    custom int64 inputs:referenceTimeNumerator
+                }
+
+                over "ROS2ControlLaunch"
+                {
+                    custom string inputs:arms
+                    custom token inputs:mode (
+                        allowedTokens = ["demo", "split_body", "full_body"]
+                    )
+                    custom bool state:configured
+                }
+            }
         }
     }
 }
@@ -184,7 +243,52 @@ def "Render" (
                 bool omni:rtx:scene:hydra:mdlMaterialWarmup = 1
                 rel orderedVars = </Render/Vars/LdrColor>
                 custom bool overrideClipRange = 0
-                uniform int2 resolution = (1280, 720)
+                uniform int2 resolution = (1126, 626)
+            }
+
+            def RenderProduct "Replicator" (
+                prepend apiSchemas = ["OmniRtxSettingsCommonAdvancedAPI_1", "OmniRtxSettingsRtAdvancedAPI_1", "OmniRtxSettingsPtAdvancedAPI_1", "OmniRtxSettingsParticleFieldAPI_1", "OmniRtxPostColorGradingAPI_1", "OmniRtxPostChromaticAberrationAPI_1", "OmniRtxPostBloomPhysicalAPI_1", "OmniRtxPostMatteObjectAPI_1", "OmniRtxPostCompositingAPI_1", "OmniRtxPostDofAPI_1", "OmniRtxPostMotionBlurAPI_1", "OmniRtxPostTvNoiseAPI_1", "OmniRtxPostTonemapIrayReinhardAPI_1", "OmniRtxPostDebugSettingsAPI_1", "OmniRtxDebugSettingsAPI_1"]
+                hide_in_stage_window = true
+                no_delete = true
+            )
+            {
+                rel camera = </World/FiveAges_W2/Right_Arm/link7/tcp/Xhand1/hand_base/d405_kit/d405_mount/right_hand_camera>
+                bool omni:rtx:material:db:syncLoads = 1
+                bool omni:rtx:rt:ecoMode:enabled
+                bool omni:rtx:scene:hydra:materialSyncLoads = 1
+                rel orderedVars = </Render/Vars/LdrColor>
+                custom bool overrideClipRange = 0
+                uniform int2 resolution = (1280, 748)
+            }
+
+            def RenderProduct "Replicator_01" (
+                prepend apiSchemas = ["OmniRtxSettingsCommonAdvancedAPI_1", "OmniRtxSettingsRtAdvancedAPI_1", "OmniRtxSettingsPtAdvancedAPI_1", "OmniRtxSettingsParticleFieldAPI_1", "OmniRtxPostColorGradingAPI_1", "OmniRtxPostChromaticAberrationAPI_1", "OmniRtxPostBloomPhysicalAPI_1", "OmniRtxPostMatteObjectAPI_1", "OmniRtxPostCompositingAPI_1", "OmniRtxPostDofAPI_1", "OmniRtxPostMotionBlurAPI_1", "OmniRtxPostTvNoiseAPI_1", "OmniRtxPostTonemapIrayReinhardAPI_1", "OmniRtxPostDebugSettingsAPI_1", "OmniRtxDebugSettingsAPI_1"]
+                hide_in_stage_window = true
+                no_delete = true
+            )
+            {
+                rel camera = </World/FiveAges_W2/Left_Arm/link7/tcp/Xhand1/hand_base/d405_kit/d405_mount/left_hand_camera>
+                bool omni:rtx:material:db:syncLoads = 1
+                bool omni:rtx:rt:ecoMode:enabled
+                bool omni:rtx:scene:hydra:materialSyncLoads = 1
+                rel orderedVars = </Render/Vars/LdrColor>
+                custom bool overrideClipRange = 0
+                uniform int2 resolution = (1280, 748)
+            }
+
+            def RenderProduct "Replicator_02" (
+                prepend apiSchemas = ["OmniRtxSettingsCommonAdvancedAPI_1", "OmniRtxSettingsRtAdvancedAPI_1", "OmniRtxSettingsPtAdvancedAPI_1", "OmniRtxSettingsParticleFieldAPI_1", "OmniRtxPostColorGradingAPI_1", "OmniRtxPostChromaticAberrationAPI_1", "OmniRtxPostBloomPhysicalAPI_1", "OmniRtxPostMatteObjectAPI_1", "OmniRtxPostCompositingAPI_1", "OmniRtxPostDofAPI_1", "OmniRtxPostMotionBlurAPI_1", "OmniRtxPostTvNoiseAPI_1", "OmniRtxPostTonemapIrayReinhardAPI_1", "OmniRtxPostDebugSettingsAPI_1", "OmniRtxDebugSettingsAPI_1"]
+                hide_in_stage_window = true
+                no_delete = true
+            )
+            {
+                rel camera = </World/FiveAges_W2/Head_V1/head_link2/head_camera/head_camera>
+                bool omni:rtx:material:db:syncLoads = 1
+                bool omni:rtx:rt:ecoMode:enabled
+                bool omni:rtx:scene:hydra:materialSyncLoads = 1
+                rel orderedVars = </Render/Vars/LdrColor>
+                custom bool overrideClipRange = 0
+                uniform int2 resolution = (1280, 800)
             }
         }
     }
@@ -194,7 +298,12 @@ def "Render" (
         no_delete = true
     )
     {
-        rel products = </Render/OmniverseKit/HydraTextures/omni_kit_widget_viewport_ViewportTexture_0>
+        rel products = [
+            </Render/OmniverseKit/HydraTextures/omni_kit_widget_viewport_ViewportTexture_0>,
+            </Render/OmniverseKit/HydraTextures/Replicator>,
+            </Render/OmniverseKit/HydraTextures/Replicator_01>,
+            </Render/OmniverseKit/HydraTextures/Replicator_02>,
+        ]
     }
 
     def "Vars" (
@@ -234,10 +343,10 @@ over "OmniverseKit_Persp" (
     float exposure:time = 0.02
     float focalLength = 18.147562
     float focusDistance = 400
-    custom uniform vector3d omni:kit:centerOfInterest = (0, 0, -8.639505866080096)
-    float3 xformOp:rotateXYZ = (77.1481, -2.0991661e-13, 117.17086)
+    custom uniform vector3d omni:kit:centerOfInterest = (0, 0, -9.303892305318232)
+    float3 xformOp:rotateXYZ = (55.97508, -1.5584718e-13, 132.0378)
     float3 xformOp:scale = (1, 1, 1)
-    double3 xformOp:translate = (2.676088553251377, 0.8274949230066134, 2.3621810518861555)
+    double3 xformOp:translate = (1.4271474069129375, 1.2709307483131806, 2.081995117404053)
     uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
 }
 
@@ -317,7 +426,8 @@ over "OmniverseKit_Top" (
 }
 
 def PhysicsScene "PhysicsScene" (
-    prepend apiSchemas = ["NewtonSceneAPI", "PhysxSceneAPI", "MjcSceneAPI"]
+    delete apiSchemas = ["MjcSceneAPI", "NewtonSceneAPI", "PhysxSceneAPI"]
+    prepend apiSchemas = ["NewtonSceneAPI", "PhysxSceneAPI"]
 )
 {
     uniform token physxScene:broadphaseType = "SAP"

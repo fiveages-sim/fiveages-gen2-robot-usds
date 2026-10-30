@@ -1,0 +1,102 @@
+#usda 1.0
+(
+    defaultPrim = "FiveAges_W2"
+    metersPerUnit = 1
+    upAxis = "Z"
+    doc = """FiveAges W2 product (M6_CCS arms).
+
+Robot variant name == ros2 description package stem (fiveages_w2).
+Pins Arm_Left/Right=M6_CCS like Galaxea Robot=R1 pins A1 arms.
+"""
+)
+
+def Xform "FiveAges_W2" (
+    prepend apiSchemas = ["IsaacRobotAPI"]
+    variants = {
+        string Arm_Left = "M6_CCS"
+        string Arm_Right = "M6_CCS"
+    }
+)
+{
+    string isaac:description = "FiveAges W2 (M6 CCS)"
+    string isaac:namespace
+    prepend rel isaac:physics:robotJoints = [
+        </FiveAges_W2/joints/body_joint1>,
+        </FiveAges_W2/joints/body_joint2>,
+        </FiveAges_W2/joints/body_joint3>,
+        </FiveAges_W2/joints/body_joint4>,
+    ]
+    prepend rel isaac:physics:robotLinks = [
+        </FiveAges_W2/base_link>,
+        </FiveAges_W2/body_link1>,
+        </FiveAges_W2/body_link2>,
+        </FiveAges_W2/body_link3>,
+        </FiveAges_W2/body_link4>,
+    ]
+
+    over "base_link" (
+        prepend apiSchemas = ["IsaacLinkAPI"]
+    )
+    {
+        string isaac:nameOverride
+    }
+
+    over "body_link1" (
+        prepend apiSchemas = ["IsaacLinkAPI"]
+    )
+    {
+        string isaac:nameOverride
+    }
+
+    over "joints"
+    {
+        over "body_joint1" (
+            prepend apiSchemas = ["IsaacJointAPI"]
+        )
+        {
+            string isaac:nameOverride
+        }
+
+        over "body_joint2" (
+            prepend apiSchemas = ["IsaacJointAPI"]
+        )
+        {
+            string isaac:nameOverride
+        }
+
+        over "body_joint3" (
+            prepend apiSchemas = ["IsaacJointAPI"]
+        )
+        {
+            string isaac:nameOverride
+        }
+
+        over "body_joint4" (
+            prepend apiSchemas = ["IsaacJointAPI"]
+        )
+        {
+            string isaac:nameOverride
+        }
+    }
+
+    over "body_link2" (
+        prepend apiSchemas = ["IsaacLinkAPI"]
+    )
+    {
+        string isaac:nameOverride
+    }
+
+    over "body_link3" (
+        prepend apiSchemas = ["IsaacLinkAPI"]
+    )
+    {
+        string isaac:nameOverride
+    }
+
+    over "body_link4" (
+        prepend apiSchemas = ["IsaacLinkAPI"]
+    )
+    {
+        string isaac:nameOverride
+    }
+}

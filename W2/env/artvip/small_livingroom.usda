@@ -7,8 +7,8 @@
                 double radius = 5
             }
             dictionary Perspective = {
-                double3 position = (3.748613064727985, 6.24329614796993, 2.0187976741575686)
-                double3 target = (-9.781504549759214, -21.002261035578904, -3.2194390981249987)
+                double3 position = (2.789616261897009, 4.558837630487886, 1.7519672275847327)
+                double3 target = (-11.42673036792114, -20.298550058905292, -2.7754327528207794)
             }
             dictionary Right = {
                 double3 position = (0, -5, 0)
@@ -43,7 +43,7 @@ def Xform "World"
     def "FiveAges_W2" (
         prepend payload = @../../FiveAges_W2.usda@
         variants = {
-            string ROS = "enable"
+            string ROS = "fiveages"
         }
     )
     {
@@ -61,6 +61,7 @@ def Xform "World"
                         custom token inputs:profile (
                             allowedTokens = ["linkhou_s2_v1", "taku"]
                         )
+                        custom token inputs:scriptPath
                         custom double inputs:simTime
                     }
                 }
@@ -81,6 +82,35 @@ def Xform "World"
             }
         )
         {
+        }
+
+        over "Graph"
+        {
+            over "ROS_Control"
+            {
+                over "ReadSimTime"
+                {
+                    custom uint64 inputs:referenceTimeDenominator
+                    custom int64 inputs:referenceTimeNumerator
+                }
+
+                over "PublishClock"
+                {
+                    custom string inputs:nodeNamespace
+                    custom string inputs:qosProfile
+                    custom uint64 inputs:queueSize
+                    custom string inputs:topicName
+                }
+
+                over "ROS2ControlLaunch"
+                {
+                    custom string inputs:arms
+                    custom token inputs:mode (
+                        allowedTokens = ["demo", "split_body", "full_body"]
+                    )
+                    custom bool state:configured
+                }
+            }
         }
     }
 
@@ -142,7 +172,7 @@ def "Render" (
                 bool omni:rtx:scene:hydra:mdlMaterialWarmup = 1
                 rel orderedVars = </Render/Vars/LdrColor>
                 custom bool overrideClipRange = 0
-                uniform int2 resolution = (1097, 581)
+                uniform int2 resolution = (1126, 687)
             }
         }
     }
@@ -192,10 +222,10 @@ over "OmniverseKit_Persp" (
     float exposure:time = 0.02
     float focalLength = 18.147562
     float focusDistance = 400
-    custom uniform vector3d omni:kit:centerOfInterest = (0, 0, -30.86784076326654)
-    float3 xformOp:rotateXYZ = (80.22969, -3.450902e-13, 153.59105)
+    custom uniform vector3d omni:kit:centerOfInterest = (0, 0, -28.99123289586892)
+    float3 xformOp:rotateXYZ = (81.01566, -3.6099295e-13, 150.23405)
     float3 xformOp:scale = (1, 1, 1)
-    double3 xformOp:translate = (3.748613064727985, 6.24329614796993, 2.0187976741575686)
+    double3 xformOp:translate = (2.789616261897009, 4.558837630487886, 1.7519672275847327)
     uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
 }
 
@@ -275,7 +305,7 @@ over "OmniverseKit_Top" (
 }
 
 def PhysicsScene "PhysicsScene" (
-    delete apiSchemas = ["MjcSceneAPI"]
+    delete apiSchemas = ["MjcSceneAPI", "PhysxSceneAPI"]
     prepend apiSchemas = ["NewtonSceneAPI", "PhysxSceneAPI"]
 )
 {

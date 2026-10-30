@@ -1,0 +1,108 @@
+#usda 1.0
+(
+    customLayerData = {
+        dictionary cameraSettings = {
+            dictionary Front = {
+                double3 position = (5, 0, 0)
+                double radius = 5
+            }
+            dictionary Perspective = {
+                double3 position = (2.6, 1.0, 2.8)
+                double3 target = (0.0, 0.0, 0.9)
+            }
+            dictionary Right = {
+                double3 position = (0, -5, 0)
+                double radius = 5
+            }
+            dictionary Top = {
+                double3 position = (0, 0, 5)
+                double radius = 5
+            }
+            string boundCamera = "/OmniverseKit_Persp"
+        }
+        dictionary omni_layer = {
+            string authoring_layer = "./fiveages_w2r.usda"
+        }
+        dictionary renderSettings = {
+        }
+    }
+    defaultPrim = "World"
+    doc = """FiveAges W2R in-process ros2_control.
+
+Same asset as W2; Robot=fiveages_w2r pins AR5_CCS_V2 and emit --robot fiveages_w2r.
+"""
+    endTimeCode = 1000000
+    metersPerUnit = 1
+    startTimeCode = 0
+    timeCodesPerSecond = 60
+    upAxis = "Z"
+)
+
+def Xform "World"
+{
+    def "default_environment" (
+        prepend payload = @../../../../../../environment/fiveages_env/background/Grid/default_environment.usd@
+    )
+    {
+    }
+
+    def "FiveAges_W2" (
+        prepend payload = @../FiveAges_W2.usda@
+        variants = {
+            string Chassis = "LinkhouS2_V2"
+            string Head = "v1"
+            string Torso = "default"
+            string Physics = "physx"
+            string ROS = "fiveages"
+            string Robot = "fiveages_w2r"
+            string Sensor = "none"
+            string Visual = "default"
+        }
+    )
+    {
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (0, 0, 0.07203023299171055)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        over "Graph"
+        {
+            over "ROS_Control"
+            {
+                over "ROS2ControlLaunch"
+                {
+                    custom token inputs:mode (
+                        allowedTokens = ["demo", "split_body", "full_body"]
+                    )
+                    custom rel inputs:targetPrim = </World/FiveAges_W2/base_link>
+                    custom string inputs:robot = ""
+                    custom bool state:configured
+                }
+
+                over "ReadSimTime"
+                {
+                    custom uint64 inputs:referenceTimeDenominator
+                    custom int64 inputs:referenceTimeNumerator
+                }
+
+                over "PublishClock"
+                {
+                    custom string inputs:nodeNamespace
+                    custom string inputs:qosProfile
+                    custom uint64 inputs:queueSize
+                    custom string inputs:topicName
+                }
+            }
+        }
+    }
+}
+
+def PhysicsScene "PhysicsScene" (
+    delete apiSchemas = ["MjcSceneAPI", "NewtonSceneAPI"]
+    prepend apiSchemas = ["PhysxSceneAPI"]
+)
+{
+    uniform token physxScene:broadphaseType = "SAP"
+    bool physxScene:enableGPUDynamics = 0
+    uint physxScene:timeStepsPerSecond = 200
+}

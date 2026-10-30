@@ -41,13 +41,14 @@ def Xform "FiveAges_W2" (
     variants = {
         string Arm_Left = "M6_CCS"
         string Arm_Right = "M6_CCS"
-        string Chassis = "LinkhouS2_V1"
+        string Chassis = "LinkhouS2_V2"
         string Head = "v1"
         string Torso = "default"
         # No authored Physics default — VariantSwitcher selects physx/mujoco by engine.
         # Authored Physics=physx blocked Newton from loading mujoco mute layers.
         string ROS = "none"
-        string Robot = "none"
+        # Product SKU == ros2 *_description stem (emit --robot uses this as-is).
+        string Robot = "fiveages_w2"
         string Sensor = "none"
         string Visual = "default"
     }
@@ -427,8 +428,19 @@ def Xform "FiveAges_W2" (
         ) {
 
         }
+        # Legacy alias → same as fiveages_w2 (M6 CCS).
         "robot" (
-            prepend payload = @./payloads/Robot/robot.usda@
+            prepend payload = @./payloads/Robot/fiveages_w2.usda@
+        ) {
+
+        }
+        "fiveages_w2" (
+            prepend payload = @./payloads/Robot/fiveages_w2.usda@
+        ) {
+
+        }
+        "fiveages_w2r" (
+            prepend payload = @./payloads/Robot/fiveages_w2r.usda@
         ) {
 
         }
@@ -565,6 +577,20 @@ def Xform "FiveAges_W2" (
             # Nested cmd_vel / odom stay on Linkhou. Parent ROS must push the
             # child variant (Split Aloha pattern). Do not sticky ROS on the
             # chassis over — that froze Linkhou at none when W2 ROS=enable.
+            over "Linkhou_S2" (
+                variants = {
+                    string ROS = "enable"
+                }
+            )
+            {
+            }
+        }
+        "fiveages" (
+            customData = {
+                string[] variantPrimPaths = ["."]
+            }
+            prepend payload = @./payloads/ROS/fiveages.usda@
+        ) {
             over "Linkhou_S2" (
                 variants = {
                     string ROS = "enable"
