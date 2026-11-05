@@ -66,9 +66,11 @@ over "FiveAges_W2"
             prepend apiSchemas = ["PhysicsJointStateAPI:angular", "PhysicsDriveAPI:angular"]
         )
         {
-            float drive:angular:physics:damping = 60000
+            # force，四轴同一组：K=60000，D=6000。
+            # maxForce 仍是力矩上限（N·m）。
+            float drive:angular:physics:damping = 6000
             float drive:angular:physics:maxForce = 5000
-            float drive:angular:physics:stiffness = 600000
+            float drive:angular:physics:stiffness = 60000
             float drive:angular:physics:targetPosition = 0
             uniform token drive:angular:physics:type = "force"
             bool[] isaac:actuator (
@@ -100,9 +102,10 @@ over "FiveAges_W2"
             prepend apiSchemas = ["PhysicsJointStateAPI:angular", "PhysicsDriveAPI:angular"]
         )
         {
-            float drive:angular:physics:damping = 60000
-            float drive:angular:physics:maxForce = 5000
-            float drive:angular:physics:stiffness = 600000
+            # 峰值力矩曾到 ~3.5k，力矩上限保持 1e4。
+            float drive:angular:physics:damping = 6000
+            float drive:angular:physics:maxForce = 10000
+            float drive:angular:physics:stiffness = 60000
             float drive:angular:physics:targetPosition = 0
             uniform token drive:angular:physics:type = "force"
             uniform token physics:axis = "Y"
@@ -125,9 +128,9 @@ over "FiveAges_W2"
             prepend apiSchemas = ["PhysicsJointStateAPI:angular", "PhysicsDriveAPI:angular"]
         )
         {
-            float drive:angular:physics:damping = 60000
+            float drive:angular:physics:damping = 6000
             float drive:angular:physics:maxForce = 5000
-            float drive:angular:physics:stiffness = 600000
+            float drive:angular:physics:stiffness = 60000
             float drive:angular:physics:targetPosition = 0
             uniform token drive:angular:physics:type = "force"
             uniform token physics:axis = "Y"
@@ -150,9 +153,9 @@ over "FiveAges_W2"
             prepend apiSchemas = ["PhysicsJointStateAPI:angular", "PhysicsDriveAPI:angular"]
         )
         {
-            float drive:angular:physics:damping = 60000
+            float drive:angular:physics:damping = 6000
             float drive:angular:physics:maxForce = 5000
-            float drive:angular:physics:stiffness = 600000
+            float drive:angular:physics:stiffness = 60000
             float drive:angular:physics:targetPosition = 0
             uniform token drive:angular:physics:type = "force"
             uniform token physics:axis = "Z"

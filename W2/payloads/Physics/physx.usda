@@ -17,6 +17,12 @@ def "FiveAges_W2"
     {
         # On for any arm mix; NonDexHand (body_self_collision_mute.usda) mutes
         # torso/chassis/arm self-pairs. Dexhand EE excludes keep fingers free.
+        #
+        # [2026-11-04 诊断记录] 曾临时置 0 验证 body_joint2 卡滞，结论作废：
+        # 当时用的是 controller 的 home_2 深蹲 [-1.3,-2.6,-1.3,0]，该姿态把 CoM
+        # 推出轮距且底盘无平衡控制，机器人直接摔倒，躯干压地，所有接触/卡滞数据
+        # 不可用。重测必须用任务真实姿态（如 [-1.3,-2.3,-0.5,0]）并同时监测底盘
+        # 倾角/高度，确认机器人保持站立。
         bool physxArticulation:enabledSelfCollisions = 1
         int physxArticulation:solverPositionIterationCount = 32
         int physxArticulation:solverVelocityIterationCount = 1
@@ -31,6 +37,9 @@ def "FiveAges_W2"
             float physxJoint:maxJointVelocity = 68.754931
         }
 
+        # body 驱动在 ./physics.usda：force，四轴同一组
+        #   K=60000  D=6000
+        # maxForce：j2=10000，其余 5000。
         over "body_joint2" (
             prepend apiSchemas = ["PhysxJointAPI"]
         )
@@ -50,6 +59,108 @@ def "FiveAges_W2"
         )
         {
             float physxJoint:maxJointVelocity = 68.754931
+        }
+
+        # 手臂：与运控侧 URDF 对齐（velocity limit = 10 rad/s）。
+        # `physxJoint:maxJointVelocity` 单位是 deg/s（Newton 的 schema resolver 同样按
+        # deg/s 读），10 rad/s = 10 * 180/π = 572.9578 deg/s。
+        # 不写时 PhysX/Newton 用默认上限（≈ 1000 deg/s），会比规划器假设快一个量级。
+        over "left_joint1" (
+            prepend apiSchemas = ["PhysxJointAPI"]
+        )
+        {
+            float physxJoint:maxJointVelocity = 572.9578
+        }
+
+        over "left_joint2" (
+            prepend apiSchemas = ["PhysxJointAPI"]
+        )
+        {
+            float physxJoint:maxJointVelocity = 572.9578
+        }
+
+        over "left_joint3" (
+            prepend apiSchemas = ["PhysxJointAPI"]
+        )
+        {
+            float physxJoint:maxJointVelocity = 572.9578
+        }
+
+        over "left_joint4" (
+            prepend apiSchemas = ["PhysxJointAPI"]
+        )
+        {
+            float physxJoint:maxJointVelocity = 572.9578
+        }
+
+        over "left_joint5" (
+            prepend apiSchemas = ["PhysxJointAPI"]
+        )
+        {
+            float physxJoint:maxJointVelocity = 572.9578
+        }
+
+        over "left_joint6" (
+            prepend apiSchemas = ["PhysxJointAPI"]
+        )
+        {
+            float physxJoint:maxJointVelocity = 572.9578
+        }
+
+        over "left_joint7" (
+            prepend apiSchemas = ["PhysxJointAPI"]
+        )
+        {
+            float physxJoint:maxJointVelocity = 572.9578
+        }
+
+        over "right_joint1" (
+            prepend apiSchemas = ["PhysxJointAPI"]
+        )
+        {
+            float physxJoint:maxJointVelocity = 572.9578
+        }
+
+        over "right_joint2" (
+            prepend apiSchemas = ["PhysxJointAPI"]
+        )
+        {
+            float physxJoint:maxJointVelocity = 572.9578
+        }
+
+        over "right_joint3" (
+            prepend apiSchemas = ["PhysxJointAPI"]
+        )
+        {
+            float physxJoint:maxJointVelocity = 572.9578
+        }
+
+        over "right_joint4" (
+            prepend apiSchemas = ["PhysxJointAPI"]
+        )
+        {
+            float physxJoint:maxJointVelocity = 572.9578
+        }
+
+        over "right_joint5" (
+            prepend apiSchemas = ["PhysxJointAPI"]
+        )
+        {
+            float physxJoint:maxJointVelocity = 572.9578
+        }
+
+        over "right_joint6" (
+            prepend apiSchemas = ["PhysxJointAPI"]
+        )
+        {
+            float physxJoint:maxJointVelocity = 572.9578
+        }
+
+        over "right_joint7" (
+            prepend apiSchemas = ["PhysxJointAPI"]
+        )
+        {
+            float physxJoint:maxJointVelocity = 572.9578
         }
     }
 

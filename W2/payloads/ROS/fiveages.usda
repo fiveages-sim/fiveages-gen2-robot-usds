@@ -115,5 +115,64 @@ over "FiveAges_W2"
                 )
             }
         }
+
+        # Nav2 as a host `ros2 launch`, same lifecycle as ROS2ControlLaunch.
+        # Off by default: scenes that navigate override inputs:enabled and point
+        # inputs:map at a map stored next to their USD files.
+        def OmniGraph "ROS_Navigation"
+        {
+            token evaluationMode = "Automatic"
+            token evaluator:type = "execution"
+            token fabricCacheBacking = "StageWithoutHistory"
+            int2 fileFormatVersion = (1, 9)
+            token pipelineStage = "pipelineStageSimulation"
+
+            def OmniGraphNode "OnPlaybackTick"
+            {
+                token node:type = "omni.graph.action.OnPlaybackTick"
+                int node:typeVersion = 2
+                custom double outputs:deltaSeconds
+                custom double outputs:frame
+                custom uint outputs:tick (
+                    customData = {
+                        bool isExecution = 1
+                    }
+                )
+                custom double outputs:time
+            }
+
+            def OmniGraphNode "NavigationLaunch"
+            {
+                custom uint inputs:execIn (
+                    customData = {
+                        bool isExecution = 1
+                    }
+                )
+                prepend uint inputs:execIn.connect = </FiveAges_W2/Graph/ROS_Navigation/OnPlaybackTick.outputs:tick>
+                custom bool inputs:enabled = 0
+                custom string inputs:map = ""
+                custom string inputs:paramsFile = ""
+                custom string inputs:robot = ""
+                custom token inputs:nav2Profile = "map_only"
+                custom string inputs:scanTopic = "/scan"
+                custom string inputs:odomTopic = "/odom"
+                custom bool inputs:useSimTime = 1
+                custom bool inputs:useRviz = 0
+                custom bool inputs:publishMapWorldTf = 1
+                custom bool inputs:publishMapOdomTf = 0
+                custom string inputs:launchPackage = "robot_common_launch"
+                custom string inputs:launchFile = "navigation_isaac_gt.launch.py"
+                custom string inputs:rosSetup = ""
+                custom string inputs:logFile = ""
+                custom string inputs:extraArgs = ""
+                token node:type = "fasim.ros2.nodes.NavigationLaunch"
+                int node:typeVersion = 1
+                custom uint outputs:execOut (
+                    customData = {
+                        bool isExecution = 1
+                    }
+                )
+            }
+        }
     }
 }

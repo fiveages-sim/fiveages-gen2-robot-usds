@@ -23,6 +23,21 @@ def Xform "Torso"
                     double3 xformOp:translate = (0, 0, 0)
                     uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale", "xformOp:rotateX:unitsResolve"]
                 }
+
+                # Orbbec Gemini 336 color: H86° × V55° (16:9), keep Isaac default focalLength.
+                # mount +Z optical → USD Camera −Z via Rx180 (sibling of mesh, Head_V1 pattern).
+                def Camera "body_camera1"
+                {
+                    float2 clippingRange = (0.05, 30)
+                    float focalLength = 18.147562
+                    float focusDistance = 1
+                    float horizontalAperture = 33.84575
+                    float verticalAperture = 18.89405
+                    quatd xformOp:orient = (0, 1, 0, 0)
+                    double3 xformOp:scale = (1, 1, 1)
+                    double3 xformOp:translate = (0, 0, 0)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+                }
             }
 
             over "body_camera2"
@@ -37,8 +52,21 @@ def Xform "Torso"
                     double3 xformOp:translate = (0, 0, 0)
                     uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale", "xformOp:rotateX:unitsResolve"]
                 }
+
+                # Orbbec Gemini 336 color: H86° × V55° (16:9), keep Isaac default focalLength.
+                def Camera "body_camera2"
+                {
+                    float2 clippingRange = (0.05, 30)
+                    float focalLength = 18.147562
+                    float focusDistance = 1
+                    float horizontalAperture = 33.84575
+                    float verticalAperture = 18.89405
+                    quatd xformOp:orient = (0, 1, 0, 0)
+                    double3 xformOp:scale = (1, 1, 1)
+                    double3 xformOp:translate = (0, 0, 0)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+                }
             }
         }
     }
 }
-
