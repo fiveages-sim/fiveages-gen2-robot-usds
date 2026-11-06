@@ -37,9 +37,11 @@ def "FiveAges_W2"
             float physxJoint:maxJointVelocity = 68.754931
         }
 
-        # body 驱动在 ./physics.usda：force，四轴同一组
-        #   K=60000  D=6000
-        # maxForce：j2=10000，其余 5000。
+        # body 驱动增益在 ./physics.usda（位置-only）：
+        #   j1: K=2e6   D=3000  maxF=5000
+        #   j2: K=1e7   D=1500  maxF=10000  （doubles 起步明显跟不上，再加硬）
+        #   j3: K=8e6   D=3000  maxF=5000
+        #   j4: K=6e5   D=6000  maxF=5000
         over "body_joint2" (
             prepend apiSchemas = ["PhysxJointAPI"]
         )
